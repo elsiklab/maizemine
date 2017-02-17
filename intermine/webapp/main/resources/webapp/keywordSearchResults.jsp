@@ -408,7 +408,7 @@ input.submit {
     <c:set var="extlink" value="class='extlink' target='_blank'" />
   </c:when>
   <c:otherwise>
-    <c:set var="detailsLink" value="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${searchResult.id}&amp;trail=${param.trail}|${searchResult.id}" scope="request" />
+    <c:set var="detailsLink" value="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${searchResult.id}&amp;trail=${param.trail}%7C${searchResult.id}" scope="request" />
   </c:otherwise>
 </c:choose>
 

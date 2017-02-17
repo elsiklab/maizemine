@@ -386,10 +386,10 @@ public class TransferSequences
 
         // Transcript.sequence IS NULL
         QueryObjectReference transcriptSeqRef = new QueryObjectReference(qcTranscript, "sequence");
-        ContainsConstraint lsfSeqRefNull =
-            new ContainsConstraint(transcriptSeqRef, ConstraintOp.IS_NULL);
+        //ContainsConstraint lsfSeqRefNull =
+        //     new ContainsConstraint(transcriptSeqRef, ConstraintOp.IS_NULL);
 
-        cs.addConstraint(lsfSeqRefNull);
+        //cs.addConstraint(lsfSeqRefNull);
 
         q.setConstraint(cs);
 

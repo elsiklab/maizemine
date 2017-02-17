@@ -26,7 +26,7 @@ public class GFF3SeqHandler
      * @param identifier the identifier of the sequence from the GFF file
      * @return a new sequence Item
      */
-    public Item makeSequenceItem(GFF3Converter converter, String identifier) {
+    public Item makeSequenceItem(GFF3Converter converter, String identifier, String source) {
         Item seq = createItem(converter);
         seq.setAttribute("primaryIdentifier", identifier);
         return seq;

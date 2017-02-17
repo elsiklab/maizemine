@@ -87,7 +87,6 @@ public class DirectDataLoader extends DataLoader
     private void storeBatch() throws ObjectStoreException {
         Source source = getIntegrationWriter().getMainSource(sourceName, sourceType);
         Source skelSource = getIntegrationWriter().getSkeletonSource(sourceName, sourceType);
-
         // first get equivalent objects for buffered objects
         if (getIntegrationWriter() instanceof IntegrationWriterDataTrackingImpl) {
             checkForProxiesInPrimaryKeys(source);

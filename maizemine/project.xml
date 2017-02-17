@@ -1,0 +1,145 @@
+<project type="bio">
+  <property name="target.model" value="genomic"/>
+  <property name="source.location" location="../bio/sources/"/>
+  <property name="common.os.prefix" value="common"/>
+  <property name="intermine.properties.file" value="maizemine.properties"/>
+  <property name="default.intermine.properties.file" location="../default.intermine.integrate.properties"/>
+  <sources>
+	<source name="maize-dna-v4-fasta" type="fasta" dump="true">
+		<property name="fasta.className" value="org.intermine.model.bio.Chromosome"/>
+		<property name="fasta.loaderClassName" value="org.intermine.bio.dataconversion.MaizeFastaLoaderTask"/>
+		<property name="fasta.dataSourceName" value="GRAMENE"/>
+		<property name="fasta.dataSetTitle" value="Zm-B73-REFERENCE-GRAMENE-4.0"/>
+		<property name="fasta.taxonId" value="4577"/>
+		<property name="fasta.includes" value="Zea_mays.AGPv4.dna.toplevel.fa"/>
+		<property name="src.data.dir" value="/db/data/zea_mays/AGPv4/fasta/dna/production/"/>
+	</source>
+
+        <source name="maize-dna-v3-fasta" type="fasta" dump="true">
+                <property name="fasta.className" value="org.intermine.model.bio.Chromosome"/>
+		<property name="fasta.loaderClassName" value="org.intermine.bio.dataconversion.MaizeFastaLoaderTask"/>
+                <property name="fasta.dataSourceName" value="GRAMENE"/>
+                <property name="fasta.dataSetTitle" value="B73 RefGen_v3"/>
+                <property name="fasta.taxonId" value="4577"/>
+                <property name="fasta.includes" value="Zea_mays.AGPv3.31.dna.toplevel.fa"/>
+                <property name="src.data.dir" value="/db/data/zea_mays/AGPv3/fasta/dna/production/"/>
+        </source>
+
+
+	<source name="maize-gene-model-v4-gff" type="maize-gff">
+                <property name="gff3.seqClsName" value="Chromosome"/>
+                <property name="gff3.taxonId" value="4577"/>
+                <property name="gff3.seqDataSourceName" value="GRAMENE"/>
+                <property name="gff3.dataSourceName" value="GRAMENE"/>
+                <property name="gff3.dataSetTitle" value="Zm-B73-REFERENCE-GRAMENE-4.0"/>
+                <property name="src.data.dir" value="/db/data/zea_mays/AGPv4/gff3/production/"/>
+        </source>
+	
+	<source name="maize-gene-model-v3-gff" type="maize-gff">
+		<property name="gff3.seqClsName" value="Chromosome"/>
+                <property name="gff3.taxonId" value="4577"/>
+		<property name="gff3.seqDataSourceName" value="GRAMENE"/>
+                <property name="gff3.dataSourceName" value="GRAMENE"/>
+		<property name="gff3.dataSetTitle" value="B73 RefGen_v3"/>		
+                <property name="src.data.dir" value="/db/data/zea_mays/AGPv3/gff3/production/"/>
+        </source>
+	
+	
+
+	<source name="maize-cds-v4-fasta" type="fasta" dump="true">
+      		<property name="fasta.className" value="org.intermine.model.bio.CDS"/>
+		<property name="fasta.loaderClassName" value="org.intermine.bio.dataconversion.MaizeCDSFastaLoaderTask"/>
+		<property name="fasta.dataSourceName" value="GRAMENE"/>
+      		<property name="fasta.dataSetTitle" value="Zm-B73-REFERENCE-GRAMENE-4.0"/>
+      		<property name="fasta.taxonId" value="4577"/>
+      		<property name="fasta.includes" value="Zea_mays.AGPv4.cds.all.fa"/>
+      		<property name="src.data.dir" location="/db/data/zea_mays/AGPv4/fasta/cds/"/>
+    	</source>
+
+        <source name="maize-cds-v3-fasta" type="fasta" dump="true">
+                <property name="fasta.className" value="org.intermine.model.bio.CDS"/>
+                <property name="fasta.loaderClassName" value="org.intermine.bio.dataconversion.MaizeCDSFastaLoaderTask"/>
+                <property name="fasta.dataSourceName" value="GRAMENE"/>
+                <property name="fasta.dataSetTitle" value="B73 RefGen_v3"/>
+                <property name="fasta.taxonId" value="4577"/>
+                <property name="fasta.includes" value="Zea_mays.AGPv3.31.cds.all.fa"/>
+                <property name="src.data.dir" location="/db/data/zea_mays/AGPv3/fasta/cds/"/>
+        </source>
+
+	
+	<source name="maize-pep-v4-fasta" type="fasta" dump="true">
+                <property name="fasta.className" value="org.intermine.model.bio.Peptide"/>
+                <property name="fasta.loaderClassName" value="org.intermine.bio.dataconversion.MaizePeptideFastaLoaderTask"/>
+		<property name="fasta.sequenceType" value="protein" />
+                <property name="fasta.dataSourceName" value="GRAMENE"/>
+                <property name="fasta.dataSetTitle" value="Zm-B73-REFERENCE-GRAMENE-4.0"/>
+                <property name="fasta.taxonId" value="4577"/>
+                <property name="fasta.includes" value="Zea_mays.AGPv4.pep.all.fa"/>
+                <property name="src.data.dir" location="/db/data/zea_mays/AGPv4/fasta/pep/"/>
+        </source>
+
+        <source name="maize-pep-v3-fasta" type="fasta" dump="true">
+                <property name="fasta.className" value="org.intermine.model.bio.Peptide"/>
+                <property name="fasta.loaderClassName" value="org.intermine.bio.dataconversion.MaizePeptideFastaLoaderTask"/>
+                <property name="fasta.sequenceType" value="protein" />
+                <property name="fasta.dataSourceName" value="GRAMENE"/>
+                <property name="fasta.dataSetTitle" value="B73 RefGen_v3"/>
+                <property name="fasta.taxonId" value="4577"/>
+                <property name="fasta.includes" value="Zea_mays.AGPv3.31.pep.all.fa"/>
+                <property name="src.data.dir" location="/db/data/zea_mays/AGPv3/fasta/pep/"/>
+        </source>
+
+	
+	<source name="maize-uniprot" type="uniprot" >
+            <property name="uniprot.organisms" value="4577"/>
+            <property name="src.data.dir" location="/db/data/zea_mays/uniprot"/>
+            <property name="creatego" value="true"/>
+            <property name="allowduplicates" value="false"/>
+            <property name="loadfragments" value="false"/>
+            <property name="loadtrembl" value="true"/>
+        </source>	
+	
+	<source name="uniprot-keywords" type="uniprot-keywords" dump="true">
+            <property name="src.data.dir" location="/db/data/zea_mays/uniprot"/>
+            <property name="src.data.dir.includes" value="keywlist.xml"/>
+        </source>
+	
+	<source name="interpro" type="interpro">
+            <property name="src.data.dir" location="/db/data/zea_mays/interpro"/>
+        </source>
+	
+	<source name="protein2ipr" type="protein2ipr">
+    		<property name="src.data.dir" location="/db/data/zea_mays/interpro_protein2ipr"/>
+    		<property name="src.data.dir.includes" value="protein2ipr.dat"/>
+    		<property name="protein2ipr.organisms" value="4577"/>
+	</source>
+
+	<source name="go" type="go">
+            <property name="src.data.file" location="/db/data/go/go.obo"/>
+        </source>
+
+	<source name="go-annotation" type="go-annotation">
+            <property name="src.data.dir" location="/db/data/zea_mays/gramene/gene_ontology_annotation/"/>
+        </source>
+
+	<source name="entrez-organism" type="entrez-organism" dump="true">
+		<property name="src.data.file" location="build/organisms.xml"/>
+	</source>
+
+  </sources>
+
+  <post-processing>
+	<post-process name="create-chromosome-locations-and-lengths"/>
+	<post-process name="create-references"/>
+	<post-process name="transfer-sequences"/>
+	<post-process name="create-overlap-view"/>
+	<post-process name="create-location-overlap-index"/>
+	<post-process name="do-sources"/>
+	<post-process name="create-attribute-indexes"/>
+	<post-process name="create-search-index"/>
+	<post-process name="summarise-objectstore"/>
+	<post-process name="create-autocomplete-index"/>
+  </post-processing>
+
+</project>
+

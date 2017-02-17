@@ -1,3 +1,21 @@
 <?xml version="1.0"?>
+<!-- This file details any extensions needed to the data model to store data from this source, everything else is automatically generated from the model description so this is all we need to do to add to the model. -->
+
 <classes>
+<!-- add any <class> elements here -->
+	<class name="Gene" is-interface="true">
+		<collection name="peptides" referenced-type="Peptide" reverse-reference="gene" />
+	</class>
+	
+	<class name="MRNA" is-interface="true">
+                <collection name="peptide" referenced-type="Peptide" reverse-reference="mrna" />
+        </class>
+
+	<class name="Peptide" extends="SequenceFeature" is-interface="true">
+		<attribute name="geneIdentifier" type="java.lang.String"/>
+        	<attribute name="mrnaIdentifier" type="java.lang.String"/>
+		<reference name="gene" referenced-type="Gene" reverse-reference="peptides"/>
+		<reference name="mrna" referenced-type="MRNA" reverse-reference="peptide"/>
+	</class>
+	
 </classes>

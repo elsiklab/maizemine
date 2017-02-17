@@ -183,7 +183,7 @@ public class GoConverter extends BioFileConverter
             String[] array = line.split("\t", -1); // keep trailing empty Strings
             if (array.length < 13) {
                 throw new IllegalArgumentException("Not enough elements (should be > 13 not "
-                        + array.length + ") in line: " + line);
+                        + array.length + ") in line: " + line + "\nend line");
             }
 
             String taxonId = parseTaxonId(array[12]);
@@ -684,9 +684,13 @@ public class GoConverter extends BioFileConverter
         if ("taxon:".equals(input)) {
             throw new IllegalArgumentException("Invalid taxon id read: " + input);
         }
-        String taxonId = input.split(":")[1];
-        if (taxonId.contains("|")) {
-            taxonId = taxonId.split("\\|")[0];
+	String taxonId = input;
+        String[] taxonIdArr = input.split(":");
+        if (taxonIdArr.length == 2) {
+            taxonId = taxonIdArr[1];
+            if (taxonId.contains("|")) {
+                taxonId = taxonId.split("\\|")[0];
+            }
         }
         return taxonId;
     }

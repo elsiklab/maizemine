@@ -264,6 +264,16 @@ public class GFF3Converter extends DataConverter
     public void process(GFF3Record record) throws ObjectStoreException {
 
         String term = record.getType();
+	//start custom DEBUG
+	//if("chromosome".equalsIgnoreCase(term) || "contig".equalsIgnoreCase(term)){
+	//	System.out.println("DEBUG MESSAGE - taxonId:" + orgTaxonId + ";term:" + term + ";contain:" + configExclude.get(this.orgTaxonId).contains(term));
+	//	Set<String> termsSet = configExclude.get(this.orgTaxonId);
+        //        for (String t : termsSet) {
+        //        	System.out.println("DEBUG MESSAGE - term: "+ t);
+        //        }                
+	//}
+	//end custome DEBUG
+	
         // don't process terms in the exclude list
         if (configExclude != null && !configExclude.isEmpty()) {
             if (configExclude.containsKey(this.orgTaxonId)) {
@@ -293,7 +303,7 @@ public class GFF3Converter extends DataConverter
         }
         String refId = identifierMap.get(primaryIdentifier);
         handler.clear(); // get rid of previous record Items from handler
-        Item seq = getSeq(record.getSequenceID());
+        Item seq = getSeq(record.getSequenceID(), record.getSource());
         String className = TypeUtil.javaiseClassName(term);
         String fullClassName = tgtModel.getPackageName() + "." + className;
         ClassDescriptor cd = tgtModel.getClassDescriptorByName(fullClassName);
@@ -707,7 +717,7 @@ public class GFF3Converter extends DataConverter
      * @return return/create item of class seqClsName for given identifier
      * @throws ObjectStoreException if the Item can't be stored
      */
-    private Item getSeq(String id)
+    private Item getSeq(String id, String source)
         throws ObjectStoreException {
         // the seqHandler may have changed the id used, e.g. if using an IdResolver
         String identifier = sequenceHandler.getSeqIdentifier(id);
@@ -722,7 +732,7 @@ public class GFF3Converter extends DataConverter
 
         Item seq = seqs.get(identifier);
         if (seq == null) {
-            seq = sequenceHandler.makeSequenceItem(this, identifier);
+            seq = sequenceHandler.makeSequenceItem(this, identifier, source);
             // sequence handler may choose not to create sequence
             if (seq != null) {
                 seq.addReference(getOrgRef());
