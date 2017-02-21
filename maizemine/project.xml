@@ -12,7 +12,7 @@
 		<property name="fasta.dataSetTitle" value="Zm-B73-REFERENCE-GRAMENE-4.0"/>
 		<property name="fasta.taxonId" value="4577"/>
 		<property name="fasta.includes" value="Zea_mays.AGPv4.dna.toplevel.fa"/>
-		<property name="src.data.dir" value="/db/data/zea_mays/AGPv4/fasta/dna/production/"/>
+		<property name="src.data.dir" value="/db/test_intermine_Feb2017/data2"/>
 	</source>
 
         <source name="maize-dna-v3-fasta" type="fasta" dump="true">
@@ -32,7 +32,7 @@
                 <property name="gff3.seqDataSourceName" value="GRAMENE"/>
                 <property name="gff3.dataSourceName" value="GRAMENE"/>
                 <property name="gff3.dataSetTitle" value="Zm-B73-REFERENCE-GRAMENE-4.0"/>
-                <property name="src.data.dir" value="/db/data/zea_mays/AGPv4/gff3/production/"/>
+                <property name="src.data.dir" value="/db/test_intermine_Feb2017/data2"/>
         </source>
 	
 	<source name="maize-gene-model-v3-gff" type="maize-gff">
@@ -113,6 +113,16 @@
     		<property name="src.data.dir.includes" value="protein2ipr.dat"/>
     		<property name="protein2ipr.organisms" value="4577"/>
 	</source>
+        <source name="ensemblplant-orthologue" type="ensemblplant">
+                 <property name="src.data.dir" location="/db/test_intermine_Feb2017/data"/>
+                 <property name="ensemblplant.organisms" value="4577 39946 3702 65489 4533 4538 40148 4528 40149 4536 4537 4529 4530 4555 4565 4572 37682 15368 4513 4558"/>
+        </source>
+        
+
+        <source name="reactomegramene-pathway" type="reactomegramene">
+                 <property name="src.data.dir" location="/db/test_intermine_Feb2017/data3"/>
+                 <property name="reactomegramene.organisms" value="4577 3702"/>
+        </source>
 
 	<source name="go" type="go">
             <property name="src.data.file" location="/db/data/go/go.obo"/>

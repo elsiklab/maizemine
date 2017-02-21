@@ -1,0 +1,5 @@
+<project name="reactomegramene" default="default" basedir=".">
+  <description>build, test, package reactomegramene</description>
+  
+  <import file="../../../imbuild/source.xml"/>
+</project>

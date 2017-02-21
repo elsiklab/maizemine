@@ -1,0 +1,5 @@
+<project name="ensemblplant" default="default" basedir=".">
+  <description>build, test, package ensemblplant</description>
+  
+  <import file="../../../imbuild/source.xml"/>
+</project>

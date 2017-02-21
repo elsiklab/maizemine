@@ -1,0 +1,4 @@
+<project name="ensemblplant-tasks" default="default" basedir=".">
+  <description>build ensemblplant tasks</description>
+  <import file="../../../../imbuild/library.xml"/> 
+</project>

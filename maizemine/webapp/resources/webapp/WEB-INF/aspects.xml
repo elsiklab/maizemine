@@ -21,4 +21,19 @@
     <tile-name>model/proteins.jsp</tile-name>
     <aspect-source name="UniProt" url="http://www.uniprot.org"/>
   </aspect>
+   <aspect name="Homology">
+    <subtitle>Orthologues and paralogues</subtitle>
+    <icon-image>model/images/comparativeGenomics.png</icon-image>
+    <large-image>model/images/comparativeGenomics.png</large-image>
+    <intro-text>
+      Orthologues and Paralogues.
+    </intro-text>
+    <tile-name>model/homology.jsp</tile-name>
+    <aspect-source name="Ensembl Plant" url="http://plants.ensembl.org/info/website/ftp/index.html"/>
+  </aspect>
+
+
+
+
+
 </aspects>
