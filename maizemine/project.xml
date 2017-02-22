@@ -32,7 +32,7 @@
                 <property name="gff3.seqDataSourceName" value="GRAMENE"/>
                 <property name="gff3.dataSourceName" value="GRAMENE"/>
                 <property name="gff3.dataSetTitle" value="Zm-B73-REFERENCE-GRAMENE-4.0"/>
-                <property name="src.data.dir" value="/db/test_intermine_Feb2017/data2"/>
+                <property name="src.data.dir" value="/db/data/zea_mays/AGPv4/gff3/production/"/>
         </source>
 	
 	<source name="maize-gene-model-v3-gff" type="maize-gff">
@@ -127,6 +127,12 @@
 	<source name="go" type="go">
             <property name="src.data.file" location="/db/data/go/go.obo"/>
         </source>
+        
+        <source name="symbol" type="symbols">
+            <property name="src.data.dir" location="/db/data/zea_mays/symbols-descriptionv3v4/"/>
+            <property name="taxonId" value="4577"/>
+        </source>
+
 
 	<source name="go-annotation" type="go-annotation">
             <property name="src.data.dir" location="/db/data/zea_mays/gramene/gene_ontology_annotation/"/>

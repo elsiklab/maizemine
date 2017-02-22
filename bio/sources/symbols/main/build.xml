@@ -1,0 +1,4 @@
+<project name="symbols-tasks" default="default" basedir=".">
+  <description>build symbols tasks</description>
+  <import file="../../../../imbuild/library.xml"/> 
+</project>

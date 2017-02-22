@@ -42,8 +42,8 @@ public class EnsemblplantConverter extends BioFileConverter
 {
     private static final Logger LOG = Logger.getLogger(EnsemblplantConverter.class);
 
-    private static final String DATASET_TITLE = "OrthoDB data set";
-    private static final String DATA_SOURCE_NAME = "OrthoDB";
+    private static final String DATASET_TITLE = "EnsemblCompara Plant Orthologue data set";
+    private static final String DATA_SOURCE_NAME = "EnsemblCompara Plant";
 
     private static final String PROP_FILE = "ensemblplant_config.properties";
     private static final String DEFAULT_IDENTIFIER_TYPE = "primaryIdentifier";
