@@ -7,5 +7,6 @@
         <attribute name="symbol" type="java.lang.String"/>
         <attribute name="primaryIdentifier" type="java.lang.String"/>
         <attribute name="description" type="java.lang.String"/>
+        <attribute name="source" type="java.lang.String"/>
     </class>
 </classes>
