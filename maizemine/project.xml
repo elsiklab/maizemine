@@ -128,10 +128,6 @@
             <property name="src.data.file" location="/db/data/go/go.obo"/>
         </source>
         
-        <source name="symbol" type="symbols">
-            <property name="src.data.dir" location="/db/data/zea_mays/symbols-descriptionv3v4/"/>
-            <property name="taxonId" value="4577"/>
-        </source>
 
 
 	<source name="go-annotation" type="go-annotation">

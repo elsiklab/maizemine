@@ -83,7 +83,11 @@ public class MaizeGffGFF3RecordHandler extends GFF3RecordHandler
 	String primaryIdentifier = feature.getAttribute("primaryIdentifier").getValue();
         feature.setAttribute("primaryIdentifier", primaryIdentifier.substring(primaryIdentifier.indexOf(':') + 1));
 	feature.setAttribute("source", record.getSource());
-	if("gene".equalsIgnoreCase(record.getType())){
+        
+     //   String desc = record.getAttributes().get("description");
+     //   feature.setAttribute("description", desc);
+	
+        if("gene".equalsIgnoreCase(record.getType())){
 		if(record.getAttributes().get("Alias") != null){
 			String aliasSource = "B73 RefGen_v3";
 			List<String> aliasIdentifiers = record.getAttributes().get("v3_gene_id");
@@ -104,6 +108,12 @@ public class MaizeGffGFF3RecordHandler extends GFF3RecordHandler
                     		setCrossReference(xRefIterator.next());
                 	}
 		}
+              
+               if (record.getAttributes().get("description") != null) {
+                String description = record.getAttributes().get("description").iterator().next();
+                feature.setAttribute("description", description);
+            }
+
 	}
     }
 
