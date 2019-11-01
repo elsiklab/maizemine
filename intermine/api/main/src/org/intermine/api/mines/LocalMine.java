@@ -40,6 +40,7 @@ public class LocalMine implements ConfigurableMine
     private final String url;
     private final String release;
     private final Set<String> defaultValues = new LinkedHashSet<String>();
+    private final Set<String> linkClasses = new LinkedHashSet<String>();
     private String logo;
     private String bgcolor;
     private String frontcolor;
@@ -71,6 +72,7 @@ public class LocalMine implements ConfigurableMine
     public void configure(Properties props) {
         logo = props.getProperty("logo");
         defaultValues.addAll(Arrays.asList(props.getProperty("defaultValues").split(",")));
+        linkClasses.addAll(Arrays.asList(props.getProperty("linkClasses", "").split(",")));
         bgcolor = props.getProperty("bgcolor");
         frontcolor = props.getProperty("frontcolor");
         description = props.getProperty("description");
@@ -132,6 +134,19 @@ public class LocalMine implements ConfigurableMine
     public String getDefaultValue() {
         if (defaultValues != null && !defaultValues.isEmpty()) {
             return defaultValues.iterator().next();
+        }
+        return null;
+    }
+
+    @Override
+    public Set<String> getLinkClasses() {
+        return linkClasses;
+    }
+
+    @Override
+    public String getLinkClass() {
+        if (linkClasses != null && !linkClasses.isEmpty()) {
+            return linkClasses.iterator().next();
         }
         return null;
     }

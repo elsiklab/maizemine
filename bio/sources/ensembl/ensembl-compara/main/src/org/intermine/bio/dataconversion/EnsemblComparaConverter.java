@@ -43,7 +43,7 @@ public class EnsemblComparaConverter extends BioFileConverter
     private static final String EVIDENCE_CODE_NAME = "Amino acid sequence comparison";
     private Set<String> taxonIds;
     private Set<String> homologues = new HashSet<String>();
-    private static final String DATASET_TITLE = "Ensembl Compara data set";
+    private static final String DATASET_TITLE = "Ensembl Compara";
     private static final String DATA_SOURCE_NAME = "Ensembl";
     private Map<String, String> genes = new HashMap<String, String>();
     protected IdResolver rslv = null;
@@ -108,7 +108,7 @@ public class EnsemblComparaConverter extends BioFileConverter
         }
 
         if (taxonIds == null || taxonIds.isEmpty()) {
-            throw new IllegalArgumentException("No organism data provided for Ensembl Compara");
+            throw new IllegalArgumentException("No organism data provided for Ensembl Plant");
         }
         File file = getCurrentFile();
         if (file == null) {
@@ -143,6 +143,11 @@ public class EnsemblComparaConverter extends BioFileConverter
             String gene1 = line[0];
             String gene2 = line[1];
 
+            String ancestor = line[2];
+            String type = line[3];
+          //  String confidence = line[4];
+
+
             if (gene1.startsWith("Ensembl")) {
                 // skip header that biomart starts with
                 continue;
@@ -161,23 +166,29 @@ public class EnsemblComparaConverter extends BioFileConverter
             }
 
             // store homologues
-            processHomologue(refId1, refId2);
-            processHomologue(refId2, refId1);
+            processHomologue(refId1, refId2, ancestor, type);
+            processHomologue(refId2, refId1, ancestor, type);
             lastGene1 = gene1;
             lastGene2 = gene2;
         }
     }
 
     // save homologue pair
-    private void processHomologue(String gene1, String gene2)
+    private void processHomologue(String gene1, String gene2, String ancestor, String type)
         throws ObjectStoreException {
         Item homologue = createItem("Homologue");
         homologue.setReference("gene", gene1);
         homologue.setReference("homologue", gene2);
+        homologue.setAttribute("lastCommonAncestor", ancestor);
+         homologue.setAttribute("type", type);
+     //   homologue.setAttribute("confidenceScore", confidence);
         homologue.addToCollection("evidence", getEvidence());
-        homologue.setAttribute("type", "homologue");
+       // homologue.setAttribute("type", "homologue");
         store(homologue);
     }
+
+    
+
 
     private String parseGene(String taxonId, String identifier)
         throws ObjectStoreException {
@@ -199,6 +210,9 @@ public class EnsemblComparaConverter extends BioFileConverter
             }
             Item item = createItem("Gene");
             item.setAttribute(fieldName, newIdentifier);
+            if ("4577".equals(taxonId)) {
+            item.setAttribute("source","AGPv4");
+            } 
             item.setReference("organism", getOrganism(taxonId));
             store(item);
             refId = item.getIdentifier();
@@ -206,6 +220,10 @@ public class EnsemblComparaConverter extends BioFileConverter
         }
         return refId;
     }
+
+
+
+
 
     private String resolveGene(String taxonId, String identifier) {
         String id = identifier;
@@ -260,3 +278,4 @@ public class EnsemblComparaConverter extends BioFileConverter
         return evidenceRefId;
     }
 }
+

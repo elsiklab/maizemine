@@ -1,7 +1,7 @@
 package org.intermine.bio.dataconversion;
 
 /*
- * Copyright (C) 2002-2016 FlyMine
+ * Copyright (C) 2002-2017 FlyMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
@@ -186,7 +186,7 @@ public class GoConverter extends BioFileConverter
                         + array.length + ") in line: " + line);
             }
 
-            String taxonId = parseTaxonId(array[12]);
+            String taxonId = "4577";
             Config config = configs.get(taxonId);
             if (config == null) {
                 config = defaultConfig;
@@ -593,7 +593,8 @@ public class GoConverter extends BioFileConverter
         String dataSetIdentifier = dataSets.get(code);
         if (dataSetIdentifier == null) {
             String dataSourceName = getDataSourceCodeName(code);
-            String title = "GO Annotation from " + dataSourceName;
+            //String title = "GO Annotation from " + dataSourceName;
+	    String title = "GO Annotation from Maize-Gamer";
             Item item = createItem("DataSet");
             item.setAttribute("name", title);
             item.setReference("dataSource", getDataSource(getDataSourceCodeName(dataSource)));
@@ -684,9 +685,14 @@ public class GoConverter extends BioFileConverter
         if ("taxon:".equals(input)) {
             throw new IllegalArgumentException("Invalid taxon id read: " + input);
         }
-        String taxonId = input.split(":")[1];
-        if (taxonId.contains("|")) {
-            taxonId = taxonId.split("\\|")[0];
+        // TODO: Why was this change made? Was it because of an issue with the input GAF file?
+        String taxonId = input;
+        String[] taxonIdArr = input.split(":");
+        if (taxonIdArr.length == 2) {
+            taxonId = taxonIdArr[1];
+            if (taxonId.contains("|")) {
+                taxonId = taxonId.split("\\|")[0];
+            }
         }
         return taxonId;
     }

@@ -1,7 +1,7 @@
 package org.intermine.bio.dataconversion;
 
 /*
- * Copyright (C) 2002-2016 FlyMine
+ * Copyright (C) 2002-2017 FlyMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
@@ -26,12 +26,12 @@ public class GFF3SeqHandler
      * @param identifier the identifier of the sequence from the GFF file
      * @return a new sequence Item
      */
-    public Item makeSequenceItem(GFF3Converter converter, String identifier) {
+    public Item makeSequenceItem(GFF3Converter converter, String identifier, String seqAssemblyVersion) {
         Item seq = createItem(converter);
         seq.setAttribute("primaryIdentifier", identifier);
+        seq.setAttribute("assembly", seqAssemblyVersion);
         return seq;
     }
-
 
     /**
      * Return the identifier of this sequence, default implementation returns the id passed to it.

@@ -1,7 +1,7 @@
 package org.intermine.bio.dataconversion;
 
 /*
- * Copyright (C) 2002-2016 FlyMine
+ * Copyright (C) 2002-2017 FlyMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
@@ -31,8 +31,9 @@ import org.intermine.dataconversion.DataConverter;
 import org.intermine.dataconversion.ItemWriter;
 import org.intermine.metadata.ClassDescriptor;
 import org.intermine.metadata.Model;
-import org.intermine.objectstore.ObjectStoreException;
+import org.intermine.metadata.StringUtil;
 import org.intermine.metadata.TypeUtil;
+import org.intermine.objectstore.ObjectStoreException;
 import org.intermine.xml.full.Item;
 import org.intermine.xml.full.Reference;
 
@@ -50,6 +51,7 @@ public class GFF3Converter extends DataConverter
     private static final Logger LOG = Logger.getLogger(GFF3Converter.class);
     private Reference orgRef;
     private String seqClsName, orgTaxonId;
+    private String seqAssemblyVersion;
     private Item organism, dataSet, dataSource;
     private Model tgtModel;
     private Map<String, Item> seqs = new HashMap<String, Item>();
@@ -85,11 +87,12 @@ public class GFF3Converter extends DataConverter
      * @param sequenceHandler the GFF3SeqHandler use to create sequence Items
      * @throws ObjectStoreException if something goes wrong
      */
-    public GFF3Converter(ItemWriter writer, String seqClsName, String orgTaxonId,
+    public GFF3Converter(ItemWriter writer, String seqClsName, String seqAssemblyVersion, String orgTaxonId,
             String dataSourceName, String dataSetTitle, Model tgtModel,
             GFF3RecordHandler handler, GFF3SeqHandler sequenceHandler) throws ObjectStoreException {
         super(writer, tgtModel);
         this.seqClsName = seqClsName;
+        this.seqAssemblyVersion = seqAssemblyVersion;
         this.orgTaxonId = orgTaxonId;
         this.tgtModel = tgtModel;
         this.handler = handler;
@@ -112,17 +115,40 @@ public class GFF3Converter extends DataConverter
         readConfig();
     }
 
+    // default is gff_config.properties, but can be overridden by a property file for the
+    // specific GFF3 source
+    private String getConfigFilename() {
+        final String suffix = "GFF3RecordHandler";
+        String fullSourceName = handler.getClass().getSimpleName();
+        // chop off suffix, e.g. LongOligoGFF3RecordHandler
+        String shortenedName = fullSourceName.substring(0, fullSourceName.length()
+                - suffix.length());
+        return StringUtil.getFlattenedSourceName(shortenedName) + "_config.properties";
+    }
+
     /**
      * read in config file
      */
     protected void readConfig() {
         Properties gffConfig = new Properties();
+        final String configFileName = getConfigFilename();
         try {
-            gffConfig.load(getClass().getClassLoader().getResourceAsStream(
-                    PROP_FILE));
-        } catch (IOException e) {
-            throw new RuntimeException("I/O Problem loading properties '"
-                    + PROP_FILE + "'", e);
+            // test for red-fly_config.properties
+            gffConfig.load(handler.getClass().getClassLoader().getResourceAsStream(configFileName));
+        } catch (Exception e) {
+            try {
+                // test for redfly_config.properties. no dashes
+                final String cleanString = configFileName.replace("-", "");
+                gffConfig.load(getClass().getClassLoader().getResourceAsStream(cleanString));
+            } catch (Exception e3) {
+                try {
+                    // okay nothing there, use default instead
+                    gffConfig.load(getClass().getClassLoader().getResourceAsStream(PROP_FILE));
+                } catch (IOException e2) {
+                    throw new RuntimeException("I/O Problem loading properties '"
+                            + PROP_FILE + "'", e2);
+                }
+            }
         }
 
         for (Map.Entry<Object, Object> entry : gffConfig.entrySet()) {
@@ -293,7 +319,7 @@ public class GFF3Converter extends DataConverter
         }
         String refId = identifierMap.get(primaryIdentifier);
         handler.clear(); // get rid of previous record Items from handler
-        Item seq = getSeq(record.getSequenceID());
+        Item seq = getSeq(record.getSequenceID(), seqAssemblyVersion);
         String className = TypeUtil.javaiseClassName(term);
         String fullClassName = tgtModel.getPackageName() + "." + className;
         ClassDescriptor cd = tgtModel.getClassDescriptorByName(fullClassName);
@@ -685,6 +711,12 @@ public class GFF3Converter extends DataConverter
     }
 
     /**
+     *
+     * @return
+     */
+    public String getSeqAssemblyVersion() { return seqAssemblyVersion; }
+
+    /**
      * Return the
      * @return the target Model
      */
@@ -707,7 +739,7 @@ public class GFF3Converter extends DataConverter
      * @return return/create item of class seqClsName for given identifier
      * @throws ObjectStoreException if the Item can't be stored
      */
-    private Item getSeq(String id)
+    private Item getSeq(String id, String seqAssemblyVersion)
         throws ObjectStoreException {
         // the seqHandler may have changed the id used, e.g. if using an IdResolver
         String identifier = sequenceHandler.getSeqIdentifier(id);
@@ -722,7 +754,11 @@ public class GFF3Converter extends DataConverter
 
         Item seq = seqs.get(identifier);
         if (seq == null) {
-            seq = sequenceHandler.makeSequenceItem(this, identifier);
+            if (seqAssemblyVersion == null || seqAssemblyVersion.contains("gff3.seqAssemblyVersion")) {
+                System.out.println("gff3.seqAssemblyVersion property required and is not defined in project.xml");
+                System.exit(1);
+            }
+            seq = sequenceHandler.makeSequenceItem(this, identifier, seqAssemblyVersion);
             // sequence handler may choose not to create sequence
             if (seq != null) {
                 seq.addReference(getOrgRef());

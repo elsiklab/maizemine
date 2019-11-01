@@ -1,7 +1,7 @@
 package org.intermine.bio.web.displayer;
 
 /*
- * Copyright (C) 2002-2016 FlyMine
+ * Copyright (C) 2002-2017 FlyMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
@@ -129,6 +129,7 @@ public class GeneOntologyDisplayer extends ReportDisplayer
 
             Map<String, Map<OntologyTerm, Set<String>>> goTermsByOntology =
                 new HashMap<String, Map<OntologyTerm, Set<String>>>();
+            Map<String, String> ecoTermMap = new HashMap<String, String>();
 
             while (result.hasNext()) {
                 List<ResultElement> row = result.next();
@@ -137,6 +138,11 @@ public class GeneOntologyDisplayer extends ReportDisplayer
                 OntologyTerm term = (OntologyTerm) row.get(1).getObject();
                 String code = (String) row.get(2).getField();
                 addToOntologyMap(goTermsByOntology, parentTerm, term, code);
+
+                String ecoTermName = (String) row.get(3).getField();
+                if (code != null && code.startsWith("ECO:")) {
+                    addToEcoTermMap(ecoTermMap, code, ecoTermName);
+                }
             }
 
             // If no terms in a particular category add the parent term only to put heading in JSP
@@ -148,6 +154,7 @@ public class GeneOntologyDisplayer extends ReportDisplayer
             }
             request.setAttribute("goTerms", goTermsByOntology);
             request.setAttribute("codes", EVIDENCE_CODES);
+            request.setAttribute("ecoTermMap", ecoTermMap);
         }
     }
 
@@ -167,11 +174,20 @@ public class GeneOntologyDisplayer extends ReportDisplayer
         codes.add(evidenceCode);
     }
 
+    private static void addToEcoTermMap(Map<String, String> ecoTermMap, String ecoTermIdentifier, String ecoTermName) {
+        if (ecoTermName != null) {
+            if (!ecoTermMap.containsKey(ecoTermIdentifier)) {
+                ecoTermMap.put(ecoTermIdentifier, ecoTermName);
+            }
+        }
+    }
+
     private static PathQuery buildQuery(Model model, Integer geneId) {
         PathQuery q = new PathQuery(model);
         q.addViews("Gene.goAnnotation.ontologyTerm.parents.name",
                 "Gene.goAnnotation.ontologyTerm.name",
-                "Gene.goAnnotation.evidence.code.code");
+                "Gene.goAnnotation.evidence.code.code",
+                "Gene.goAnnotation.evidence.code.evidenceOntology.name");
         q.addOrderBy("Gene.goAnnotation.ontologyTerm.parents.name", OrderDirection.ASC);
         q.addOrderBy("Gene.goAnnotation.ontologyTerm.name", OrderDirection.ASC);
 

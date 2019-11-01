@@ -16,17 +16,12 @@
 <div class="header">
   <c:choose>
   <c:when test="${gene.id == actualId}">
-   <h3>Gene models - <c:out value="${gene.symbol} ${gene.primaryIdentifier}"/></h3>
+   <h3>All Transcripts for Gene - <c:out value="${gene.symbol} ${gene.primaryIdentifier}"/></h3>
   </c:when>
   <c:otherwise>
-    <h3>Gene models - <c:out value="${gene.symbol} ${gene.primaryIdentifier}"/></h3>
+    <h3>All Transcripts for Gene - <c:out value="${gene.symbol} ${gene.primaryIdentifier}"/></h3>
   </c:otherwise>
   </c:choose>
-
-  <p>
-    <img class="tinyQuestionMark" src="images/icons/information-small-blue.png" alt="?">
-    Gene models
-  </p>
 
   <c:choose>
     <c:when test="${!empty gene.transcripts}">
@@ -74,7 +69,7 @@
             <c:set var="count" value="${fn:length(geneModel.CDSs) + count}" />
           </c:forEach>
           <c:if test="${count > 0}">
-            <a href="#" id="cdss" class="switcher">CDSs</a>: ${count}&nbsp;
+            <a href="#" id="cdss" class="switcher">Coding Sequence</a>: ${count}&nbsp;
           </c:if>
         </c:if>
       </div>
@@ -116,7 +111,7 @@
           <th>3' UTR</th>
         </c:if>
         <c:if test="${settings.hasCDSs}">
-          <th>CDSs</th>
+          <th>Coding Sequence</th>
         </c:if>
       </tr>
     </thead>
@@ -311,3 +306,4 @@ if (geneStructureDisplayerSize > 1) {
 </div>
 
 <!-- /geneStructureDisplayer.jsp -->
+<%@include file="geneStructureModel.jsp" %>

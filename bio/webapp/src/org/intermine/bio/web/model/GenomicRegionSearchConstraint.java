@@ -1,7 +1,7 @@
 package org.intermine.bio.web.model;
 
 /*
- * Copyright (C) 2002-2016 FlyMine
+ * Copyright (C) 2002-2017 FlyMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
@@ -22,6 +22,7 @@ import java.util.Set;
 public class GenomicRegionSearchConstraint
 {
     private String orgName = null;
+    private String chrAssembly = null;
     private Set<Class<?>> featureTypes = null;
     private List<GenomicRegion> genomicRegionList = null;
     private int extendedRegionSize = 0;
@@ -41,6 +42,14 @@ public class GenomicRegionSearchConstraint
      */
     public void setOrgName(String orgName) {
         this.orgName = orgName;
+    }
+
+    public String getChrAssembly() {
+        return chrAssembly;
+    }
+
+    public void setChrAssembly(String chrAssembly) {
+        this.chrAssembly = chrAssembly;
     }
 
     /**
@@ -83,7 +92,7 @@ public class GenomicRegionSearchConstraint
     }
 
     /**
-     * @param strandSpecific
+     * @param strandSpecific whether or not this search specifies a strand
      */
     public void setStrandSpecific(boolean strandSpecific) {
         this.strandSpecific = strandSpecific;
@@ -108,7 +117,8 @@ public class GenomicRegionSearchConstraint
                     && genomicRegionList.equals(c.getGenomicRegionList())
                     && featureTypes.equals(c.getFeatureTypes())
                     && orgName.equals(c.getOrgName())
-                    && strandSpecific==c.getStrandSpecific());
+                    && chrAssembly.equals(c.getChrAssembly())
+                    && strandSpecific == c.getStrandSpecific());
         }
         return false;
     }
@@ -119,7 +129,7 @@ public class GenomicRegionSearchConstraint
     @Override
     public int hashCode() {
         return extendedRegionSize + genomicRegionList.hashCode() + featureTypes.hashCode()
-            + orgName.hashCode();
+            + orgName.hashCode() + chrAssembly.hashCode();
     }
 
 }

@@ -1,7 +1,7 @@
 package org.intermine.bio.postprocess;
 
 /*
- * Copyright (C) 2002-2016 FlyMine
+ * Copyright (C) 2002-2017 FlyMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
@@ -218,7 +218,10 @@ public class TransferSequences
                     continue;
                 }
 
-                if (feature instanceof Gene) {
+                  if (PostProcessUtil.isInstance(model, feature, "RepeatRegion")) {
+                     continue;
+                }      
+          if (feature instanceof Gene) {
                     Gene gene = (Gene) feature;
                     if (gene.getLength() != null && gene.getLength().intValue() > 2000000) {
                         LOG.warn("gene too long in transferToSequenceFeatures() ignoring: "

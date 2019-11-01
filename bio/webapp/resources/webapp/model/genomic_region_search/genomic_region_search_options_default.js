@@ -12,8 +12,14 @@
             htmlToInsert += '<option value="'+this+'">'+this+'</option>';
         });
 
-        htmlToInsert += '</select>' + '<span id="genomeBuild" style="padding:10px;"></span>'
-                        '</li><br>';
+        htmlToInsert += '</select></li>'
+        //htmlToInsert += '</select>' + '<span id="genomeBuild" style="padding:10px;"></span>'
+        //                '</li><br>';
+
+        htmlToInsert += '<br/><li><span>Assembly:&nbsp;</span>' +
+                        '<select id="assembly" name="assembly">';
+
+        htmlToInsert += '</select></li><br/>';
 
         htmlToInsert += '<li>' +
                         '<p id="selectFeatureTypes" style="padding-bottom:8px;"></p>' +
@@ -33,6 +39,7 @@
             jQuery("#organisms option:selected").each(function () {
                 appendGenomeBuild(jQuery(this).text());
                 appendFeatureTypes(jQuery(this).text());
+                appendAssemblyVersions(jQuery(this).text());
             });
         })
         .trigger('change');
@@ -93,6 +100,17 @@
          else {
              jQuery("#selectFeatureTypes").html("Select Feature Types:<br><i>"+org+" does not have any features</i>");
          }
+   }
+
+   function appendAssemblyVersions(org) {
+        for(var i = 0; i < webDataJSON.assemblies.size(); i++) {
+            if(webDataJSON.assemblies[i].organism == org) {
+                var assemblies = webDataJSON.assemblies[i].assembly.sort();
+                for(var j = 0; j < assemblies.size(); j++) {
+                    jQuery("#assembly").append("<option value='" + assemblies[j] + "'>" + assemblies[j] + "</option>");
+                }
+            }
+        }
    }
 
    // (un)Check all featureType checkboxes

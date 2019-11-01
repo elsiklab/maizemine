@@ -1,7 +1,7 @@
 package org.intermine.bio.web.logic;
 
 /*
- * Copyright (C) 2002-2016 FlyMine
+ * Copyright (C) 2002-2017 FlyMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
@@ -47,6 +47,7 @@ import org.intermine.metadata.ClassDescriptor;
 import org.intermine.metadata.ConstraintOp;
 import org.intermine.metadata.Model;
 import org.intermine.metadata.StringUtil;
+import org.intermine.model.bio.Chromosome;
 import org.intermine.model.bio.Organism;
 import org.intermine.model.bio.SequenceFeature;
 import org.intermine.objectstore.ObjectStore;
@@ -194,7 +195,7 @@ public class GenomicRegionSearchService
             Map<String, Set<String>> orgFeatureTypes = getFeatureTypesForOrgs(orgList,
                     excludedFeatureTypes);
             orgFeatureTypesTime = System.currentTimeMillis() - stepTime;
-
+            Map<String, Set<String>> orgAssemblyVersions = getAssemblyVersionsForOrgs(orgList);
             stepTime = System.currentTimeMillis();
             getFeatureTypeToSOTermMap();
             featureTypeSoTermTime = System.currentTimeMillis() - stepTime;
@@ -203,7 +204,7 @@ public class GenomicRegionSearchService
             getOrganismToTaxonMap();
             orgToTaxonTime = System.currentTimeMillis() - stepTime;
 
-            orgFeatureJSONString = buildJSONString(orgList, orgFeatureTypes);
+            orgFeatureJSONString = buildJSONString(orgList, orgFeatureTypes, orgAssemblyVersions);
         }
         LOG.info("REGION SEARCH INIT total time: " + (System.currentTimeMillis() - startTime)
                 + "ms - "
@@ -310,6 +311,49 @@ public class GenomicRegionSearchService
         return orgFeatureMap;
     }
 
+    private Map<String, Set<String>> getAssemblyVersionsForOrgs(List<String> orgList) {
+        Map<String, Set<String>> orgAssemblyMap = new LinkedHashMap<String, Set<String>>();
+
+        Query q = new Query();
+        q.setDistinct(true);
+
+        QueryClass qcChr = new QueryClass(Chromosome.class);
+        QueryClass qcOrg = new QueryClass(Organism.class);
+
+        QueryField qfOrgName = new QueryField(qcOrg, "shortName");
+        QueryField qcChrAassembly = new QueryField(qcChr, "assembly");
+
+        q.addToSelect(qfOrgName);
+        q.addToSelect(qcChrAassembly);
+
+        q.addFrom(qcOrg);
+        q.addFrom(qcChr);
+
+
+        q.addToOrderBy(qfOrgName, "ascending");
+
+        ConstraintSet constraints = new ConstraintSet(ConstraintOp.AND);
+        q.setConstraint(constraints);
+        Results results = objectStore.execute(q, initBatchSize, true, true, true);
+
+        if (results != null && results.size() > 0) {
+            for (Iterator<?> iter = results.iterator(); iter.hasNext(); ) {
+                ResultsRow<?> row = (ResultsRow<?>) iter.next();
+                String org = (String) row.get(0);
+                String assembly = (String) row.get(1);
+                if (orgAssemblyMap.containsKey(org)) {
+                    orgAssemblyMap.get(org).add(assembly);
+                }
+                else {
+                    Set<String> set = new HashSet<String>();
+                    set.add(assembly);
+                    orgAssemblyMap.put(org, set);
+                }
+            }
+        }
+        return orgAssemblyMap;
+    }
+
     // build JSON string to display region search options
     private String buildJSONString(List<String> orgList, Map<String, Set<String>> resultsMap) {
         // Parse data to JSON string
@@ -379,6 +423,81 @@ public class GenomicRegionSearchService
         return preDataStr;
 
 
+    }
+
+    /**
+     *
+     * @param orgList
+     * @param resultsMap
+     * @param orgAssemblyMap
+     * @return
+     */
+    private String buildJSONString(List<String> orgList, Map<String, Set<String>> resultsMap, Map<String, Set<String>> orgAssemblyMap) {
+        List<Object> ft = new ArrayList<Object>();
+        List<Object> oa = new ArrayList<Object>();
+        List<Object> gb = new ArrayList<Object>();
+        Map<String, Object> ma = new LinkedHashMap<String, Object>();
+
+        for (Entry<String, Set<String>> e : resultsMap.entrySet()) {
+            Map<String, Object> mft = new LinkedHashMap<String, Object>();
+            Map<String, Object> mgb = new LinkedHashMap<String, Object>();
+
+            mft.put("organism", e.getKey());
+
+            List<Object> featureTypeAndDespMapList = new ArrayList<Object>();
+            for (String className : e.getValue()) {
+                Map<String, String> featureTypeAndDespMap = new LinkedHashMap<String, String>();
+                String des = "description not avaliable";
+                if (featureTypeToSOTermMap.containsKey(className)) {
+                    des = featureTypeToSOTermMap.get(className).get(1);
+                } else {
+                    des = (classDescrs.get(className) == null) ? "description not avaliable"
+                            : classDescrs.get(className);
+
+                    des = des.replaceAll("'", "&apos;");
+                    des = des.replaceAll("\"", "&quot;");
+                }
+
+                featureTypeAndDespMap.put("featureType", className);
+                featureTypeAndDespMap.put("description", des);
+                featureTypeAndDespMapList.add(featureTypeAndDespMap);
+            }
+            mft.put("features", featureTypeAndDespMapList);
+
+            ft.add(mft);
+
+            mgb.put("organism", e.getKey());
+            mgb.put("genomeBuild",
+                    (OrganismGenomeBuildLookup
+                            .getGenomeBuildbyOrgansimAbbreviation(e.getKey()) == null)
+                            ? "not available"
+                            : OrganismGenomeBuildLookup
+                            .getGenomeBuildbyOrgansimAbbreviation(e
+                                    .getKey()));
+
+            gb.add(mgb);
+        }
+
+        for (Entry<String, Set<String>> e : orgAssemblyMap.entrySet()) {
+            Map<String, Object> organismAssemblyEntry = new LinkedHashMap<String, Object>();
+            organismAssemblyEntry.put("organism", e.getKey());
+            ArrayList<String> assemblyVersion = new ArrayList<String>();
+            for (String v : e.getValue()) {
+                assemblyVersion.add(v);
+            }
+            organismAssemblyEntry.put("assembly", assemblyVersion);
+            oa.add(organismAssemblyEntry);
+        }
+
+        ma.put("organisms", orgList);
+        ma.put("assemblies", oa);
+        ma.put("genomeBuilds", gb);
+        ma.put("featureTypes", ft);
+        JSONObject jo = new JSONObject(ma);
+
+        String preDataStr = jo.toString();
+
+        return preDataStr;
     }
 
     /**
@@ -468,7 +587,8 @@ public class GenomicRegionSearchService
      * @return genomic region search constraint
      * @throws Exception e
      */
-    public ActionMessage parseGenomicRegionSearchForm(GenomicRegionSearchForm grsForm) throws Exception {
+    public ActionMessage parseGenomicRegionSearchForm(GenomicRegionSearchForm grsForm)
+        throws Exception {
         grsc = new GenomicRegionSearchConstraint();
 
         ActionMessage actmsg = parseBasicInput(grsForm);
@@ -486,19 +606,22 @@ public class GenomicRegionSearchService
      * @throws Exception e
      */
     public ActionMessage parseBasicInput(GenomicRegionSearchForm grsForm) throws Exception {
-
         // Parse form
         String organism = (String) grsForm.get("organism");
+        String chrAssembly = (String) grsForm.get("assembly");
         String[] featureTypes = (String[]) grsForm.get("featureTypes");
         String whichInput = (String) grsForm.get("whichInput");
         String dataFormat = (String) grsForm.get("dataFormat");
         FormFile formFile = (FormFile) grsForm.get("fileInput");
         String pasteInput = (String) grsForm.get("pasteInput");
         String extendedRegionSize = (String) grsForm.get("extendedRegionSize");
-        boolean strandSpecific = grsForm.get("strandSpecific")!=null;
+        boolean strandSpecific = grsForm.get("strandSpecific") != null;
 
         // Organism
         grsc.setOrgName(organism);
+
+        // Assembly
+        grsc.setChrAssembly(chrAssembly);
 
         // strand-specific search flag
         grsc.setStrandSpecific(strandSpecific);
@@ -608,12 +731,11 @@ public class GenomicRegionSearchService
         // Tab delimited format: "chr(tab)start(tab)end" or "chr:start..end"
         List<GenomicRegion> spanList = new ArrayList<GenomicRegion>();
         for (String spanStr : spanStringSet) {
-
             // The first time to create GenomicRegion object and set ExtendedRegionSize
             GenomicRegion aSpan = new GenomicRegion();
             aSpan.setOrganism(grsc.getOrgName());
+            aSpan.setChrAssembly(grsc.getChrAssembly());
             aSpan.setExtendedRegionSize(grsc.getExtendedRegionSize());
-
             // Use regular expression to validate user's input:
             // "chr:start..end" - [^:]+:\d+\.{2,}\d+
             String ddotsRegex = "^[^:]+: ?\\d+(,\\d+)*\\.{2}\\d+(,\\d+)*$";
@@ -770,8 +892,6 @@ public class GenomicRegionSearchService
      */
     public Map<String, List<String>> getFeatureTypeToSOTermMap() {
         if (featureTypeToSOTermMap == null) {
-            long startTime = System.currentTimeMillis();
-
             featureTypeToSOTermMap = GenomicRegionSearchQueryRunner
                     .getFeatureAndSOInfo(interMineAPI, classDescrs, initBatchSize);
 
@@ -842,6 +962,10 @@ public class GenomicRegionSearchService
         for (GenomicRegion gr : grsc.getGenomicRegionList()) {
             // User input could be x instead of X for human chromosome, converted to lowercase
             ChromosomeInfo ci = null;
+            // allow for empty lines
+            if (gr == null || gr.getChr() == null) {
+                continue;
+            }
             String chr = gr.getChr().toLowerCase();
 
             if (chrInfo.containsKey(chr)) {
@@ -857,7 +981,7 @@ public class GenomicRegionSearchService
                     continue;
                 }
             }
-            
+
             boolean passed = false; // flag to add to errorSpanList
             if (gr.getStart() > gr.getEnd()) {
                 gr.setChr(ci.getChrPID()); // converted to the right case
@@ -882,7 +1006,8 @@ public class GenomicRegionSearchService
                 passed = true;
             }
 
-            // add to errorSpanList here if not passed; shouldn't ever happen, but we'll keep it for now for back-compatibility
+            // add to errorSpanList here if not passed; shouldn't ever happen, but we'll keep it
+            // for now for back-compatibility
             if (!passed) {
                 errorSpanList.add(gr);
             }
@@ -1082,7 +1207,7 @@ public class GenomicRegionSearchService
             }
         }
 
-        String clHtml = " or Create List by feature type:"
+        String clHtml = " Create list by feature type:"
             + "<select id=\"all-regions\" style=\"margin: 4px 3px\">";
 
         for (String ft : ftSet) {
@@ -1216,14 +1341,14 @@ public class GenomicRegionSearchService
             StringBuffer sb, GenomicRegion s, List<List<String>> features,
             String ftHtml, Set<String> ftSet, String span, int length) {
         List<String> firstFeature = features.get(0);
-
         String firstId = firstFeature.get(0);
         String firstPid = firstFeature.get(1);
         String firstSymbol = firstFeature.get(2);
         String firstFeatureType = firstFeature.get(3); // Class name
         String firstChr = firstFeature.get(4);
-        String firstStart = firstFeature.get(5);
-        String firstEnd = firstFeature.get(6);
+        String firstChrAssembly = firstFeature.get(5);
+        String firstStart = firstFeature.get(6);
+        String firstEnd = firstFeature.get(7);
 
         String loc = firstChr + ":" + firstStart + ".." + firstEnd;
 
@@ -1249,12 +1374,14 @@ public class GenomicRegionSearchService
             sb.append("<b>" + span + "</b>");
         }
 
+        sb.append("<br>");
+
         if (!"false".equals(exportChromosomeSegment)) {
-            sb.append("<span style=\"padding: 10px;\">"
+            sb.append("<span style=\"padding: 10px;\">Export sequence for entire region: "
                     + "<a href='javascript: exportFeatures(\""
                     + s.getFullRegionInfo()
-                    + "\", \"\", \"chrSeg\");'><img title=\"export chromosome "
-                    + "region as FASTA\" class=\"fasta\" "
+                    + "\", \"\", \"chrSeg\");'><img title=\"Export sequence for entire region"
+                    + "\" class=\"fasta\" "
                     + "src=\"model/images/fasta.gif\"></a></span>");
         }
 
@@ -1273,25 +1400,31 @@ public class GenomicRegionSearchService
         }
 
         sb.append("<div style='align:center; padding:8px 0 4px 0;'>"
-                + "<span class='tab export-region'><a href='javascript: "
+                + "<span class='tab export-region'><a title='Export features in this region in "
+                + "tab-delimited format' href='javascript: "
                 + "exportFeatures(\"" + s.getFullRegionInfo() + "\", " + "\""
                 + facet + "\", \"tab\");'></a></span>"
-                + "<span class='csv export-region'><a href='javascript: "
+                + "<span class='csv export-region'><a title='Export features in this region in "
+                + "comma-delimited format' href='javascript: "
                 + "exportFeatures(\"" + s.getFullRegionInfo() + "\", " + "\""
                 + facet + "\", \"csv\");'></a></span>"
-                + "<span class='gff3 export-region'><a href='javascript: "
+                + "<span class='gff3 export-region'><a title='Export features in this region in "
+                + "GFF3 format' href='javascript: "
                 + "exportFeatures(\"" + s.getFullRegionInfo() + "\", " + "\""
                 + facet + "\", \"gff3\");'></a></span>"
-                + "<span class='fasta export-region'><a href='javascript: "
+                + "<span class='bed export-region'><a title='Export features in this region in "
+                + "BED format' href='javascript: "
                 + "exportFeatures(\"" + s.getFullRegionInfo() + "\", " + "\""
-                + facet + "\", \"sequence\");'></a></span>"
-                + "<span class='bed export-region'><a href='javascript: "
+                + facet + "\", \"bed\");'></a></span>"
+                + "<span class='fasta export-region'><a title='Export features in this region as "
+                + "individual sequences' href='javascript: "
                 + "exportFeatures(\"" + s.getFullRegionInfo() + "\", " + "\""
-                + facet + "\", \"bed\");'></a></span>");
+                + facet + "\", \"sequence\");'></a></span>");
 
         // Display galaxy export
         if (!"false".equals(galaxyDisplay)) {
-            sb.append("<span class='galaxy export-region'><a href='javascript: "
+            sb.append("<span class='galaxy export-region'><a title='Export data to Galaxy' "
+                + "href='javascript: "
                 + "exportToGalaxy(\"" + s.getFullRegionInfo() + "\");'></a></span>");
         }
 
@@ -1377,8 +1510,11 @@ public class GenomicRegionSearchService
             sb.append("<b>" + span + "</b>");
         }
 
+        sb.append("<br>");
+
+
         if (!"false".equals(exportChromosomeSegment)) {
-            sb.append("<span style=\"padding: 10px;\">"
+            sb.append("<span style=\"padding: 10px;\">Export sequence for entire region: "
                     + "<a href='javascript: exportFeatures(\""
                     + s.getFullRegionInfo()
                     + "\", \"\", \"chrSeg\");'><img title=\"export chromosome "
@@ -1401,21 +1537,27 @@ public class GenomicRegionSearchService
         }
 
         sb.append("<div style='align:center; padding:8px 0 4px 0;'>"
-                + "<span class='tab export-region'><a href='javascript: "
+                + "<span class='tab export-region'><a title='Export features in this region in "
+                + "tab-delimited format' href='javascript: "
                 + "exportFeatures(\"" + s.getFullRegionInfo() + "\", " + "\""
                 + facet + "\", \"tab\");'></a></span>"
-                + "<span class='csv export-region'><a href='javascript: "
+                + "<span class='csv export-region'><a title='Export features in this region in "
+                + "comma-delimited format' href='javascript: "
                 + "exportFeatures(\"" + s.getFullRegionInfo() + "\", " + "\""
                 + facet + "\", \"csv\");'></a></span>"
-                + "<span class='gff3 export-region'><a href='javascript: "
+                + "<span class='gff3 export-region'><a title='Export features in this region in "
+                + "GFF3 format' href='javascript: "
                 + "exportFeatures(\"" + s.getFullRegionInfo() + "\", " + "\""
                 + facet + "\", \"gff3\");'></a></span>"
-                + "<span class='fasta export-region'><a href='javascript: "
+                + "<span class='bed export-region'><a title='Export features in this region in "
+                + "BED format' href='javascript: "
                 + "exportFeatures(\"" + s.getFullRegionInfo() + "\", " + "\""
-                + facet + "\", \"sequence\");'></a></span>"
-                + "<span class='bed export-region'><a href='javascript: "
+                + facet + "\", \"bed\");'></a></span>"
+                + "<span class='fasta export-region'><a title='Export features in this region as "
+                + "individual sequences' href='javascript: "
                 + "exportFeatures(\"" + s.getFullRegionInfo() + "\", " + "\""
-                + facet + "\", \"bed\");'></a></span>");
+                + facet + "\", \"sequence\");'></a></span>");
+
 
         // Display galaxy export
         if (!"false".equals(galaxyDisplay)) {
@@ -1470,8 +1612,9 @@ public class GenomicRegionSearchService
         String symbol = features.get(i).get(2);
         String featureType = features.get(i).get(3);
         String chr = features.get(i).get(4);
-        String start = features.get(i).get(5);
-        String end = features.get(i).get(6);
+        String chrAssembly = features.get(i).get(5);
+        String start = features.get(i).get(6);
+        String end = features.get(i).get(7);
 
         String soTerm = WebUtil.formatPath(featureType, interMineAPI,
                 webConfig);

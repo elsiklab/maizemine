@@ -1,7 +1,7 @@
 package org.intermine.bio.dataconversion;
 
 /*
- * Copyright (C) 2002-2016 FlyMine
+ * Copyright (C) 2002-2017 FlyMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
@@ -52,10 +52,12 @@ public class FastaLoaderTask extends FileDirectDataLoaderTask
 
     private String sequenceType = "dna";
     private String classAttribute = "primaryIdentifier";
+    private String assemblyVersion = null;
     private Organism org;
     private String className;
     private int storeCount = 0;
     private String dataSourceName = null;
+    private String geneSource = null;
     private DataSource dataSource = null;
     private String fastaTaxonId = null;
     private Map<String, Integer> taxonIds = new HashMap<String, Integer>();
@@ -72,6 +74,9 @@ public class FastaLoaderTask extends FileDirectDataLoaderTask
 
     private Map<String, DataSet> dataSets = new HashMap<String, DataSet>();
 
+    public void setAssemblyVersion(String assemblyVersion) {
+        this.assemblyVersion = assemblyVersion;
+    }
     /**
      * Set the Taxon Id of the Organism we are loading.  Can be space delimited list of taxonIds
      * @param fastaTaxonId the taxon id to set.
@@ -79,6 +84,14 @@ public class FastaLoaderTask extends FileDirectDataLoaderTask
     public void setFastaTaxonId(String fastaTaxonId) {
         this.fastaTaxonId = fastaTaxonId;
         parseTaxonIds();
+    }
+
+    /**
+     * Get the sequence type for the current sequence
+     * @return sequenceType
+     */
+    public String getSequenceType() {
+        return this.sequenceType;
     }
 
     /**
@@ -134,6 +147,16 @@ public class FastaLoaderTask extends FileDirectDataLoaderTask
      */
     public void setDataSourceName(String dataSourceName) {
         this.dataSourceName = dataSourceName;
+    }
+
+    public void setGeneSource(String geneSource) {
+        if (! "${fasta.geneSource}".equals(geneSource)) {
+            this.geneSource = geneSource;
+        }
+    }
+
+    public String getGeneSource() {
+        return this.geneSource;
     }
 
     /**
@@ -260,7 +283,7 @@ public class FastaLoaderTask extends FileDirectDataLoaderTask
      * @param bioJavaSequence the Sequence object
      * @throws ObjectStoreException if store() fails
      */
-    private void processSequence(Organism organism, Sequence bioJavaSequence)
+    protected void processSequence(Organism organism, Sequence bioJavaSequence)
         throws ObjectStoreException {
         // some fasta files are not filtered - they contain sequences from organisms not
         // specified in project.xml

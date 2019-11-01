@@ -1,0 +1,5 @@
+<project name="expressionmetadata" default="default" basedir=".">
+  <description>build, test, package expressionmetadata</description>
+  
+  <import file="../../../imbuild/source.xml"/>
+</project>

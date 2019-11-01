@@ -98,6 +98,7 @@ if(new java.io.File(application.getRealPath("/js")+"/"+pageName+".js").exists())
 jQuery && jQuery(function() {
     if (typeof intermine !== 'undefined' && intermine.options) {
         intermine.options.CDN.server = "${WEB_PROPERTIES['head.cdn.location']}";
+     intermine.options.phytomine_url = "${WEB_PROPERTIES['intermines.phytomine.url']}";
     }
 });
 </script>

@@ -1,7 +1,7 @@
 package org.intermine.bio.web.model;
 
 /*
- * Copyright (C) 2002-2016 FlyMine
+ * Copyright (C) 2002-2017 FlyMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
@@ -21,6 +21,7 @@ public class ChromosomeInfo
     private String orgName;
     private String chrPID;
     private String chrPIDLowerCase;
+    private String chrAssembly;
     private Integer chrLength = null;
 
     /**
@@ -48,6 +49,15 @@ public class ChromosomeInfo
         this.chrPID = chrPID;
         this.chrPIDLowerCase = chrPID.toLowerCase();
     }
+
+    public String getChrAssembly() {
+        return chrAssembly;
+    }
+
+    public void setChrAssembly(String chrAssembly) {
+        this.chrAssembly = chrAssembly;
+    }
+
     /**
      * @return the chrLength
      */

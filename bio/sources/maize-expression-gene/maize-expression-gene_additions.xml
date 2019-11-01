@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!-- This file details any extensions needed to the data model to store data from this source, everything else is automatically generated from the model description so this is all we need to do to add to the model. -->
+
+<classes>
+  <!-- add any <class> elements here -->
+  <class name="Gene" extends="SequenceFeature" is-interface="true">
+    <collection name="expression" referenced-type="Expression" reverse-reference="gene"/>
+  </class>
+  <class name="Transcript" extends="SequenceFeature" is-interface="true">
+    <collection name="expression" referenced-type="Expression" reverse-reference="isoform"/>
+  </class>
+  <class name="Expression" is-interface="true">
+    <reference name="gene" referenced-type="Gene" reverse-reference="expression"/>
+    <reference name="isoform" referenced-type="Transcript" reverse-reference="expression"/>
+    <attribute name="entityName" type="java.lang.String"/>
+    <attribute name="normalizedCounts" type="java.lang.Float"/>
+    <attribute name="FPKM" type="java.lang.Float"/>
+    <attribute name="type" type="java.lang.String"/>
+    <reference name="sample" referenced-type="Sample" reverse-reference="meanExpression"/>
+    <reference name="replicate" referenced-type="Replicate" reverse-reference="singleExpression"/>
+  </class>
+  <class name="Entity" is-interface="true">
+    <attribute name="name" type="java.lang.String"/>
+    <reference name="organism" referenced-type="Organism"/>
+  </class>
+  <class name="Sample" extends="Entity" is-interface="true">
+    <collection name="meanExpression" referenced-type="Expression" reverse-reference="sample"/>
+  </class>
+  <class name="Replicate" extends="Entity" is-interface="true">
+    <collection name="singleExpression" referenced-type="Expression" reverse-reference="replicate"/>
+  </class>
+</classes>

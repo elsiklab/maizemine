@@ -1,0 +1,23 @@
+#!/usr/bin/bash
+#ant -Dsource=paralogs -v
+#ant -Dsource=maize-dna-v3-fasta -v
+ant -Dsource=maize-dna-v4-fasta -v
+ant -Dsource=additional_identifiers -v
+ant -Dsource=maize-gene-model-v3-gff -v
+ant -Dsource=maize-gene-model-v4-gff -v
+ant -Dsource=maize-gene-model-v4-gff-rejected -v
+ant -Dsource=maize-refseq-proteincoding-gff -v
+ant -Dsource=maize-refseq-noncoding-gff -v
+ant -Dsource=maize-cds-v3-fasta -v
+ant -Dsource=maize-cds-v4-fasta -v
+ant -Dsource=maize-cds-refseq-fasta -v
+ant -Dsource=maize-pep-v3-fasta -v
+ant -Dsource=maize-pep-v4-fasta -v
+ant -Dsource=maize-protein-refseq-fasta -v
+ant -Dsource=maize-xref -v
+ant -Dsource=kegg -v
+ant -Dsource=kegg-metadata -v
+ant -Dsource=reactome-gramene-pathway -v
+ant -Dsource=corncyc -v
+ant -Dsource=symbol -v
+ant -Dsource=description -v

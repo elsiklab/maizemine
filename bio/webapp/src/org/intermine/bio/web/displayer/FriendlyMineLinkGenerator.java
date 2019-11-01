@@ -140,14 +140,28 @@ public final class FriendlyMineLinkGenerator implements InterMineLinkGenerator
 
         private PathQuery getHomologueQuery(Mine mine, ObjectRequest req) {
             PathQuery q = new PathQuery(mine.getModel());
-            q.addViews(
-                "Gene.homologues.homologue.primaryIdentifier",
-                "Gene.homologues.homologue.symbol",
-                "Gene.homologues.homologue.organism.shortName"
-            );
-            q.addOrderBy("Gene.homologues.homologue.organism.shortName", OrderDirection.ASC);
-            q.addConstraint(Constraints.lookup("Gene", req.getIdentifier(), req.getDomain()));
-            q.addConstraint(Constraints.neq("Gene.homologues.type", "paralogue"));
+            if (mine.getLinkClasses().contains("phytomineHomolog")) {
+                // query for phytomine homolog data model
+                q.addViews(
+                        "Gene.homolog.ortholog_gene.primaryIdentifier",
+                        "Gene.homolog.ortholog_gene.symbol",
+                        "Gene.homolog.ortholog_gene.organism.shortName"
+                );
+                q.addOrderBy("Gene.homolog.ortholog_gene.organism.shortName", OrderDirection.ASC);
+                q.addConstraint(Constraints.lookup("Gene.homolog.gene", req.getIdentifier(), req.getDomain()), "A");
+                q.addConstraint(Constraints.neq("Gene.homolog.ortholog_gene.organism.shortName", req.getDomain()), "B");
+                q.setConstraintLogic("A and B");
+            } else {
+                // query for the standard homologue data model
+                q.addViews(
+                    "Gene.homologues.homologue.primaryIdentifier",
+                    "Gene.homologues.homologue.symbol",
+                    "Gene.homologues.homologue.organism.shortName"
+                );
+                q.addOrderBy("Gene.homologues.homologue.organism.shortName", OrderDirection.ASC);
+                q.addConstraint(Constraints.lookup("Gene", req.getIdentifier(), req.getDomain()));
+                q.addConstraint(Constraints.neq("Gene.homologues.type", "paralogue"));
+            }
             return q;
         }
 

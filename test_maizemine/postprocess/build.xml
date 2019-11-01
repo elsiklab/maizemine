@@ -1,0 +1,7 @@
+<project name="test_maizemine-postprocess" default="default" basedir=".">
+
+  <description>perform post processing for test_maizemine</description>
+
+  <import file="../../imbuild/postprocess.xml"/>
+
+</project>

@@ -78,6 +78,17 @@ public interface Mine
     String getDefaultValue();
 
     /**
+     * @return the linkClass
+     */
+    Set<String> getLinkClasses();
+
+    /**
+     * get first link class. used in remotemine to build specific link types
+     * @return the linkClass
+     */
+    String getLinkClass();
+
+    /**
      * Run a path query and get back all the results.
      * @param query The query to run.
      * @return A list of rows.

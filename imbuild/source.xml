@@ -243,6 +243,7 @@
     <convert-gff3-file converter="org.intermine.bio.dataconversion.GFF3Converter"
                   target="osw.${common.os.prefix}-tgt-items"
                   seqClsName="${gff3.seqClsName}"
+                  seqAssemblyVersion="${gff3.seqAssemblyVersion}"
                   orgTaxonId="${gff3.taxonId}"
                   dataSourceName="${gff3.dataSourceName}"
                   seqDataSourceName="${gff3.seqDataSourceName}"
