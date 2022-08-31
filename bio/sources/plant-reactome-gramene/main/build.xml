@@ -1,4 +1,0 @@
-<project name="plant-reactome-gramene-tasks" default="default" basedir=".">
-  <description>build plant-reactome-gramene tasks</description>
-  <import file="../../../../imbuild/library.xml"/> 
-</project>

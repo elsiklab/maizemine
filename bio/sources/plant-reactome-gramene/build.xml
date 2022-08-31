@@ -1,5 +1,0 @@
-<project name="plant-reactome-gramene" default="default" basedir=".">
-  <description>build, test, package plant-reactome-gramene</description>
-  
-  <import file="../../../imbuild/source.xml"/>
-</project>

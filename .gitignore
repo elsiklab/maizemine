@@ -12,6 +12,8 @@ executeLog*
 *.class
 productionLog
 *~
+.project
+.classpath
 
 !/intermine/webservice/client/download/dist/
 
@@ -193,6 +195,10 @@ productionLog
 # /intermine/webservice/client/javascript/imbedding/0.2/style/
 /intermine/webservice/client/javascript/imbedding/0.2/style/*min.*
 
+# test environments
+
+config/travis/solr*
+
 # mines
 malariamine/
 
@@ -204,4 +210,6 @@ apache-tomcat*
 prefixed
 failures.list
 *.jks
-biotestmine/project.xml
+*.iml
+out/
+.gradle/

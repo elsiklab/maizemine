@@ -1,0 +1,281 @@
+<project type="bio">
+  <property name="target.model" value="genomic"/>
+  <property name="common.os.prefix" value="common"/>
+  <property name="intermine.properties.file" value="maizemine.properties"/>
+  <property name="default.intermine.properties.file" location="../default.intermine.integrate.properties"/>
+
+  <sources>
+
+    <!--Ontologies-->
+
+    <source name="so" type="so" version="5.0.3">
+      <!--property name="src.data.file" location="so.obo"/-->
+      <property name="src.data.file" location="/db/maizemine_v1.4/datasets/ontologies/SO/so.obo"/>
+      <property name="licence" value="https://creativecommons.org/licenses/by/4.0/"/>
+    </source>
+    <!--
+    <source name="go" type="go" version="5.0.3">
+      <property name="src.data.file" location="/db/maizemine_v1.4/datasets/ontologies/GO/go.obo"/>
+      <property name="createrelations" value="true"/>
+      <property name="licence" value="https://creativecommons.org/licenses/by/4.0/"/>
+    </source>
+    -->
+    <source name="evidence-ontology" type="evidence-ontology" version="5.0.3">
+      <property name="src.data.file" location="/db/maizemine_v1.4/datasets/ontologies/ECO/eco.obo"/>
+    </source>
+    <source name="plant-ontology" type="plant-ontology" version="5.0.3">
+      <property name="src.data.file" location="/db/maizemine_v1.4/datasets/ontologies/PO/po.obo"/>
+    </source>
+
+
+    <!--SNP-->
+    <!--not included in test-->
+
+    <!--Genome Fasta-->
+
+    <source name="maize-dna-v5-fasta" type="maize-fasta" version="5.0.3">
+      <property name="maize-fasta.taxonId" value="4577"/>
+      <property name="maize-fasta.dataSourceName" value="Zea mays Genome Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="maize-fasta.dataSetTitle" value="Zea mays Genome Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="maize-fasta.className" value="org.intermine.model.bio.Chromosome"/>
+      <property name="maize-fasta.sequenceType" value="dna"/>
+      <property name="maize-fasta.assemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="maize-fasta.loaderClassName" value="org.intermine.bio.dataconversion.MaizeFastaLoaderTask"/>
+      <property name="maize-fasta.includes" value="*.fa"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/genome/zea_mays/Zm-B73-REFERENCE-NAM-5.0/"/>
+    </source>
+
+    <!--MaizeGDB GFF-->
+
+<!--
+   <source name="maize-gene-model-v5-gff" type="maize-gff" version="5.0.3">
+      <property name="gff3.seqClsName" value="Chromosome"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="gff3.taxonId" value="4577"/>
+      <property name="gff3.dataSourceName" value="Zm00001eb.1"/>
+      <property name="gff3.dataSetTitle" value="Zm00001eb.1 gene set for Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/MaizeGDB/annotations/zea_mays/Zm-B73-REFERENCE-NAM-5.0"/>
+    </source>
+-->
+
+    <!--RefSeq GFF-->
+    <!--Protein-coding and noncoding combined into one source now-->
+
+    <source name="maize-refseq-gff" type="refseq-gff" version="5.0.3">
+      <property name="gff3.taxonId" value="4577"/>
+      <property name="gff3.seqClsName" value="Chromosome"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="gff3.dataSourceName" value="RefSeq"/>
+      <property name="gff3.dataSetTitle" value="NCBI RefSeq gene set for Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/RefSeq/annotations/zea_mays/Zm-B73-REFERENCE-NAM-5.0"/>
+    </source>
+
+    <!--Other GFF-->
+    <!--not included in test-->
+
+
+    <!--MaizeGDB CDS and Protein Fasta-->
+
+<!--
+    <source name="maize-cds-v5-fasta" type="maize-fasta" version="5.0.3">
+      <property name="maize-fasta.taxonId" value="4577"/>
+      <property name="maize-fasta.dataSourceName" value="Zm00001eb.1"/>
+      <property name="maize-fasta.dataSetTitle" value="Coding sequences from Zm00001eb.1 for Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="maize-fasta.className" value="org.intermine.model.bio.CodingSequence"/>
+      <property name="maize-fasta.classAttribute" value="primaryIdentifier"/>
+      <property name="maize-fasta.geneSource" value="Zm00001eb.1"/>
+      <property name="maize-fasta.includes" value="*.fa"/>
+      <property name="maize-fasta.sequenceType" value="dna"/>
+      <property name="maize-fasta.idSuffix" value="-CDS"/>
+      <property name="maize-fasta.loaderClassName" value="org.intermine.bio.dataconversion.MaizeCDSFastaLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/MaizeGDB/cds_fasta/zea_mays/Zm-B73-REFERENCE-NAM-5.0"/>
+    </source>
+    <source name="maize-pep-v5-fasta" type="maize-fasta" version="5.0.3">
+      <property name="maize-fasta.taxonId" value="4577"/>
+      <property name="maize-fasta.dataSourceName" value="Zm00001eb.1"/>
+      <property name="maize-fasta.dataSetTitle" value="Protein sequences from Zm00001eb.1 for Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="maize-fasta.className" value="org.intermine.model.bio.Polypeptide"/>
+      <property name="maize-fasta.classAttribute" value="primaryIdentifier"/>
+      <property name="maize-fasta.sequenceType" value="protein"/>
+      <property name="maize-fasta.geneSource" value="Zm00001eb.1"/>
+      <property name="maize-fasta.includes" value="*.fa"/>
+      <property name="maize-fasta.loaderClassName" value="org.intermine.bio.dataconversion.MaizeProteinFastaLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/MaizeGDB/protein_fasta/zea_mays/Zm-B73-REFERENCE-NAM-5.0"/>
+    </source>
+-->
+
+    <!--RefSeq CDS and Protein Fasta-->
+
+<!--
+    <source name="maize-cds-refseq-fasta" type="maize-fasta" version="5.0.3">
+      <property name="maize-fasta.taxonId" value="4577"/>
+      <property name="maize-fasta.dataSourceName" value="RefSeq"/>
+      <property name="maize-fasta.dataSetTitle" value="Coding sequences from NCBI for Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="maize-fasta.className" value="org.intermine.model.bio.CodingSequence"/>
+      <property name="maize-fasta.classAttribute" value="primaryIdentifier"/>
+      <property name="maize-fasta.geneSource" value="RefSeq"/>
+      <property name="maize-fasta.includes" value="*.fa"/>
+      <property name="maize-fasta.sequenceType" value="dna"/>
+      <property name="maize-fasta.idSuffix" value="-CDS"/>
+      <property name="maize-fasta.loaderClassName" value="org.intermine.bio.dataconversion.MaizeCDSFastaLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/RefSeq/cds_fasta/zea_mays/Zm-B73-REFERENCE-NAM-5.0"/>
+    </source>
+    <source name="maize-protein-refseq-fasta" type="maize-fasta" version="5.0.3">
+      <property name="maize-fasta.taxonId" value="4577"/>
+      <property name="maize-fasta.dataSourceName" value="RefSeq"/>
+      <property name="maize-fasta.dataSetTitle" value="Protein sequences from NCBI for Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="maize-fasta.className" value="org.intermine.model.bio.Polypeptide"/>
+      <property name="maize-fasta.classAttribute" value="primaryIdentifier"/>
+      <property name="maize-fasta.sequenceType" value="protein"/>
+      <property name="maize-fasta.geneSource" value="RefSeq"/>
+      <property name="maize-fasta.includes" value="*.fa"/>
+      <property name="maize-fasta.loaderClassName" value="org.intermine.bio.dataconversion.MaizeProteinFastaLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/RefSeq/protein_fasta/zea_mays/Zm-B73-REFERENCE-NAM-5.0"/>
+    </source>
+-->
+
+    <!--xRef-->
+<!--
+    <source name="maize-xref" type="cross-references" version="5.0.3">
+      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/xref/zea_mays"/>
+      <property name="taxonId" value="4577"/>
+    </source>
+-->
+
+    <!--Expression-->
+    <!--not included in test-->
+
+
+    <!--Reactome-Gramene-->
+    <!--not included in test-->
+
+
+    <!-- KEGG -->
+    <!--not included in test-->
+
+
+    <!--UniProt-->
+
+    <!--First iteration UniProt-->
+<!--
+    <source name="maize-uniprot-to-refseq" type="maize-uniprot" version="5.0.3">
+      <property name="uniprot.organisms" value="4577"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/uniprot"/>
+      <property name="creatego" value="true"/>
+      <property name="creategenes" value="true"/>
+      <property name="allowduplicates" value="false"/>
+      <property name="loadfragments" value="false"/>
+      <property name="loadtrembl" value="true"/>
+      <property name="configFile" value="maize-uniprot_config_first_iteration.properties"/>
+    </source>
+-->
+
+    <!--Second iteration UniProt-->
+<!--
+    <source name="maize-uniprot-to-gramene" type="maize-uniprot" version="5.0.3">
+      <property name="uniprot.organisms" value="4577"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/uniprot"/>
+      <property name="creatego" value="true"/>
+      <property name="creategenes" value="true"/>
+      <property name="allowduplicates" value="false"/>
+      <property name="loadfragments" value="false"/>
+      <property name="loadtrembl" value="true"/>
+      <property name="configFile" value="maize-uniprot_config_second_iteration.properties"/>
+    </source>
+-->
+
+    <!--NOT USING - Third iteration UniProt-->
+    <!--
+    <source name="maize-uniprot-to-ensemblplants" type="maize-uniprot" version="5.0.3">
+      <property name="uniprot.organisms" value="4577"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/uniprot"/>
+      <property name="creatego" value="false"/>
+      <property name="creategenes" value="true"/>
+      <property name="allowduplicates" value="false"/>
+      <property name="loadfragments" value="false"/>
+      <property name="loadtrembl" value="true"/>
+      <property name="configFile" value="maize-uniprot_config_third_iteration.properties"/>
+    </source>
+    -->
+
+
+    <!--UniProt-Fasta-->
+<!--
+    <source name="uniprot-fasta" type="fasta" version="5.0.3">
+      <property name="fasta.taxonId" value="4577"/>
+      <property name="fasta.className" value="org.intermine.model.bio.Protein"/>
+      <property name="fasta.classAttribute" value="primaryAccession"/>
+      <property name="fasta.dataSourceName" value="UniProt"/>
+      <property name="fasta.dataSetTitle" value="Fasta sequence for proteins from UniProt"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/uniprot"/>
+      <property name="fasta.includes" value="uniprot_sprot_varsplic.fasta"/>
+      <property name="fasta.sequenceType" value="protein"/>
+      <property name="fasta.loaderClassName" value="org.intermine.bio.dataconversion.UniProtFastaLoaderTask"/>
+    </source>
+-->
+
+    <!--UniProt-keywords-->
+<!--
+    <source name="uniprot-keywords" type="uniprot-keywords" version="5.0.3">
+      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/uniprot"/>
+      <property name="src.data.dir.includes" value="keywlist.xml"/>
+    </source>
+-->
+
+    <!--InterPro-->
+    <!--not included in test-->
+
+
+    <!--InterPro to protein (protein2ipr)-->
+    <!--not included in test-->
+
+
+    <!--BioMart-->
+    <!--BioMart must be loaded only AFTER all other gff files!-->
+    <!--not included in test-->
+
+
+    <!-- Load these last three sources at the end, after all other sources -->
+
+    <!-- Update data sources -->
+
+<!--
+    <source name="update-data-sources" type="update-data-sources" version="5.0.3">
+      <property name="src.data.file" location="datasources.xml"/>
+      <property name="dataSourceFile" value="/db/maizemine_v1.4/datasets/uniprot/xrefs/dbxref.txt"/>
+    </source>
+-->
+
+    <!-- NCBI Entrez -->
+
+<!--
+    <source name="update-publications" type="update-publications-key" version="5.0.3">
+      <property name="src.data.file" location="publications.xml"/>
+      <property name="loadFullRecord" value="true"/>
+    </source>
+    <source name="entrez-organism" type="entrez-organism-key" version="5.0.3">
+      <property name="src.data.file" location="organisms.xml"/>
+    </source>
+-->
+
+  </sources>
+
+  <post-processing>
+
+    <!--Postprocesses beginning with 'maize-' are our customized versions-->
+    <!--post-process name="maize-create-chromosome-locations-and-lengths"/-->
+    <post-process name="create-chromosome-locations-and-lengths"/>
+    <post-process name="create-references"/>
+    <post-process name="maize-transfer-sequences"/>
+    <post-process name="maize-create-overlap-view"/>
+    <post-process name="maize-create-location-overlap-index"/>
+    <post-process name="do-sources"/>
+    <post-process name="create-attribute-indexes"/>
+    <post-process name="create-search-index"/>
+    <post-process name="summarise-objectstore"/>
+    <post-process name="create-autocomplete-index"/>
+
+  </post-processing>
+
+</project>
+

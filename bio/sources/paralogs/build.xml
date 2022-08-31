@@ -1,5 +1,0 @@
-<project name="paralogs" default="default" basedir=".">
-  <description>build, test, package paralogs</description>
-  
-  <import file="../../../imbuild/source.xml"/>
-</project>

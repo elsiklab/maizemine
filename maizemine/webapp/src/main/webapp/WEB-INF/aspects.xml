@@ -1,0 +1,119 @@
+<aspects>
+  <aspect name="Genes">
+    <subtitle>Genome annotation</subtitle>
+    <icon-image>model/images/genomics.gif</icon-image>
+    <large-image>model/images/genomics.gif</large-image>
+    <intro-text>
+      The gene structure and other genome annotation in MaizeMine are provided by
+      a variety of curated source databases.  In most cases MaizeMine includes
+      all genome features that have chromosomal locations.
+    </intro-text>
+    <tile-name>model/genomics.jsp</tile-name>
+    <aspect-source name="GeneDB" url="http://www.genedb.org"/>
+    <aspect-source name="NCBI" url="http://www.ncbi.nlm.nih.gov"/>
+  </aspect>
+
+  <aspect name="Alias and DBxref">
+    <subtitle>Alias and DBxref</subtitle>
+    <icon-image>model/images/</icon-image>
+    <large-image>model/images/</large-image>
+    <intro-text>
+      Alias and DBxref
+    </intro-text>
+    <tile-name>model/alias.jsp</tile-name>
+    <aspect-source name="Alias and DBxref"/>
+  </aspect>
+
+  <aspect name="Transcript">
+    <subtitle>Transcript</subtitle>
+    <icon-image>model/images/genomics.gif</icon-image>
+    <large-image>model/images/genomics.gif</large-image>
+    <intro-text>
+      Transcript
+    </intro-text>
+    <tile-name>model/transcripts.jsp</tile-name>
+    <aspect-source name="GeneDB" url="http://www.genedb.org"/>
+    <aspect-source name="NCBI" url="http://www.ncbi.nlm.nih.gov"/>
+  </aspect>
+
+  <aspect name="Gene Expression">
+    <subtitle>Gene Expression</subtitle>
+    <icon-image>model/images/marray.gif</icon-image>
+    <large-image>model/images/marray.gif</large-image>
+    <intro-text>
+      Gene Expression
+    </intro-text>
+    <tile-name>model/Gene_expression.jsp</tile-name>
+    <aspect-source name="NCBI-SRA" url="http://www.ncbi.nlm.nih.gov/sra/"/>
+  </aspect>
+
+  <aspect name="Protein">
+    <subtitle>Protein and proteomics data</subtitle>
+    <icon-image>model/images/proteins.png</icon-image>
+    <large-image>model/images/proteins.png</large-image>
+    <intro-text>
+      Protein annotation (including family and domain annotation) from UniProt.
+    </intro-text>
+    <tile-name>model/proteins.jsp</tile-name>
+    <aspect-source name="UniProt" url="http://www.uniprot.org"/>
+  </aspect>
+
+  <aspect name="Variation">
+    <subtitle>Variation</subtitle>
+    <icon-image>model/images/</icon-image>
+    <large-image>model/images/</large-image>
+    <intro-text>
+      Variation
+    </intro-text>
+    <tile-name>model/variation.jsp</tile-name>
+    <aspect-source name="dbSNP" url="http://www.ncbi.nlm.nih.gov/SNP/"/>
+  </aspect>
+
+  <aspect name="Entire Gene Set">
+    <subtitle>Entire Gene Set</subtitle>
+    <icon-image>model/images/</icon-image>
+    <large-image>model/images/</large-image>
+    <intro-text>
+      Entire Gene Set
+    </intro-text>
+    <tile-name>model/entiregeneset.jsp</tile-name>
+    <aspect-source name="Entire Gene Set"/>
+  </aspect>
+
+  <aspect name="Function">
+    <subtitle>GO</subtitle>
+    <icon-image>model/images/geneOntology.png</icon-image>
+    <large-image>model/images/geneOntology.png</large-image>
+    <intro-text>
+      Gene Ontology
+    </intro-text>
+    <tile-name>model/genes.jsp</tile-name>
+    <aspect-source name="GO" url="http://www.geneontology.org/"/>
+    <aspect-source name="InterPro" url="http://www.ebi.ac.uk/interpro/"/>
+    <aspect-source name="KEGG" url="http://www.genome.jp/kegg/"/>
+    <aspect-source name="Reactome Gramene" url="http://plantreactome.gramene.org/download/"/>
+  </aspect>
+
+  <aspect name="Homology">
+    <subtitle>Orthologues and paralogues</subtitle>
+    <icon-image>model/images/comparativeGenomics.png</icon-image>
+    <large-image>model/images/comparativeGenomics.png</large-image>
+    <intro-text>
+      Orthologues and Paralogues.
+    </intro-text>
+    <tile-name>model/homology.jsp</tile-name>
+    <aspect-source name="Ensembl Plant" url="http://plants.ensembl.org/info/website/ftp/index.html"/>
+  </aspect>
+
+  <aspect name="Publications">
+    <subtitle>Publications</subtitle>
+    <icon-image>model/images/PubMed_logo_large.png</icon-image>
+    <large-image>model/images/PubMed_logo_large.png</large-image>
+    <intro-text>
+      Publications
+    </intro-text>
+    <tile-name>model/publications.jsp</tile-name>
+    <aspect-source name="Publications" url="http://www.ncbi.nlm.nih.gov/pubmed"/>
+  </aspect>
+</aspects>
+

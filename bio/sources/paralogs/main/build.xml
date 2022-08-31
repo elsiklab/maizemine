@@ -1,4 +1,0 @@
-<project name="paralogs-tasks" default="default" basedir=".">
-  <description>build paralogs tasks</description>
-  <import file="../../../../imbuild/library.xml"/> 
-</project>

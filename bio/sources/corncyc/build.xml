@@ -1,5 +1,0 @@
-<project name="corncyc" default="default" basedir=".">
-  <description>build, test, package corncyc</description>
-  
-  <import file="../../../imbuild/source.xml"/>
-</project>

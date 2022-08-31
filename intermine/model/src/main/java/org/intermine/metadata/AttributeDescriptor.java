@@ -1,0 +1,150 @@
+package org.intermine.metadata;
+
+/*
+ * Copyright (C) 2002-2021 FlyMine
+ *
+ * This code may be freely distributed and modified under the
+ * terms of the GNU Lesser General Public Licence.  This should
+ * be distributed with the code.  See the LICENSE file for more
+ * information or http://www.gnu.org/copyleft/lesser.html.
+ *
+ */
+
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+/**
+ * Describes an attribute of a class - i.e. a field that is neither an object
+ * reference or a collection.
+ *
+ * @author Richard Smith
+ */
+
+public class AttributeDescriptor extends FieldDescriptor
+{
+    protected final String type, fairTerm;
+    /**
+     * This is a list of the valid type strings.
+     */
+    public static final Set<String> VALID_TYPES = new LinkedHashSet<String>(Arrays.asList("short",
+            "int", "long", "float", "double", "boolean", "java.lang.Short", "java.lang.Integer",
+            "java.lang.Long", "java.lang.Float", "java.lang.Double", "java.lang.Boolean",
+            "java.lang.String", "java.util.Date", "java.math.BigDecimal", "java.util.UUID",
+            "org.intermine.objectstore.query.ClobAccess"));
+
+    /**
+     * Construct, name and type cannot be null.
+     * @param name name of field in the class
+     * @param type name of primitive or a fully qualified class name
+     * @param fairTerm URI pointing to an ontology term describing this attribute. can be null.
+     * @throws IllegalArgumentException if arguments are null
+     */
+    public AttributeDescriptor(String name, String type, String fairTerm) {
+        super(name);
+        if (type == null || "".equals(type)) {
+            throw new IllegalArgumentException("Type cannot be null or empty");
+        }
+        if (!VALID_TYPES.contains(type)) {
+            throw new IllegalArgumentException("Type \"" + type + "\" is not valid - must be one"
+                    + " of " + VALID_TYPES);
+        }
+        this.type = type;
+        this.fairTerm = fairTerm;
+    }
+
+    /**
+     * Get the type of the attribute - either name of primitive or fully qualified
+     * class name.
+     * @return type of attribute
+     */
+    public String getType() {
+        return this.type;
+    }
+
+    /**
+     * Get the term for the attribute - a URI pointing to an ontology term describing this
+     * attribute. Can be null.
+     *
+     * @return term describing this attribute
+     */
+    public String getFairTerm() {
+        return fairTerm;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int relationType() {
+        return NOT_RELATION;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof AttributeDescriptor) {
+            AttributeDescriptor attr = (AttributeDescriptor) obj;
+            return name.equals(attr.name)
+                && type.equals(attr.type);
+        }
+        return false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        return 3 * name.hashCode()
+            + 7 * type.hashCode();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        if (fairTerm != null) {
+            return "<attribute name=\"" + name + "\" type=\"" + type + "\" "
+                    + "term=\"" + fairTerm + "\"/>";
+        }
+        return "<attribute name=\"" + name + "\" type=\"" + type + "\"/>";
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toJSONString() {
+        if (fairTerm != null) {
+            return "{\"name\":\"" + name + "\",\"type\":\"" + type + "\",\"term\":\"" + fairTerm
+                    + "\"}";
+        }
+        return "{\"name\":\"" + name + "\",\"type\":\"" + type + "\"}";
+    }
+
+    /**
+     * Returns true if the type of the attribute is a primitive type (rather than object).
+     *
+     * @return true or false
+     */
+    public boolean isPrimitive() {
+        return "short".equals(type) || "int".equals(type) || "long".equals(type)
+            || "float".equals(type) || "double".equals(type) || "boolean".equals(type);
+    }
+
+    /**
+     * Returns true if the type of the attribute is some kind of number.
+     * @return true or false.
+     */
+    public boolean isNumeric() {
+        return "short".equals(type)     || "java.lang.Short".equals(type)
+                || "int".equals(type)    || "java.lang.Integer".equals(type)
+                || "long".equals(type)   || "java.lang.Long".equals(type)
+                || "float".equals(type)  || "java.lang.Float".equals(type)
+                || "double".equals(type) || "java.lang.Double".equals(type);
+    }
+}

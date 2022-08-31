@@ -1,4 +1,0 @@
-<project name="maize-expression-gene-tasks" default="default" basedir=".">
-  <description>build maize-expression-gene tasks</description>
-  <import file="../../../../imbuild/library.xml"/> 
-</project>

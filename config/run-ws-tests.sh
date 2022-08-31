@@ -12,18 +12,19 @@ if [ "$CLIENT" = "JS" ]; then
         exit 1
     fi
 
-    npm install # installs deps and runs tests.
+    # Installing acorn before everything else prevents a bizarre error
+    # where the installation fails saying it's missing acorn
+    # The error only happens in a fresh environment without node_modules and
+    # bower_components installed, so devs don't usually see the error,
+    # but Travis always does.
+    npm install acorn
+    npm install # installs deps
+    grunt test  # runs tests
 
 elif [ "$CLIENT" = "PY" ]; then
 
-    # No dependencies.
+    pip install -r requirements.txt
     python setup.py test
     python setup.py livetest
 
-fi
-
-cd ..
-
-if [ -e someone.jwt ]; then
-    ./config/lib/check_jwt.py < someone.jwt
 fi

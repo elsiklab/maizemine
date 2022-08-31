@@ -1,4 +1,0 @@
-<project name="corncyc-tasks" default="default" basedir=".">
-  <description>build corncyc tasks</description>
-  <import file="../../../../imbuild/library.xml"/> 
-</project>
