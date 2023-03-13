@@ -1,7 +1,7 @@
 package org.intermine.bio.dataconversion;
 
 /*
- * Copyright (C) 2002-2021 FlyMine
+ * Copyright (C) 2002-2022 FlyMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
@@ -117,6 +117,10 @@ public class InterProConverter extends BioFileConverter
                 String dbkey = attrs.getValue("dbkey");
 //                String name = attrs.getValue("name");
                 String db = attrs.getValue("db");
+                // Change "PFAM" to "Pfam" to merge with source name in dbxref.txt
+                if ("PFAM".equals(db)) {
+                    db = "Pfam";
+                }
                 try {
                     Item item = createCrossReference(proteinDomain.getIdentifier(), dbkey,
                             db, false);

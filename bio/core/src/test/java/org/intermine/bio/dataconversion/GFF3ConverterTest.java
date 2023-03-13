@@ -1,7 +1,7 @@
 package org.intermine.bio.dataconversion;
 
 /*
- * Copyright (C) 2002-2021 FlyMine
+ * Copyright (C) 2002-2022 FlyMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
@@ -41,7 +41,6 @@ public class GFF3ConverterTest extends ItemsTestCase {
 
     MockItemWriter writer = new MockItemWriter(new LinkedHashMap<String, Item>());
     String seqClsName = "Chromosome";
-//    String seqAssemblyVersion = "testAssembly";
     String flyTaxonId = "7227";
     String ratTaxonId = "10116";
     String thaleTaxonId = "3702";
@@ -51,9 +50,6 @@ public class GFF3ConverterTest extends ItemsTestCase {
 
     public void setUp() throws Exception {
         Model tgtModel = Model.getInstanceByName("genomic");
-//        converter = new GFF3Converter(writer, seqClsName, seqAssemblyVersion, flyTaxonId, dataSourceName,
-//                                      dataSetTitle, tgtModel,
-//                                      new GFF3RecordHandler(tgtModel), null, licence);
         converter = new GFF3Converter(writer, seqClsName, flyTaxonId, dataSourceName,
                                       dataSetTitle, tgtModel,
                                       new GFF3RecordHandler(tgtModel), null, licence);
@@ -124,7 +120,6 @@ public class GFF3ConverterTest extends ItemsTestCase {
 //            10116.attributes.ID=primaryIdentifier
 //            10116.gene.attributes.ID=secondaryIdentifier
 //            10116.attributes.Note=description
-//            10116.mRNA.attributes.Type=scoreType
 //            10116.attributes.Dbxref.EntrezGene=ncbiGeneNumber
 //            10116.attributes.Dbxref.EnsemblGenes=synonym
 //        */
@@ -154,9 +149,6 @@ public class GFF3ConverterTest extends ItemsTestCase {
             3702.attributes.Note=briefDescription
         */
         Model tgtModel = Model.getInstanceByName("genomic");
-//        converter = new GFF3Converter(writer, seqClsName, seqAssemblyVersion, thaleTaxonId, dataSourceName,
-//                dataSetTitle, tgtModel,
-//                new GFF3RecordHandler(tgtModel), null, licence);
         converter = new GFF3Converter(writer, seqClsName, thaleTaxonId, dataSourceName,
                 dataSetTitle, tgtModel,
                 new GFF3RecordHandler(tgtModel), null, licence);

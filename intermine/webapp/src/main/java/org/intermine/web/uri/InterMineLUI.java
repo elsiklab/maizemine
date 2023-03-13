@@ -1,7 +1,7 @@
 package org.intermine.web.uri;
 
 /*
- * Copyright (C) 2002-2021 FlyMine
+ * Copyright (C) 2002-2022 FlyMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
@@ -10,7 +10,6 @@ package org.intermine.web.uri;
  *
  */
 
-import org.apache.log4j.Logger;
 import org.intermine.metadata.Model;
 
 import java.io.UnsupportedEncodingException;
@@ -33,7 +32,6 @@ public class InterMineLUI
     private String className;
     private static final String LOCAL_ID_SEPARATOR = ":";
     private String identifier;
-    private static final Logger LOGGER = Logger.getLogger(InterMineLUI.class);
 
     /**
      * Constructor. Build a InterMineLUI given prefix and LUI

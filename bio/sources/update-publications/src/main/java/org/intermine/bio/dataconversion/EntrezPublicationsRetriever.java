@@ -1,7 +1,7 @@
 package org.intermine.bio.dataconversion;
 
 /*
- * Copyright (C) 2002-2021 FlyMine
+ * Copyright (C) 2002-2022 FlyMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
@@ -47,6 +47,7 @@ import org.intermine.objectstore.query.Query;
 import org.intermine.objectstore.query.QueryClass;
 import org.intermine.objectstore.query.QueryField;
 import org.intermine.objectstore.query.SimpleConstraint;
+import org.intermine.util.PropertiesUtil;
 import org.intermine.util.SAXParser;
 import org.intermine.xml.full.FullRenderer;
 import org.intermine.xml.full.Item;
@@ -93,6 +94,7 @@ public class EntrezPublicationsRetriever
     private boolean loadFullRecord = false;
     private Map<String, Item> meshTerms = new HashMap<String, Item>();
     private static final int POSTGRES_INDEX_SIZE = 2712;
+    protected static final String PROP_KEY = "ncbi.eutils.apiKey";
 
     /**
      * Load summary version of Publication record by default. If this boolean (loadFullRecord)
@@ -213,6 +215,7 @@ public class EntrezPublicationsRetriever
                 thisBatch.add(pubMedIdInteger);
                 if (thisBatch.size() == BATCH_SIZE || !idIter.hasNext() && thisBatch.size() > 0) {
                     try {
+                        LOG.info("Processing new batch");
                         // the server may return less publications than we ask for, so keep a Map
                         Map<String, Map<String, Object>> fromServerMap = null;
 
@@ -355,6 +358,9 @@ public class EntrezPublicationsRetriever
          * e-mail: norbert.auer@boku.ac.at
          */
 
+        // See: https://github.com/intermine/intermine/issues/2196
+        Thread.sleep(500);
+
         String urlString = ESUMMARY_URL;
         if (loadFullRecord) {
             urlString = EFETCH_URL;
@@ -368,8 +374,15 @@ public class EntrezPublicationsRetriever
         // con.setRequestProperty("User-Agent", USER_AGENT);
         con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
-        String urlParameters = "tool=intermine&db=pubmed&rettype=abstract&retmode=xml&id="
-                + StringUtil.join(ids, ",");
+        // Use API key if present
+        String entrezApiKey = PropertiesUtil.getProperties().getProperty(PROP_KEY);
+        String urlParameters = "tool=intermine&db=pubmed&rettype=abstract&retmode=xml";
+        if (entrezApiKey != null) {
+            urlParameters += "&api_key=" + entrezApiKey;
+        }
+        urlParameters += "&id=" + StringUtil.join(ids, ",");
+        //String urlParameters = "tool=intermine&db=pubmed&rettype=abstract&retmode=xml&id="
+        //        + StringUtil.join(ids, ",");
 
         // Send post request
         con.setDoOutput(true);
@@ -379,6 +392,7 @@ public class EntrezPublicationsRetriever
         wr.close();
 
         int responseCode = con.getResponseCode();
+        LOG.info("Eutils response code: " + responseCode);
 
         return new BufferedReader(new InputStreamReader(con.getInputStream()));
     }

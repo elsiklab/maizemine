@@ -1,7 +1,7 @@
 package org.intermine.metadata;
 
 /*
- * Copyright (C) 2002-2021 FlyMine
+ * Copyright (C) 2002-2022 FlyMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
@@ -354,7 +354,7 @@ public class Model
 
                 classes.put(cld.getUnqualifiedName(), classData);
                 classData.put("name", cld.getUnqualifiedName());
-                classData.put("term", cld.getFairTerm());
+                classData.put("term", cld.getOntologyTerm());
                 classData.put("extends", parents);
                 for (String parent: cld.getSuperclassNames()) {
                     parents.add(parent.substring(parent.lastIndexOf(".") + 1));

@@ -3,7 +3,6 @@ antisense_RNA
 binding_site
 cDNA_clone
 CDS
-CRM
 chromosomal_deletion
 chromosomal_duplication
 chromosomal_inversion
@@ -22,6 +21,7 @@ golden_path_fragment
 intergenic_region
 intron
 lincRNA
+lncRNA
 mRNA
 miRNA
 microarray_oligo

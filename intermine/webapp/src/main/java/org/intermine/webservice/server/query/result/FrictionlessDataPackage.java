@@ -1,7 +1,7 @@
 package org.intermine.webservice.server.query.result;
 
 /*
- * Copyright (C) 2002-2021 FlyMine
+ * Copyright (C) 2002-2022 FlyMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
@@ -99,9 +99,9 @@ public class FrictionlessDataPackage
                 columnDetails.put("type", type);
                 columnDetails.put("class path", friendlyPath);
                 columnDetails.put("class ontology link",
-                        p.getLastClassDescriptor().getFairTerm());
+                        p.getLastClassDescriptor().getOntologyTerm());
                 columnDetails.put("attribute ontology link",
-                        ((AttributeDescriptor) p.getEndFieldDescriptor()).getFairTerm());
+                        ((AttributeDescriptor) p.getEndFieldDescriptor()).getOntologyTerm());
 
                 // add the column details object in fields array
                 fields.add(columnDetails);

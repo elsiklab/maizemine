@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <project type="bio">
   <property name="target.model" value="genomic"/>
   <property name="common.os.prefix" value="common"/>
@@ -7,257 +8,1286 @@
   <sources>
 
     <!--Ontologies-->
-
-    <source name="so" type="so" version="5.0.3">
-      <!--property name="src.data.file" location="so.obo"/-->
-      <property name="src.data.file" location="/db/maizemine_v1.4/datasets/ontologies/SO/so.obo"/>
+    <source name="so" type="so" version="5.1.0">
+      <property name="src.data.file" location="so.obo"/>
       <property name="licence" value="https://creativecommons.org/licenses/by/4.0/"/>
     </source>
-    <source name="go" type="go" version="5.0.3">
-      <property name="src.data.file" location="/db/maizemine_v1.4/datasets/ontologies/GO/go.obo"/>
+    <source name="go" type="go" version="5.1.0">
+      <property name="src.data.file" location="/db/maizemine_v1.5/datasets/ontologies/GO/go.obo"/>
       <property name="createrelations" value="true"/>
       <property name="licence" value="https://creativecommons.org/licenses/by/4.0/"/>
     </source>
-    <source name="evidence-ontology" type="evidence-ontology" version="5.0.3">
-      <property name="src.data.file" location="/db/maizemine_v1.4/datasets/ontologies/ECO/eco.obo"/>
+    <source name="evidence-ontology" type="evidence-ontology" version="5.1.0">
+      <property name="src.data.file" location="/db/maizemine_v1.5/datasets/ontologies/ECO/eco.obo"/>
     </source>
-    <source name="plant-ontology" type="plant-ontology" version="5.0.3">
-      <property name="src.data.file" location="/db/maizemine_v1.4/datasets/ontologies/PO/po.obo"/>
+    <source name="plant-ontology" type="plant-ontology" version="5.1.0">
+      <property name="src.data.file" location="/db/maizemine_v1.5/datasets/ontologies/PO/po.obo"/>
     </source>
 
 
     <!--SNP-->
+    <source name="zmay-snp-variation-part_I" type="snp-variation" version="5.1.0">
+      <property name="snp-variation.dataSetTitle" value="Variants and Variant Effects from EnsemblPlants"/>
+      <property name="snp-variation.dataSourceName" value="EnsemblPlants"/>
+      <property name="snp-variation.taxonId" value="4577"/>
+      <property name="snp-variation.assemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="snp-variation.geneSource" value="B73 Zm00001eb.1"/>
+      <property name="snp-variation.includes" value="*.vcf"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/SNP/zea_mays/Zm-B73-REFERENCE-NAM-5.0/part_I"/>
+    </source>
+    <source name="zmay-snp-variation-part_II" type="snp-variation" version="5.1.0">
+      <property name="snp-variation.dataSetTitle" value="Variants and Variant Effects from EnsemblPlants"/>
+      <property name="snp-variation.dataSourceName" value="EnsemblPlants"/>
+      <property name="snp-variation.taxonId" value="4577"/>
+      <property name="snp-variation.assemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="snp-variation.geneSource" value="B73 Zm00001eb.1"/>
+      <property name="snp-variation.includes" value="*.vcf"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/SNP/zea_mays/Zm-B73-REFERENCE-NAM-5.0/part_II"/>
+    </source>
+    <source name="zmay-snp-variation-part_III" type="snp-variation" version="5.1.0">
+      <property name="snp-variation.dataSetTitle" value="Variants and Variant Effects from EnsemblPlants"/>
+      <property name="snp-variation.dataSourceName" value="EnsemblPlants"/>
+      <property name="snp-variation.taxonId" value="4577"/>
+      <property name="snp-variation.assemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="snp-variation.geneSource" value="B73 Zm00001eb.1"/>
+      <property name="snp-variation.includes" value="*.vcf"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/SNP/zea_mays/Zm-B73-REFERENCE-NAM-5.0/part_III"/>
+    </source>
+    <source name="zmay-snp-variation-part_IV" type="snp-variation" version="5.1.0">
+      <property name="snp-variation.dataSetTitle" value="Variants and Variant Effects from EnsemblPlants"/>
+      <property name="snp-variation.dataSourceName" value="EnsemblPlants"/>
+      <property name="snp-variation.taxonId" value="4577"/>
+      <property name="snp-variation.assemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="snp-variation.geneSource" value="B73 Zm00001eb.1"/>
+      <property name="snp-variation.includes" value="*.vcf"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/SNP/zea_mays/Zm-B73-REFERENCE-NAM-5.0/part_IV"/>
+    </source>
 
-    <source name="snp-variation-part1" type="snp-variation" version="5.0.3">
-      <property name="snp-variation.taxonId" value="4577"/>
-      <property name="snp-variation.assemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
-      <property name="snp-variation.geneSource" value="Zm00001eb.1"/>
-      <property name="snp-variation.includes" value="*.vcf"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/SNP/zea_mays/Zm-B73-REFERENCE-NAM-5.0/part_I"/>
-    </source>
-    <source name="snp-variation-part2" type="snp-variation" version="5.0.3">
-      <property name="snp-variation.taxonId" value="4577"/>
-      <property name="snp-variation.assemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
-      <property name="snp-variation.geneSource" value="Zm00001eb.1"/>
-      <property name="snp-variation.includes" value="*.vcf"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/SNP/zea_mays/Zm-B73-REFERENCE-NAM-5.0/part_II"/>
-    </source>
-    <source name="snp-variation-part3" type="snp-variation" version="5.0.3">
-      <property name="snp-variation.taxonId" value="4577"/>
-      <property name="snp-variation.assemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
-      <property name="snp-variation.geneSource" value="Zm00001eb.1"/>
-      <property name="snp-variation.includes" value="*.vcf"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/SNP/zea_mays/Zm-B73-REFERENCE-NAM-5.0/part_III"/>
-    </source>
-    <source name="snp-variation-part4" type="snp-variation" version="5.0.3">
-      <property name="snp-variation.taxonId" value="4577"/>
-      <property name="snp-variation.assemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
-      <property name="snp-variation.geneSource" value="Zm00001eb.1"/>
-      <property name="snp-variation.includes" value="*.vcf"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/SNP/zea_mays/Zm-B73-REFERENCE-NAM-5.0/part_IV"/>
-    </source>
-    <source name="snp-variation-part5" type="snp-variation" version="5.0.3">
-      <property name="snp-variation.taxonId" value="4577"/>
-      <property name="snp-variation.assemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
-      <property name="snp-variation.geneSource" value="Zm00001eb.1"/>
-      <property name="snp-variation.includes" value="*.vcf"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/SNP/zea_mays/Zm-B73-REFERENCE-NAM-5.0/part_V"/>
-    </source>
-    <source name="snp-variation-part6" type="snp-variation" version="5.0.3">
-      <property name="snp-variation.taxonId" value="4577"/>
-      <property name="snp-variation.assemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
-      <property name="snp-variation.geneSource" value="Zm00001eb.1"/>
-      <property name="snp-variation.includes" value="*.vcf"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/SNP/zea_mays/Zm-B73-REFERENCE-NAM-5.0/part_VI"/>
-    </source>
-    <source name="snp-variation-part7" type="snp-variation" version="5.0.3">
-      <property name="snp-variation.taxonId" value="4577"/>
-      <property name="snp-variation.assemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
-      <property name="snp-variation.geneSource" value="Zm00001eb.1"/>
-      <property name="snp-variation.includes" value="*.vcf"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/SNP/zea_mays/Zm-B73-REFERENCE-NAM-5.0/part_VII"/>
-    </source>
-    <source name="snp-variation-part8" type="snp-variation" version="5.0.3">
-      <property name="snp-variation.taxonId" value="4577"/>
-      <property name="snp-variation.assemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
-      <property name="snp-variation.geneSource" value="Zm00001eb.1"/>
-      <property name="snp-variation.includes" value="*.vcf"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/SNP/zea_mays/Zm-B73-REFERENCE-NAM-5.0/part_VIII"/>
-    </source>
-    <source name="snp-variation-part9" type="snp-variation" version="5.0.3">
-      <property name="snp-variation.taxonId" value="4577"/>
-      <property name="snp-variation.assemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
-      <property name="snp-variation.geneSource" value="Zm00001eb.1"/>
-      <property name="snp-variation.includes" value="*.vcf"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/SNP/zea_mays/Zm-B73-REFERENCE-NAM-5.0/part_IX"/>
-    </source>
-    <source name="snp-variation-part10" type="snp-variation" version="5.0.3">
-      <property name="snp-variation.taxonId" value="4577"/>
-      <property name="snp-variation.assemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
-      <property name="snp-variation.geneSource" value="Zm00001eb.1"/>
-      <property name="snp-variation.includes" value="*.vcf"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/SNP/zea_mays/Zm-B73-REFERENCE-NAM-5.0/part_X"/>
-    </source>
-    <source name="snp-variation-part11" type="snp-variation" version="5.0.3">
-      <property name="snp-variation.taxonId" value="4577"/>
-      <property name="snp-variation.assemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
-      <property name="snp-variation.geneSource" value="Zm00001eb.1"/>
-      <property name="snp-variation.includes" value="*.vcf"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/SNP/zea_mays/Zm-B73-REFERENCE-NAM-5.0/part_XI"/>
-    </source>
 
     <!--Genome Fasta-->
-
-    <source name="maize-dna-v5-fasta" type="maize-fasta" version="5.0.3">
-      <property name="maize-fasta.taxonId" value="4577"/>
-      <property name="maize-fasta.dataSourceName" value="Gramene/MaizeGDB"/>
-      <property name="maize-fasta.dataSetTitle" value="Zea mays Genome Zm-B73-REFERENCE-NAM-5.0"/>
-      <property name="maize-fasta.className" value="org.intermine.model.bio.Chromosome"/>
-      <property name="maize-fasta.sequenceType" value="dna"/>
-      <property name="maize-fasta.assemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
-      <property name="maize-fasta.loaderClassName" value="org.intermine.bio.dataconversion.MaizeFastaLoaderTask"/>
-      <property name="maize-fasta.includes" value="*.fa"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/genome/zea_mays/Zm-B73-REFERENCE-NAM-5.0/"/>
+    <source name="zmay-Zm-B73-REFERENCE-NAM-5.0-fasta" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="Zea mays Genome GCF_902167145.1_Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Genome Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Chromosome"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.assemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.FastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/genome/zea_mays/Zm-B73-REFERENCE-NAM-5.0"/>
     </source>
-
-
-    <!--Maize GFF-->
-
-   <source name="maize-gene-model-v5-gff" type="maize-gff" version="5.0.3">
-      <property name="gff3.seqClsName" value="Chromosome"/>
-      <property name="gff3.seqAssemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
-      <property name="gff3.taxonId" value="4577"/>
-      <property name="gff3.dataSourceName" value="Gramene/MaizeGDB"/>
-      <property name="gff3.dataSetTitle" value="Zm00001eb.1 gene set for Zm-B73-REFERENCE-NAM-5.0"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/MaizeGDB/annotations/zea_mays/Zm-B73-REFERENCE-NAM-5.0"/>
+    <source name="zmay-Zm-B97-REFERENCE-NAM-1.0-fasta" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="Zea mays Genome GCF_902167145.1_Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Genome Zm-B97-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Chromosome"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.assemblyVersion" value="Zm-B97-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.FastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/genome/zea_mays/Zm-B97-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-CML103-REFERENCE-NAM-1.0-fasta" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="Zea mays Genome GCF_902167145.1_Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Genome Zm-CML103-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Chromosome"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.assemblyVersion" value="Zm-CML103-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.FastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/genome/zea_mays/Zm-CML103-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-CML228-REFERENCE-NAM-1.0-fasta" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="Zea mays Genome GCF_902167145.1_Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Genome Zm-CML228-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Chromosome"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.assemblyVersion" value="Zm-CML228-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.FastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/genome/zea_mays/Zm-CML228-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-CML247-REFERENCE-NAM-1.0-fasta" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="Zea mays Genome GCF_902167145.1_Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Genome Zm-CML247-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Chromosome"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.assemblyVersion" value="Zm-CML247-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.FastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/genome/zea_mays/Zm-CML247-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-CML277-REFERENCE-NAM-1.0-fasta" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="Zea mays Genome GCF_902167145.1_Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Genome Zm-CML277-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Chromosome"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.assemblyVersion" value="Zm-CML277-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.FastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/genome/zea_mays/Zm-CML277-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-CML322-REFERENCE-NAM-1.0-fasta" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="Zea mays Genome GCF_902167145.1_Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Genome Zm-CML322-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Chromosome"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.assemblyVersion" value="Zm-CML322-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.FastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/genome/zea_mays/Zm-CML322-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-CML333-REFERENCE-NAM-1.0-fasta" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="Zea mays Genome GCF_902167145.1_Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Genome Zm-CML333-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Chromosome"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.assemblyVersion" value="Zm-CML333-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.FastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/genome/zea_mays/Zm-CML333-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-CML52-REFERENCE-NAM-1.0-fasta" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="Zea mays Genome GCF_902167145.1_Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Genome Zm-CML52-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Chromosome"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.assemblyVersion" value="Zm-CML52-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.FastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/genome/zea_mays/Zm-CML52-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-CML69-REFERENCE-NAM-1.0-fasta" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="Zea mays Genome GCF_902167145.1_Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Genome Zm-CML69-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Chromosome"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.assemblyVersion" value="Zm-CML69-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.FastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/genome/zea_mays/Zm-CML69-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-HP301-REFERENCE-NAM-1.0-fasta" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="Zea mays Genome GCF_902167145.1_Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Genome Zm-HP301-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Chromosome"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.assemblyVersion" value="Zm-HP301-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.FastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/genome/zea_mays/Zm-HP301-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Il14H-REFERENCE-NAM-1.0-fasta" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="Zea mays Genome GCF_902167145.1_Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Genome Zm-Il14H-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Chromosome"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.assemblyVersion" value="Zm-Il14H-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.FastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/genome/zea_mays/Zm-Il14H-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Ki11-REFERENCE-NAM-1.0-fasta" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="Zea mays Genome GCF_902167145.1_Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Genome Zm-Ki11-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Chromosome"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.assemblyVersion" value="Zm-Ki11-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.FastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/genome/zea_mays/Zm-Ki11-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Ki3-REFERENCE-NAM-1.0-fasta" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="Zea mays Genome GCF_902167145.1_Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Genome Zm-Ki3-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Chromosome"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.assemblyVersion" value="Zm-Ki3-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.FastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/genome/zea_mays/Zm-Ki3-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Ky21-REFERENCE-NAM-1.0-fasta" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="Zea mays Genome GCF_902167145.1_Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Genome Zm-Ky21-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Chromosome"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.assemblyVersion" value="Zm-Ky21-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.FastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/genome/zea_mays/Zm-Ky21-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-M162W-REFERENCE-NAM-1.0-fasta" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="Zea mays Genome GCF_902167145.1_Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Genome Zm-M162W-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Chromosome"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.assemblyVersion" value="Zm-M162W-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.FastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/genome/zea_mays/Zm-M162W-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-M37W-REFERENCE-NAM-1.0-fasta" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="Zea mays Genome GCF_902167145.1_Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Genome Zm-M37W-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Chromosome"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.assemblyVersion" value="Zm-M37W-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.FastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/genome/zea_mays/Zm-M37W-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Mo18W-REFERENCE-NAM-1.0-fasta" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="Zea mays Genome GCF_902167145.1_Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Genome Zm-Mo18W-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Chromosome"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.assemblyVersion" value="Zm-Mo18W-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.FastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/genome/zea_mays/Zm-Mo18W-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Ms71-REFERENCE-NAM-1.0-fasta" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="Zea mays Genome GCF_902167145.1_Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Genome Zm-Ms71-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Chromosome"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.assemblyVersion" value="Zm-Ms71-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.FastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/genome/zea_mays/Zm-Ms71-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-NC350-REFERENCE-NAM-1.0-fasta" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="Zea mays Genome GCF_902167145.1_Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Genome Zm-NC350-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Chromosome"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.assemblyVersion" value="Zm-NC350-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.FastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/genome/zea_mays/Zm-NC350-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-NC358-REFERENCE-NAM-1.0-fasta" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="Zea mays Genome GCF_902167145.1_Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Genome Zm-NC358-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Chromosome"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.assemblyVersion" value="Zm-NC358-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.FastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/genome/zea_mays/Zm-NC358-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Oh43-REFERENCE-NAM-1.0-fasta" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="Zea mays Genome GCF_902167145.1_Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Genome Zm-Oh43-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Chromosome"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.assemblyVersion" value="Zm-Oh43-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.FastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/genome/zea_mays/Zm-Oh43-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Oh7B-REFERENCE-NAM-1.0-fasta" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="Zea mays Genome GCF_902167145.1_Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Genome Zm-Oh7B-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Chromosome"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.assemblyVersion" value="Zm-Oh7B-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.FastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/genome/zea_mays/Zm-Oh7B-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-P39-REFERENCE-NAM-1.0-fasta" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="Zea mays Genome GCF_902167145.1_Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Genome Zm-P39-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Chromosome"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.assemblyVersion" value="Zm-P39-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.FastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/genome/zea_mays/Zm-P39-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Tx303-REFERENCE-NAM-1.0-fasta" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="Zea mays Genome GCF_902167145.1_Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Genome Zm-Tx303-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Chromosome"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.assemblyVersion" value="Zm-Tx303-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.FastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/genome/zea_mays/Zm-Tx303-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Tzi8-REFERENCE-NAM-1.0-fasta" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="Zea mays Genome GCF_902167145.1_Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Genome Zm-Tzi8-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Chromosome"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.assemblyVersion" value="Zm-Tzi8-REFERENCE-NAM-1.0"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.FastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/genome/zea_mays/Zm-Tzi8-REFERENCE-NAM-1.0"/>
     </source>
 
 
     <!--RefSeq GFF-->
-    <!--Protein-coding and noncoding combined into one source now-->
-
-    <source name="maize-refseq-gff" type="refseq-gff" version="5.0.3">
+    <source name="zmay-refseq-gff" type="refseq-gff" version="5.1.0">
       <property name="gff3.taxonId" value="4577"/>
+      <property name="gff3.dataSourceName" value="RefSeq"/>
+      <property name="gff3.dataSetTitle" value="Zea mays NCBI RefSeq gene set for Zm-B73-REFERENCE-NAM-5.0"/>
       <property name="gff3.seqClsName" value="Chromosome"/>
       <property name="gff3.seqAssemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
-      <property name="gff3.dataSourceName" value="RefSeq"/>
-      <property name="gff3.dataSetTitle" value="NCBI RefSeq gene set for Zm-B73-REFERENCE-NAM-5.0"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/RefSeq/annotations/zea_mays/Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/RefSeq/annotations/zea_mays/Zm-B73-REFERENCE-NAM-5.0/genes"/>
     </source>
 
 
-    <!--Maize CDS and Protein Fasta-->
-
-    <source name="maize-v5-cds" type="maize-fasta" version="5.0.3">
-      <property name="maize-fasta.taxonId" value="4577"/>
-      <property name="maize-fasta.dataSourceName" value="Gramene/MaizeGDB"/>
-      <property name="maize-fasta.dataSetTitle" value="Coding sequences from Zm00001eb.1 for Zm-B73-REFERENCE-NAM-5.0"/>
-      <property name="maize-fasta.className" value="org.intermine.model.bio.CodingSequence"/>
-      <property name="maize-fasta.classAttribute" value="primaryIdentifier"/>
-      <property name="maize-fasta.geneSource" value="Zm00001eb.1"/>
-      <property name="maize-fasta.includes" value="*.fa"/>
-      <property name="maize-fasta.sequenceType" value="dna"/>
-      <property name="maize-fasta.idSuffix" value="-CDS"/>
-      <property name="maize-fasta.loaderClassName" value="org.intermine.bio.dataconversion.MaizeCDSFastaLoaderTask"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/MaizeGDB/cds_fasta/zea_mays/Zm-B73-REFERENCE-NAM-5.0"/>
+    <!--Maize GFF-->
+    <source name="zmay-Zm-B73-REFERENCE-NAM-5.0-maize-gff" type="maize-gff" version="5.1.0">
+      <property name="gff3.taxonId" value="4577"/>
+      <property name="gff3.dataSourceName" value="MaizeGDB"/>
+      <property name="gff3.dataSetTitle" value="Zea mays B73 Zm00001eb.1 gene set for Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="gff3.seqClsName" value="Chromosome"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/annotations/zea_mays/Zm-B73-REFERENCE-NAM-5.0"/>
     </source>
-    <source name="maize-v5-protein" type="maize-fasta" version="5.0.3">
-      <property name="maize-fasta.taxonId" value="4577"/>
-      <property name="maize-fasta.dataSourceName" value="Gramene/MaizeGDB"/>
-      <property name="maize-fasta.dataSetTitle" value="Protein sequences from Zm00001eb.1 for Zm-B73-REFERENCE-NAM-5.0"/>
-      <property name="maize-fasta.className" value="org.intermine.model.bio.Polypeptide"/>
-      <property name="maize-fasta.classAttribute" value="primaryIdentifier"/>
-      <property name="maize-fasta.sequenceType" value="protein"/>
-      <property name="maize-fasta.geneSource" value="Zm00001eb.1"/>
-      <property name="maize-fasta.includes" value="*.fa"/>
-      <property name="maize-fasta.loaderClassName" value="org.intermine.bio.dataconversion.MaizeProteinFastaLoaderTask"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/MaizeGDB/protein_fasta/zea_mays/Zm-B73-REFERENCE-NAM-5.0"/>
+    <source name="zmay-Zm-B97-REFERENCE-NAM-1.0-maize-gff" type="maize-gff" version="5.1.0">
+      <property name="gff3.taxonId" value="4577"/>
+      <property name="gff3.dataSourceName" value="MaizeGDB"/>
+      <property name="gff3.dataSetTitle" value="Zea mays B97 Zm00018ab.1 gene set for Zm-B97-REFERENCE-NAM-1.0"/>
+      <property name="gff3.seqClsName" value="Chromosome"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-B97-REFERENCE-NAM-1.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/annotations/zea_mays/Zm-B97-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-CML103-REFERENCE-NAM-1.0-maize-gff" type="maize-gff" version="5.1.0">
+      <property name="gff3.taxonId" value="4577"/>
+      <property name="gff3.dataSourceName" value="MaizeGDB"/>
+      <property name="gff3.dataSetTitle" value="Zea mays CML103 Zm00021ab.1 gene set for Zm-CML103-REFERENCE-NAM-1.0"/>
+      <property name="gff3.seqClsName" value="Chromosome"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-CML103-REFERENCE-NAM-1.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/annotations/zea_mays/Zm-CML103-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-CML228-REFERENCE-NAM-1.0-maize-gff" type="maize-gff" version="5.1.0">
+      <property name="gff3.taxonId" value="4577"/>
+      <property name="gff3.dataSourceName" value="MaizeGDB"/>
+      <property name="gff3.dataSetTitle" value="Zea mays CML228 Zm00022ab.1 gene set for Zm-CML228-REFERENCE-NAM-1.0"/>
+      <property name="gff3.seqClsName" value="Chromosome"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-CML228-REFERENCE-NAM-1.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/annotations/zea_mays/Zm-CML228-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-CML247-REFERENCE-NAM-1.0-maize-gff" type="maize-gff" version="5.1.0">
+      <property name="gff3.taxonId" value="4577"/>
+      <property name="gff3.dataSourceName" value="MaizeGDB"/>
+      <property name="gff3.dataSetTitle" value="Zea mays CML247 Zm00023ab.1 gene set for Zm-CML247-REFERENCE-NAM-1.0"/>
+      <property name="gff3.seqClsName" value="Chromosome"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-CML247-REFERENCE-NAM-1.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/annotations/zea_mays/Zm-CML247-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-CML277-REFERENCE-NAM-1.0-maize-gff" type="maize-gff" version="5.1.0">
+      <property name="gff3.taxonId" value="4577"/>
+      <property name="gff3.dataSourceName" value="MaizeGDB"/>
+      <property name="gff3.dataSetTitle" value="Zea mays CML277 Zm00024ab.1 gene set for Zm-CML277-REFERENCE-NAM-1.0"/>
+      <property name="gff3.seqClsName" value="Chromosome"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-CML277-REFERENCE-NAM-1.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/annotations/zea_mays/Zm-CML277-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-CML322-REFERENCE-NAM-1.0-maize-gff" type="maize-gff" version="5.1.0">
+      <property name="gff3.taxonId" value="4577"/>
+      <property name="gff3.dataSourceName" value="MaizeGDB"/>
+      <property name="gff3.dataSetTitle" value="Zea mays CML322 Zm00025ab.1 gene set for Zm-CML322-REFERENCE-NAM-1.0"/>
+      <property name="gff3.seqClsName" value="Chromosome"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-CML322-REFERENCE-NAM-1.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/annotations/zea_mays/Zm-CML322-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-CML333-REFERENCE-NAM-1.0-maize-gff" type="maize-gff" version="5.1.0">
+      <property name="gff3.taxonId" value="4577"/>
+      <property name="gff3.dataSourceName" value="MaizeGDB"/>
+      <property name="gff3.dataSetTitle" value="Zea mays CML333 Zm00026ab.1 gene set for Zm-CML333-REFERENCE-NAM-1.0"/>
+      <property name="gff3.seqClsName" value="Chromosome"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-CML333-REFERENCE-NAM-1.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/annotations/zea_mays/Zm-CML333-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-CML52-REFERENCE-NAM-1.0-maize-gff" type="maize-gff" version="5.1.0">
+      <property name="gff3.taxonId" value="4577"/>
+      <property name="gff3.dataSourceName" value="MaizeGDB"/>
+      <property name="gff3.dataSetTitle" value="Zea mays CML52 Zm00019ab.1 gene set for Zm-CML52-REFERENCE-NAM-1.0"/>
+      <property name="gff3.seqClsName" value="Chromosome"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-CML52-REFERENCE-NAM-1.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/annotations/zea_mays/Zm-CML52-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-CML69-REFERENCE-NAM-1.0-maize-gff" type="maize-gff" version="5.1.0">
+      <property name="gff3.taxonId" value="4577"/>
+      <property name="gff3.dataSourceName" value="MaizeGDB"/>
+      <property name="gff3.dataSetTitle" value="Zea mays CML69 Zm00020ab.1 gene set for Zm-CML69-REFERENCE-NAM-1.0"/>
+      <property name="gff3.seqClsName" value="Chromosome"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-CML69-REFERENCE-NAM-1.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/annotations/zea_mays/Zm-CML69-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-HP301-REFERENCE-NAM-1.0-maize-gff" type="maize-gff" version="5.1.0">
+      <property name="gff3.taxonId" value="4577"/>
+      <property name="gff3.dataSourceName" value="MaizeGDB"/>
+      <property name="gff3.dataSetTitle" value="Zea mays HP301 Zm00027ab.1 gene set for Zm-HP301-REFERENCE-NAM-1.0"/>
+      <property name="gff3.seqClsName" value="Chromosome"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-HP301-REFERENCE-NAM-1.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/annotations/zea_mays/Zm-HP301-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Il14H-REFERENCE-NAM-1.0-maize-gff" type="maize-gff" version="5.1.0">
+      <property name="gff3.taxonId" value="4577"/>
+      <property name="gff3.dataSourceName" value="MaizeGDB"/>
+      <property name="gff3.dataSetTitle" value="Zea mays Il14H Zm00028ab.1 gene set for Zm-Il14H-REFERENCE-NAM-1.0"/>
+      <property name="gff3.seqClsName" value="Chromosome"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-Il14H-REFERENCE-NAM-1.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/annotations/zea_mays/Zm-Il14H-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Ki11-REFERENCE-NAM-1.0-maize-gff" type="maize-gff" version="5.1.0">
+      <property name="gff3.taxonId" value="4577"/>
+      <property name="gff3.dataSourceName" value="MaizeGDB"/>
+      <property name="gff3.dataSetTitle" value="Zea mays Ki11 Zm00030ab.1 gene set for Zm-Ki11-REFERENCE-NAM-1.0"/>
+      <property name="gff3.seqClsName" value="Chromosome"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-Ki11-REFERENCE-NAM-1.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/annotations/zea_mays/Zm-Ki11-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Ki3-REFERENCE-NAM-1.0-maize-gff" type="maize-gff" version="5.1.0">
+      <property name="gff3.taxonId" value="4577"/>
+      <property name="gff3.dataSourceName" value="MaizeGDB"/>
+      <property name="gff3.dataSetTitle" value="Zea mays Ki3 Zm00029ab.1 gene set for Zm-Ki3-REFERENCE-NAM-1.0"/>
+      <property name="gff3.seqClsName" value="Chromosome"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-Ki3-REFERENCE-NAM-1.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/annotations/zea_mays/Zm-Ki3-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Ky21-REFERENCE-NAM-1.0-maize-gff" type="maize-gff" version="5.1.0">
+      <property name="gff3.taxonId" value="4577"/>
+      <property name="gff3.dataSourceName" value="MaizeGDB"/>
+      <property name="gff3.dataSetTitle" value="Zea mays Ky21 Zm00031ab.1 gene set for Zm-Ky21-REFERENCE-NAM-1.0"/>
+      <property name="gff3.seqClsName" value="Chromosome"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-Ky21-REFERENCE-NAM-1.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/annotations/zea_mays/Zm-Ky21-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-M162W-REFERENCE-NAM-1.0-maize-gff" type="maize-gff" version="5.1.0">
+      <property name="gff3.taxonId" value="4577"/>
+      <property name="gff3.dataSourceName" value="MaizeGDB"/>
+      <property name="gff3.dataSetTitle" value="Zea mays M162W Zm00033ab.1 gene set for Zm-M162W-REFERENCE-NAM-1.0"/>
+      <property name="gff3.seqClsName" value="Chromosome"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-M162W-REFERENCE-NAM-1.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/annotations/zea_mays/Zm-M162W-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-M37W-REFERENCE-NAM-1.0-maize-gff" type="maize-gff" version="5.1.0">
+      <property name="gff3.taxonId" value="4577"/>
+      <property name="gff3.dataSourceName" value="MaizeGDB"/>
+      <property name="gff3.dataSetTitle" value="Zea mays M37W Zm00032ab.1 gene set for Zm-M37W-REFERENCE-NAM-1.0"/>
+      <property name="gff3.seqClsName" value="Chromosome"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-M37W-REFERENCE-NAM-1.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/annotations/zea_mays/Zm-M37W-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Mo18W-REFERENCE-NAM-1.0-maize-gff" type="maize-gff" version="5.1.0">
+      <property name="gff3.taxonId" value="4577"/>
+      <property name="gff3.dataSourceName" value="MaizeGDB"/>
+      <property name="gff3.dataSetTitle" value="Zea mays Mo18W Zm00034ab.1 gene set for Zm-Mo18W-REFERENCE-NAM-1.0"/>
+      <property name="gff3.seqClsName" value="Chromosome"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-Mo18W-REFERENCE-NAM-1.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/annotations/zea_mays/Zm-Mo18W-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Ms71-REFERENCE-NAM-1.0-maize-gff" type="maize-gff" version="5.1.0">
+      <property name="gff3.taxonId" value="4577"/>
+      <property name="gff3.dataSourceName" value="MaizeGDB"/>
+      <property name="gff3.dataSetTitle" value="Zea mays Ms71 Zm00035ab.1 gene set for Zm-Ms71-REFERENCE-NAM-1.0"/>
+      <property name="gff3.seqClsName" value="Chromosome"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-Ms71-REFERENCE-NAM-1.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/annotations/zea_mays/Zm-Ms71-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-NC350-REFERENCE-NAM-1.0-maize-gff" type="maize-gff" version="5.1.0">
+      <property name="gff3.taxonId" value="4577"/>
+      <property name="gff3.dataSourceName" value="MaizeGDB"/>
+      <property name="gff3.dataSetTitle" value="Zea mays NC350 Zm00036ab.1 gene set for Zm-NC350-REFERENCE-NAM-1.0"/>
+      <property name="gff3.seqClsName" value="Chromosome"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-NC350-REFERENCE-NAM-1.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/annotations/zea_mays/Zm-NC350-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-NC358-REFERENCE-NAM-1.0-maize-gff" type="maize-gff" version="5.1.0">
+      <property name="gff3.taxonId" value="4577"/>
+      <property name="gff3.dataSourceName" value="MaizeGDB"/>
+      <property name="gff3.dataSetTitle" value="Zea mays NC358 Zm00037ab.1 gene set for Zm-NC358-REFERENCE-NAM-1.0"/>
+      <property name="gff3.seqClsName" value="Chromosome"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-NC358-REFERENCE-NAM-1.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/annotations/zea_mays/Zm-NC358-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Oh43-REFERENCE-NAM-1.0-maize-gff" type="maize-gff" version="5.1.0">
+      <property name="gff3.taxonId" value="4577"/>
+      <property name="gff3.dataSourceName" value="MaizeGDB"/>
+      <property name="gff3.dataSetTitle" value="Zea mays Oh43 Zm00039ab.1 gene set for Zm-Oh43-REFERENCE-NAM-1.0"/>
+      <property name="gff3.seqClsName" value="Chromosome"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-Oh43-REFERENCE-NAM-1.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/annotations/zea_mays/Zm-Oh43-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Oh7B-REFERENCE-NAM-1.0-maize-gff" type="maize-gff" version="5.1.0">
+      <property name="gff3.taxonId" value="4577"/>
+      <property name="gff3.dataSourceName" value="MaizeGDB"/>
+      <property name="gff3.dataSetTitle" value="Zea mays Oh7B Zm00038ab.1 gene set for Zm-Oh7B-REFERENCE-NAM-1.0"/>
+      <property name="gff3.seqClsName" value="Chromosome"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-Oh7B-REFERENCE-NAM-1.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/annotations/zea_mays/Zm-Oh7B-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-P39-REFERENCE-NAM-1.0-maize-gff" type="maize-gff" version="5.1.0">
+      <property name="gff3.taxonId" value="4577"/>
+      <property name="gff3.dataSourceName" value="MaizeGDB"/>
+      <property name="gff3.dataSetTitle" value="Zea mays P39 Zm00040ab.1 gene set for Zm-P39-REFERENCE-NAM-1.0"/>
+      <property name="gff3.seqClsName" value="Chromosome"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-P39-REFERENCE-NAM-1.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/annotations/zea_mays/Zm-P39-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Tx303-REFERENCE-NAM-1.0-maize-gff" type="maize-gff" version="5.1.0">
+      <property name="gff3.taxonId" value="4577"/>
+      <property name="gff3.dataSourceName" value="MaizeGDB"/>
+      <property name="gff3.dataSetTitle" value="Zea mays Tx303 Zm00041ab.1 gene set for Zm-Tx303-REFERENCE-NAM-1.0"/>
+      <property name="gff3.seqClsName" value="Chromosome"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-Tx303-REFERENCE-NAM-1.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/annotations/zea_mays/Zm-Tx303-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Tzi8-REFERENCE-NAM-1.0-maize-gff" type="maize-gff" version="5.1.0">
+      <property name="gff3.taxonId" value="4577"/>
+      <property name="gff3.dataSourceName" value="MaizeGDB"/>
+      <property name="gff3.dataSetTitle" value="Zea mays Tzi8 Zm00042ab.1 gene set for Zm-Tzi8-REFERENCE-NAM-1.0"/>
+      <property name="gff3.seqClsName" value="Chromosome"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-Tzi8-REFERENCE-NAM-1.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/annotations/zea_mays/Zm-Tzi8-REFERENCE-NAM-1.0"/>
     </source>
 
 
     <!--RefSeq CDS and Protein Fasta-->
-
-    <source name="maize-refseq-cds" type="maize-fasta" version="5.0.3">
-      <property name="maize-fasta.taxonId" value="4577"/>
-      <property name="maize-fasta.dataSourceName" value="RefSeq"/>
-      <property name="maize-fasta.dataSetTitle" value="Coding sequences from NCBI for Zm-B73-REFERENCE-NAM-5.0"/>
-      <property name="maize-fasta.className" value="org.intermine.model.bio.CodingSequence"/>
-      <property name="maize-fasta.classAttribute" value="primaryIdentifier"/>
-      <property name="maize-fasta.geneSource" value="RefSeq"/>
-      <property name="maize-fasta.includes" value="*.fa"/>
-      <property name="maize-fasta.sequenceType" value="dna"/>
-      <property name="maize-fasta.idSuffix" value="-CDS"/>
-      <property name="maize-fasta.loaderClassName" value="org.intermine.bio.dataconversion.MaizeCDSFastaLoaderTask"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/RefSeq/cds_fasta/zea_mays/Zm-B73-REFERENCE-NAM-5.0"/>
+    <source name="zmay-refseq-cds" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="RefSeq"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays RefSeq Coding Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.CodingSequence"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="RefSeq"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.idSuffix" value="-CDS"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.CDSFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/RefSeq/cds_fasta/zea_mays/Zm-B73-REFERENCE-NAM-5.0"/>
     </source>
-    <source name="maize-refseq-protein" type="maize-fasta" version="5.0.3">
-      <property name="maize-fasta.taxonId" value="4577"/>
-      <property name="maize-fasta.dataSourceName" value="RefSeq"/>
-      <property name="maize-fasta.dataSetTitle" value="Protein sequences from NCBI for Zm-B73-REFERENCE-NAM-5.0"/>
-      <property name="maize-fasta.className" value="org.intermine.model.bio.Polypeptide"/>
-      <property name="maize-fasta.classAttribute" value="primaryIdentifier"/>
-      <property name="maize-fasta.sequenceType" value="protein"/>
-      <property name="maize-fasta.geneSource" value="RefSeq"/>
-      <property name="maize-fasta.includes" value="*.fa"/>
-      <property name="maize-fasta.loaderClassName" value="org.intermine.bio.dataconversion.MaizeProteinFastaLoaderTask"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/RefSeq/protein_fasta/zea_mays/Zm-B73-REFERENCE-NAM-5.0"/>
+    <source name="zmay-refseq-protein" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="RefSeq"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays RefSeq Protein Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Polypeptide"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="RefSeq"/>
+      <property name="fasta-assembly.sequenceType" value="protein"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.ProteinFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/RefSeq/protein_fasta/zea_mays/Zm-B73-REFERENCE-NAM-5.0"/>
     </source>
 
 
-    <!-- xRef and Aliases -->
+    <!--MaizeGDB CDS and Protein Fasta-->
+    <source name="zmay-Zm-B73-REFERENCE-NAM-5.0-maizegdb-cds" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays B73 Zm00001eb.1 Coding Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.CodingSequence"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="B73 Zm00001eb.1"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.idSuffix" value="-CDS"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.CDSFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/cds_fasta/zea_mays/Zm-B73-REFERENCE-NAM-5.0"/>
+    </source>
+    <source name="zmay-Zm-B73-REFERENCE-NAM-5.0-maizegdb-protein" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays B73 Zm00001eb.1 Protein Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Polypeptide"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="B73 Zm00001eb.1"/>
+      <property name="fasta-assembly.sequenceType" value="protein"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.ProteinFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/protein_fasta/zea_mays/Zm-B73-REFERENCE-NAM-5.0"/>
+    </source>
+    <source name="zmay-Zm-B97-REFERENCE-NAM-1.0-maizegdb-cds" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays B97 Zm00018ab.1 Coding Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.CodingSequence"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="B97 Zm00018ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.idSuffix" value="-CDS"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.CDSFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/cds_fasta/zea_mays/Zm-B97-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-B97-REFERENCE-NAM-1.0-maizegdb-protein" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays B97 Zm00018ab.1 Protein Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Polypeptide"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="B97 Zm00018ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="protein"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.ProteinFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/protein_fasta/zea_mays/Zm-B97-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-CML103-REFERENCE-NAM-1.0-maizegdb-cds" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays CML103 Zm00021ab.1 Coding Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.CodingSequence"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="CML103 Zm00021ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.idSuffix" value="-CDS"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.CDSFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/cds_fasta/zea_mays/Zm-CML103-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-CML103-REFERENCE-NAM-1.0-maizegdb-protein" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays CML103 Zm00021ab.1 Protein Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Polypeptide"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="CML103 Zm00021ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="protein"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.ProteinFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/protein_fasta/zea_mays/Zm-CML103-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-CML228-REFERENCE-NAM-1.0-maizegdb-cds" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays CML228 Zm00022ab.1 Coding Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.CodingSequence"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="CML228 Zm00022ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.idSuffix" value="-CDS"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.CDSFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/cds_fasta/zea_mays/Zm-CML228-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-CML228-REFERENCE-NAM-1.0-maizegdb-protein" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays CML228 Zm00022ab.1 Protein Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Polypeptide"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="CML228 Zm00022ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="protein"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.ProteinFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/protein_fasta/zea_mays/Zm-CML228-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-CML247-REFERENCE-NAM-1.0-maizegdb-cds" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays CML247 Zm00023ab.1 Coding Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.CodingSequence"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="CML247 Zm00023ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.idSuffix" value="-CDS"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.CDSFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/cds_fasta/zea_mays/Zm-CML247-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-CML247-REFERENCE-NAM-1.0-maizegdb-protein" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays CML247 Zm00023ab.1 Protein Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Polypeptide"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="CML247 Zm00023ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="protein"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.ProteinFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/protein_fasta/zea_mays/Zm-CML247-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-CML277-REFERENCE-NAM-1.0-maizegdb-cds" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays CML277 Zm00024ab.1 Coding Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.CodingSequence"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="CML277 Zm00024ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.idSuffix" value="-CDS"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.CDSFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/cds_fasta/zea_mays/Zm-CML277-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-CML277-REFERENCE-NAM-1.0-maizegdb-protein" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays CML277 Zm00024ab.1 Protein Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Polypeptide"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="CML277 Zm00024ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="protein"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.ProteinFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/protein_fasta/zea_mays/Zm-CML277-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-CML322-REFERENCE-NAM-1.0-maizegdb-cds" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays CML322 Zm00025ab.1 Coding Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.CodingSequence"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="CML322 Zm00025ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.idSuffix" value="-CDS"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.CDSFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/cds_fasta/zea_mays/Zm-CML322-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-CML322-REFERENCE-NAM-1.0-maizegdb-protein" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays CML322 Zm00025ab.1 Protein Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Polypeptide"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="CML322 Zm00025ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="protein"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.ProteinFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/protein_fasta/zea_mays/Zm-CML322-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-CML333-REFERENCE-NAM-1.0-maizegdb-cds" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays CML333 Zm00026ab.1 Coding Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.CodingSequence"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="CML333 Zm00026ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.idSuffix" value="-CDS"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.CDSFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/cds_fasta/zea_mays/Zm-CML333-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-CML333-REFERENCE-NAM-1.0-maizegdb-protein" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays CML333 Zm00026ab.1 Protein Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Polypeptide"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="CML333 Zm00026ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="protein"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.ProteinFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/protein_fasta/zea_mays/Zm-CML333-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-CML52-REFERENCE-NAM-1.0-maizegdb-cds" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays CML52 Zm00019ab.1 Coding Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.CodingSequence"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="CML52 Zm00019ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.idSuffix" value="-CDS"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.CDSFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/cds_fasta/zea_mays/Zm-CML52-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-CML52-REFERENCE-NAM-1.0-maizegdb-protein" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays CML52 Zm00019ab.1 Protein Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Polypeptide"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="CML52 Zm00019ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="protein"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.ProteinFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/protein_fasta/zea_mays/Zm-CML52-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-CML69-REFERENCE-NAM-1.0-maizegdb-cds" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays CML69 Zm00020ab.1 Coding Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.CodingSequence"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="CML69 Zm00020ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.idSuffix" value="-CDS"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.CDSFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/cds_fasta/zea_mays/Zm-CML69-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-CML69-REFERENCE-NAM-1.0-maizegdb-protein" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays CML69 Zm00020ab.1 Protein Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Polypeptide"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="CML69 Zm00020ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="protein"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.ProteinFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/protein_fasta/zea_mays/Zm-CML69-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-HP301-REFERENCE-NAM-1.0-maizegdb-cds" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays HP301 Zm00027ab.1 Coding Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.CodingSequence"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="HP301 Zm00027ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.idSuffix" value="-CDS"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.CDSFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/cds_fasta/zea_mays/Zm-HP301-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-HP301-REFERENCE-NAM-1.0-maizegdb-protein" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays HP301 Zm00027ab.1 Protein Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Polypeptide"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="HP301 Zm00027ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="protein"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.ProteinFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/protein_fasta/zea_mays/Zm-HP301-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Il14H-REFERENCE-NAM-1.0-maizegdb-cds" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Il14H Zm00028ab.1 Coding Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.CodingSequence"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="Il14H Zm00028ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.idSuffix" value="-CDS"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.CDSFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/cds_fasta/zea_mays/Zm-Il14H-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Il14H-REFERENCE-NAM-1.0-maizegdb-protein" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Il14H Zm00028ab.1 Protein Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Polypeptide"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="Il14H Zm00028ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="protein"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.ProteinFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/protein_fasta/zea_mays/Zm-Il14H-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Ki11-REFERENCE-NAM-1.0-maizegdb-cds" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Ki11 Zm00030ab.1 Coding Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.CodingSequence"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="Ki11 Zm00030ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.idSuffix" value="-CDS"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.CDSFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/cds_fasta/zea_mays/Zm-Ki11-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Ki11-REFERENCE-NAM-1.0-maizegdb-protein" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Ki11 Zm00030ab.1 Protein Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Polypeptide"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="Ki11 Zm00030ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="protein"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.ProteinFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/protein_fasta/zea_mays/Zm-Ki11-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Ki3-REFERENCE-NAM-1.0-maizegdb-cds" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Ki3 Zm00029ab.1 Coding Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.CodingSequence"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="Ki3 Zm00029ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.idSuffix" value="-CDS"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.CDSFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/cds_fasta/zea_mays/Zm-Ki3-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Ki3-REFERENCE-NAM-1.0-maizegdb-protein" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Ki3 Zm00029ab.1 Protein Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Polypeptide"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="Ki3 Zm00029ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="protein"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.ProteinFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/protein_fasta/zea_mays/Zm-Ki3-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Ky21-REFERENCE-NAM-1.0-maizegdb-cds" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Ky21 Zm00031ab.1 Coding Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.CodingSequence"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="Ky21 Zm00031ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.idSuffix" value="-CDS"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.CDSFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/cds_fasta/zea_mays/Zm-Ky21-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Ky21-REFERENCE-NAM-1.0-maizegdb-protein" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Ky21 Zm00031ab.1 Protein Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Polypeptide"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="Ky21 Zm00031ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="protein"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.ProteinFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/protein_fasta/zea_mays/Zm-Ky21-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-M162W-REFERENCE-NAM-1.0-maizegdb-cds" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays M162W Zm00033ab.1 Coding Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.CodingSequence"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="M162W Zm00033ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.idSuffix" value="-CDS"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.CDSFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/cds_fasta/zea_mays/Zm-M162W-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-M162W-REFERENCE-NAM-1.0-maizegdb-protein" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays M162W Zm00033ab.1 Protein Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Polypeptide"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="M162W Zm00033ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="protein"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.ProteinFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/protein_fasta/zea_mays/Zm-M162W-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-M37W-REFERENCE-NAM-1.0-maizegdb-cds" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays M37W Zm00032ab.1 Coding Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.CodingSequence"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="M37W Zm00032ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.idSuffix" value="-CDS"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.CDSFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/cds_fasta/zea_mays/Zm-M37W-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-M37W-REFERENCE-NAM-1.0-maizegdb-protein" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays M37W Zm00032ab.1 Protein Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Polypeptide"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="M37W Zm00032ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="protein"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.ProteinFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/protein_fasta/zea_mays/Zm-M37W-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Mo18W-REFERENCE-NAM-1.0-maizegdb-cds" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Mo18W Zm00034ab.1 Coding Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.CodingSequence"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="Mo18W Zm00034ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.idSuffix" value="-CDS"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.CDSFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/cds_fasta/zea_mays/Zm-Mo18W-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Mo18W-REFERENCE-NAM-1.0-maizegdb-protein" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Mo18W Zm00034ab.1 Protein Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Polypeptide"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="Mo18W Zm00034ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="protein"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.ProteinFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/protein_fasta/zea_mays/Zm-Mo18W-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Ms71-REFERENCE-NAM-1.0-maizegdb-cds" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Ms71 Zm00035ab.1 Coding Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.CodingSequence"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="Ms71 Zm00035ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.idSuffix" value="-CDS"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.CDSFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/cds_fasta/zea_mays/Zm-Ms71-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Ms71-REFERENCE-NAM-1.0-maizegdb-protein" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Ms71 Zm00035ab.1 Protein Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Polypeptide"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="Ms71 Zm00035ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="protein"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.ProteinFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/protein_fasta/zea_mays/Zm-Ms71-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-NC350-REFERENCE-NAM-1.0-maizegdb-cds" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays NC350 Zm00036ab.1 Coding Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.CodingSequence"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="NC350 Zm00036ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.idSuffix" value="-CDS"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.CDSFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/cds_fasta/zea_mays/Zm-NC350-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-NC350-REFERENCE-NAM-1.0-maizegdb-protein" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays NC350 Zm00036ab.1 Protein Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Polypeptide"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="NC350 Zm00036ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="protein"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.ProteinFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/protein_fasta/zea_mays/Zm-NC350-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-NC358-REFERENCE-NAM-1.0-maizegdb-cds" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays NC358 Zm00037ab.1 Coding Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.CodingSequence"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="NC358 Zm00037ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.idSuffix" value="-CDS"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.CDSFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/cds_fasta/zea_mays/Zm-NC358-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-NC358-REFERENCE-NAM-1.0-maizegdb-protein" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays NC358 Zm00037ab.1 Protein Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Polypeptide"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="NC358 Zm00037ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="protein"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.ProteinFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/protein_fasta/zea_mays/Zm-NC358-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Oh43-REFERENCE-NAM-1.0-maizegdb-cds" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Oh43 Zm00039ab.1 Coding Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.CodingSequence"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="Oh43 Zm00039ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.idSuffix" value="-CDS"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.CDSFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/cds_fasta/zea_mays/Zm-Oh43-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Oh43-REFERENCE-NAM-1.0-maizegdb-protein" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Oh43 Zm00039ab.1 Protein Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Polypeptide"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="Oh43 Zm00039ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="protein"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.ProteinFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/protein_fasta/zea_mays/Zm-Oh43-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Oh7B-REFERENCE-NAM-1.0-maizegdb-cds" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Oh7B Zm00038ab.1 Coding Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.CodingSequence"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="Oh7B Zm00038ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.idSuffix" value="-CDS"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.CDSFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/cds_fasta/zea_mays/Zm-Oh7B-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Oh7B-REFERENCE-NAM-1.0-maizegdb-protein" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Oh7B Zm00038ab.1 Protein Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Polypeptide"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="Oh7B Zm00038ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="protein"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.ProteinFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/protein_fasta/zea_mays/Zm-Oh7B-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-P39-REFERENCE-NAM-1.0-maizegdb-cds" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays P39 Zm00040ab.1 Coding Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.CodingSequence"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="P39 Zm00040ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.idSuffix" value="-CDS"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.CDSFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/cds_fasta/zea_mays/Zm-P39-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-P39-REFERENCE-NAM-1.0-maizegdb-protein" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays P39 Zm00040ab.1 Protein Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Polypeptide"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="P39 Zm00040ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="protein"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.ProteinFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/protein_fasta/zea_mays/Zm-P39-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Tx303-REFERENCE-NAM-1.0-maizegdb-cds" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Tx303 Zm00041ab.1 Coding Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.CodingSequence"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="Tx303 Zm00041ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.idSuffix" value="-CDS"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.CDSFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/cds_fasta/zea_mays/Zm-Tx303-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Tx303-REFERENCE-NAM-1.0-maizegdb-protein" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Tx303 Zm00041ab.1 Protein Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Polypeptide"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="Tx303 Zm00041ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="protein"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.ProteinFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/protein_fasta/zea_mays/Zm-Tx303-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Tzi8-REFERENCE-NAM-1.0-maizegdb-cds" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Tzi8 Zm00042ab.1 Coding Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.CodingSequence"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="Tzi8 Zm00042ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="dna"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.idSuffix" value="-CDS"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.CDSFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/cds_fasta/zea_mays/Zm-Tzi8-REFERENCE-NAM-1.0"/>
+    </source>
+    <source name="zmay-Zm-Tzi8-REFERENCE-NAM-1.0-maizegdb-protein" type="fasta-assembly" version="5.1.0">
+      <property name="fasta-assembly.taxonId" value="4577"/>
+      <property name="fasta-assembly.dataSourceName" value="MaizeGDB"/>
+      <property name="fasta-assembly.dataSetTitle" value="Zea mays Tzi8 Zm00042ab.1 Protein Sequences"/>
+      <property name="fasta-assembly.className" value="org.intermine.model.bio.Polypeptide"/>
+      <property name="fasta-assembly.classAttribute" value="primaryIdentifier"/>
+      <property name="fasta-assembly.geneSource" value="Tzi8 Zm00042ab.1"/>
+      <property name="fasta-assembly.sequenceType" value="protein"/>
+      <property name="fasta-assembly.includes" value="*.fa"/>
+      <property name="fasta-assembly.loaderClassName" value="org.intermine.bio.dataconversion.ProteinFastaAssemblyLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB/protein_fasta/zea_mays/Zm-Tzi8-REFERENCE-NAM-1.0"/>
+    </source>
 
-    <source name="maize-xref" type="cross-references" version="5.0.3">
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/xref/zea_mays"/>
+
+    <!--xRefs-->
+    <source name="zmay-xref" type="cross-references" version="5.1.0">
       <property name="taxonId" value="4577"/>
+      <property name="dataSourceName" value="MaizeMine"/>
+      <property name="dataSetTitle" value="Gene ID Cross References (MaizeGDB ⇔ RefSeq) data set"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/xref/zea_mays/MaizeGDB-RefSeq"/>
     </source>
-    <source name="maize-alias" type="aliases" version="5.0.3">
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/alias/zea_mays"/>
+
+
+    <!--Aliases-->
+    <source name="zmay-aliases" type="aliases" version="5.1.0">
       <property name="taxonId" value="4577"/>
       <property name="className" value="org.intermine.model.bio.Gene"/>
+      <property name="dataSourceName" value="MaizeMine"/>
+      <property name="dataSetTitle" value="Gene ID aliases data set"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/alias/zea_mays"/>
     </source>
 
 
     <!--Expression-->
-
-    <source name="expression-metadata" type="expression-metadata" version="5.0.3">
+    <source name="expression-metadata" type="maize-expression-metadata" version="5.1.0">
       <property name="taxonId" value="4577"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/expression/metadata"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/expression/metadata"/>
       <property name="src.data.dir.includes" value="*.tab"/>
     </source>
-    <source name="expression-gene-sam-v5" type="maize-expression-gene" version="5.0.3">
+    <source name="expression-gene" type="maize-expression-gene" version="5.1.0">
       <property name="taxonId" value="4577"/>
       <property name="entityType" value="Sample"/>
       <property name="type" value="mean"/>
-      <property name="geneSource" value="Zm00001eb.1"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/expression"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/expression"/>
       <property name="src.data.dir.includes" value="*.tab"/>
     </source>
-
-
-    <!--Reactome-Gramene-->
-
-    <source name="reactome-gramene-pathway" type="reactome-gramene" version="5.0.3">
-      <property name="reactome-gramene.organisms" value="4577 3702"/>
-      <property name="geneSource" value="Zm00001eb.1"/>
-      <property name="urlPrefix" value="https://plantreactome.gramene.org/PathwayBrowser/#/"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/reactome_pathways"/>
-    </source>
-
-
-    <!--KEGG-->
-
-    <source name="kegg" type="maize-kegg-pathway" version="5.0.3">
-      <property name="maize-kegg-pathway.organisms" value="4577"/>
-      <property name="geneSource" value="RefSeq"/>
-      <property name="urlPrefix" value="https://www.genome.jp/pathway/"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/KEGG_genes/"/>
-    </source>
-    <!--not using this load
-    <source name="kegg-metadata" type="kegg-metadata" version="5.0.3">
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/KEGG_meta/"/>
-      <property name="src.data.dir.includes" value="*.tab"/>
-    </source>
-    -->
 
 
     <!--Beyond this point, Gene.source is not used as a merge key for genes-->
@@ -265,238 +1295,231 @@
 
     <!--UniProt-->
 
-    <!--First iteration UniProt-->
-    <source name="maize-uniprot-to-refseq" type="maize-uniprot" version="5.0.3">
+    <!--First iteration UniProt: RefSeq-->
+    <source name="uniprot-to-refseq" type="uniprot" version="5.1.0">
       <property name="uniprot.organisms" value="4577"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/uniprot"/>
       <property name="creatego" value="true"/>
       <property name="creategenes" value="true"/>
       <property name="allowduplicates" value="false"/>
       <property name="loadfragments" value="true"/>
       <property name="loadtrembl" value="true"/>
-      <property name="configFile" value="maize-uniprot_config_first_iteration.properties"/>
+      <property name="configFile" value="uniprot-to-refseq_config.properties"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/UniProt"/>
     </source>
 
-    <!--Second iteration UniProt-->
-    <source name="maize-uniprot-to-gramene" type="maize-uniprot" version="5.0.3">
+    <!--Second iteration UniProt: Gramene-->
+    <source name="uniprot-to-gramene" type="uniprot" version="5.1.0">
       <property name="uniprot.organisms" value="4577"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/uniprot"/>
       <property name="creatego" value="true"/>
       <property name="creategenes" value="true"/>
       <property name="allowduplicates" value="false"/>
       <property name="loadfragments" value="true"/>
       <property name="loadtrembl" value="true"/>
-      <property name="configFile" value="maize-uniprot_config_second_iteration.properties"/>
+      <property name="configFile" value="uniprot-to-gramene_config.properties"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/UniProt"/>
     </source>
-
-    <!--NOT USING - Third iteration UniProt-->
-    <!--
-    <source name="maize-uniprot-to-ensemblplants" type="maize-uniprot" version="5.0.3">
-      <property name="uniprot.organisms" value="4577"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/uniprot"/>
-      <property name="creatego" value="false"/>
-      <property name="creategenes" value="true"/>
-      <property name="allowduplicates" value="false"/>
-      <property name="loadfragments" value="false"/>
-      <property name="loadtrembl" value="true"/>
-      <property name="configFile" value="maize-uniprot_config_third_iteration.properties"/>
-    </source>
-    -->
-
 
     <!--UniProt-Fasta-->
-    <source name="uniprot-fasta" type="fasta" version="5.0.3">
+    <source name="uniprot-fasta" type="fasta" version="5.1.0">
       <property name="fasta.taxonId" value="4577"/>
       <property name="fasta.className" value="org.intermine.model.bio.Protein"/>
       <property name="fasta.classAttribute" value="primaryAccession"/>
       <property name="fasta.dataSourceName" value="UniProt"/>
-      <property name="fasta.dataSetTitle" value="Fasta sequence for proteins from UniProt"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/uniprot"/>
+      <property name="fasta.dataSetTitle" value="UniProt Fasta"/>
       <property name="fasta.includes" value="uniprot_sprot_varsplic.fasta"/>
       <property name="fasta.sequenceType" value="protein"/>
       <property name="fasta.loaderClassName" value="org.intermine.bio.dataconversion.UniProtFastaLoaderTask"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/UniProt"/>
     </source>
 
     <!--UniProt-keywords-->
-    <source name="uniprot-keywords" type="uniprot-keywords" version="5.0.3">
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/uniprot"/>
+    <source name="uniprot-keywords" type="uniprot-keywords" version="5.1.0">
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/UniProt"/>
       <property name="src.data.dir.includes" value="keywlist.xml"/>
+    </source>
+
+
+    <!--InterPro-->
+    <source name="interpro" type="interpro" version="5.1.0">
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/InterPro"/>
+    </source>
+
+
+    <!--InterPro to protein (protein2ipr)-->
+    <source name="protein2ipr" type="protein2ipr" version="5.1.0">
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/protein2ipr"/>
+      <property name="includes" value="protein2ipr.dat"/>
+      <property name="osAlias" value="os.production"/>
+    </source>
+
+
+    <!--GO annotation-->
+    <source name="maizegdb-go-annotation" type="go-annotation" version="5.1.0">
+      <property name="datasource" value="MaizeGDB"/>
+      <property name="dataset" value="MaizeGDB-PANNZER GO annotation data set"/>
+      <property name="ontologyPrefix" value="GO"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/GO-annotation/MaizeGDB"/>
+    </source>
+
+
+    <!--KEGG-->
+    <source name="kegg" type="kegg-pathway" version="5.1.0">
+      <property name="pathway.organisms" value="4577"/>
+      <property name="urlPrefix" value="https://www.genome.jp/pathway/"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/KEGG_genes"/>
+    </source>
+
+
+    <!--Reactome-Gramene-->
+    <source name="reactome-gramene-pathway" type="reactome-gramene" version="5.1.0">
+      <property name="pathway.organisms" value="4577"/>
+      <property name="urlPrefix" value="https://plantreactome.gramene.org/PathwayBrowser/#/"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/reactome_gramene"/>
+    </source>
+
+
+    <!--Maize E2P2 Pathway-->
+    <source name="maize-e2p2-pathway" type="e2p2-pathway" version="5.1.0">
+      <property name="pathway.organisms" value="4577"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB-E2P2-Pathway"/>
     </source>
 
 
     <!--Community GFF-->
     <!--No Gene.source so load these here (not with rest of GFFs)-->
-    <!--Load before homologue data sets (which introduces gene IDs for non-Z. mays species)-->
-
-    <source name="Vollbrecht-v5-gff" type="gff" version="5.0.3">
+    <source name="vollbrecht-gff" type="maize-gff" version="5.1.0">
       <property name="gff3.taxonId" value="4577"/>
-      <property name="gff3.seqAssemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
       <property name="gff3.dataSourceName" value="Vollbrecht"/>
-      <property name="gff3.dataSetTitle" value="Volbrecht AcDs insertions"/>
+      <property name="gff3.dataSetTitle" value="Vollbrecht AcDs insertions data set"/>
       <property name="gff3.seqClsName" value="Chromosome"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/community_datasets/Vollbrecht"/>
-    </source>
-    <source name="Maize-UniformMu-gff" type="gff" version="5.0.3">
-      <property name="gff3.taxonId" value="4577"/>
       <property name="gff3.seqAssemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
-      <property name="gff3.dataSourceName" value="MaizeGDB_UniformMu"/>
-      <property name="gff3.dataSetTitle" value="MaizeGDB UniformMu insertions"/>
-      <property name="gff3.seqClsName" value="Chromosome"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/community_datasets/MaizeGDB_UniformMu"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/community_datasets/Vollbrecht"/>
     </source>
-    <source name="Grotewold-root-gff" type="gff" version="5.0.3">
+    <source name="maizegdb-uniformmu-gff" type="maize-gff" version="5.1.0">
       <property name="gff3.taxonId" value="4577"/>
-      <property name="gff3.seqAssemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
-      <property name="gff3.dataSourceName" value="Grotewold CAGE Tag Count Root"/>
-      <property name="gff3.dataSetTitle" value="Grotewold root transcription start sites"/>
+      <property name="gff3.dataSourceName" value="MaizeGDB UniformMu"/>
+      <property name="gff3.dataSetTitle" value="MaizeGDB UniformMu insertions data set"/>
       <property name="gff3.seqClsName" value="Chromosome"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/community_datasets/Grotewold_root"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/community_datasets/MaizeGDB_UniformMu"/>
     </source>
-    <source name="Grotewold-shoot-gff" type="gff" version="5.0.3">
+    <source name="grotewold-root-gff" type="maize-gff" version="5.1.0">
       <property name="gff3.taxonId" value="4577"/>
-      <property name="gff3.seqAssemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
-      <property name="gff3.dataSourceName" value="Grotewold CAGE Tag Count Shoot"/>
-      <property name="gff3.dataSetTitle" value="Grotewold shoot transcription start sites"/>
+      <property name="gff3.dataSourceName" value="Grotewold CAGE Tag Count"/>
+      <property name="gff3.dataSetTitle" value="Grotewold root transcription start sites data set"/>
       <property name="gff3.seqClsName" value="Chromosome"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/community_datasets/Grotewold_shoot"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/community_datasets/Grotewold_root"/>
     </source>
-    <source name="Stam-husk-gff" type="gff" version="5.0.3">
+    <source name="grotewold-shoot-gff" type="maize-gff" version="5.1.0">
       <property name="gff3.taxonId" value="4577"/>
-      <property name="gff3.seqAssemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
-      <property name="gff3.dataSourceName" value="Stam 2017 Husk H3K9ac Enhancer"/>
-      <property name="gff3.dataSetTitle" value="Husk enhancers"/>
+      <property name="gff3.dataSourceName" value="Grotewold CAGE Tag Count"/>
+      <property name="gff3.dataSetTitle" value="Grotewold shoot transcription start sites data set"/>
       <property name="gff3.seqClsName" value="Chromosome"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/community_datasets/Stam_Enhancers/Husk"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/community_datasets/Grotewold_shoot"/>
     </source>
-    <source name="Stam-seedling-gff" type="gff" version="5.0.3">
+    <source name="stam-husk-gff" type="maize-gff" version="5.1.0">
       <property name="gff3.taxonId" value="4577"/>
-      <property name="gff3.seqAssemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
-      <property name="gff3.dataSourceName" value="Stam 2017 Seedling H3K9ac Enhancer"/>
-      <property name="gff3.dataSetTitle" value="Seedling enhancers"/>
+      <property name="gff3.dataSourceName" value="Stam 2017 H3K9ac Enhancer"/>
+      <property name="gff3.dataSetTitle" value="Stam 2017 Husk H3K9ac Enhancers data set"/>
       <property name="gff3.seqClsName" value="Chromosome"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/community_datasets/Stam_Enhancers/Seedling"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/community_datasets/Stam_Enhancers/Husk"/>
+    </source>
+    <source name="stam-seedling-gff" type="maize-gff" version="5.1.0">
+      <property name="gff3.taxonId" value="4577"/>
+      <property name="gff3.dataSourceName" value="Stam 2017 H3K9ac Enhancer"/>
+      <property name="gff3.dataSetTitle" value="Stam 2017 Seedling H3K9ac Enhancers data set"/>
+      <property name="gff3.seqClsName" value="Chromosome"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/community_datasets/Stam_Enhancers/Seedling"/>
     </source>
     <!--QTL GFF-->
-    <source name="GWAS-Atlas-qtl-gff" type="qtl-gff" version="5.0.3">
+    <source name="gwas-atlas-qtl-gff" type="qtl-gff" version="5.1.0">
       <property name="gff3.taxonId" value="4577"/>
-      <property name="gff3.seqAssemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
       <property name="gff3.dataSourceName" value="GWAS Atlas"/>
-      <property name="gff3.dataSetTitle" value="Curated GWAS Atlas"/>
+      <property name="gff3.dataSetTitle" value="Curated GWAS Atlas data set"/>
       <property name="gff3.seqClsName" value="Chromosome"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/community_datasets/GWAS_Atlas"/>
-    </source>
-    <source name="Wallace-2014-GWAS-qtl-gff" type="qtl-gff" version="5.0.3">
-      <property name="gff3.taxonId" value="4577"/>
       <property name="gff3.seqAssemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/community_datasets/GWAS_Atlas"/>
+    </source>
+    <!--QTL GFF-->
+    <source name="wallace-gwas-qtl-gff" type="qtl-gff" version="5.1.0">
+      <property name="gff3.taxonId" value="4577"/>
       <property name="gff3.dataSourceName" value="Wallace 2014 GWAS"/>
-      <property name="gff3.dataSetTitle" value="Wallace GWAS"/>
+      <property name="gff3.dataSetTitle" value="Wallace GWAS data set"/>
       <property name="gff3.seqClsName" value="Chromosome"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/community_datasets/Wallace_2014_GWAS"/>
+      <property name="gff3.seqAssemblyVersion" value="Zm-B73-REFERENCE-NAM-5.0"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/community_datasets/Wallace_2014_GWAS"/>
     </source>
 
 
-    <!--InterPro-->
-
-    <source name="interpro" type="interpro" version="5.0.3">
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/interpro"/>
+    <!--MaizeGDB Pangene-->
+    <source name="maize-pangene" type="pangene" version="5.1.0">
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/MaizeGDB-NAM-PanGene"/>
     </source>
 
 
-    <!--InterPro to protein (protein2ipr)-->
-
-    <source name="protein2ipr" type="protein2ipr" version="5.0.3">
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/protein2ipr"/>
-      <property name="src.data.dir.includes" value="protein2ipr.dat"/>
-      <property name="protein2ipr.organisms" value="4577"/>
-      <property name="osAlias" value="os.production"/>
+    <!--Ensembl Plant BioMart-->
+    <source name="biomart" type="ensembl-compara" version="5.1.0">
+      <property name="ensemblcompara.organisms" value="3702 4513 4528 4529 4533 4536 4537 4538 4555 4556 4558 4565 4567 4572 4577 4615 4686 15368 37682 38414 39946 39947 40148 40149 55577 62335 65489 77586 85692 110835 206008 214687 1504633"/>
+      <property name="ensemblcompara.homologues" value="3702 4513 4528 4529 4533 4536 4537 4538 4555 4556 4558 4565 4567 4572 4577 4615 4686 15368 37682 38414 39946 39947 40148 40149 55577 62335 65489 77586 85692 110835 206008 214687 1504633"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/ensembl-plant-biomart/homologues"/>
     </source>
-
-
-    <!--GO Annotation-->
-    <!--Not using, loading from UniProt instead-->
-
-
-    <!--BioMart-->
-    <!--BioMart must be loaded only AFTER all other gff files!-->
-
-    <source name="biomart" type="maize-ensembl-compara" version="5.0.3">
-      <property name="ensemblcompara.version" value="Ensembl release 104"/>
-      <property name="ensemblcompara.organisms" value="110835 1504633 15368 206008 214687 3702 37682 38414 39946 39947 40148 40149 4513 4528 4529 4533 4536 4537 4538 4555 4556 4558 4565 4567 4572 4577 4615 4686 55577 62335 65489 77586 85692"/>
-      <property name="ensemblcompara.homologues" value="110835 1504633 15368 206008 214687 3702 37682 38414 39946 39947 40148 40149 4513 4528 4529 4533 4536 4537 4538 4555 4556 4558 4565 4567 4572 4577 4615 4686 55577 62335 65489 77586 85692"/>
-      <!--Gene.source only set for Z. mays genes-->
-      <property name="geneSource" value="Zm00001eb.1"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/ensembl-plant-biomart/homologues"/>
-    </source>
-
-    <!--Additional gene attributes (from BioMart)-->
-
     <!--Symbols-->
-    <source name="gene-symbols" type="additional-gene-attributes" version="5.0.3">
+    <source name="gene-symbols" type="additional-gene-attributes" version="5.1.0">
       <property name="attributeName" value="symbol"/>
       <property name="dataSourceName" value="Ensembl"/>
-      <property name="dataSetTitle" value="Ensembl Compara symbols data set"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/ensembl-plant-biomart/symbols/"/>
+      <property name="dataSetTitle" value="Ensembl Plant BioMart symbols data set"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/ensembl-plant-biomart/symbols"/>
       <property name="src.data.dir.includes" value="*.tab"/>
     </source>
-
     <!--Descriptions-->
-    <source name="gene-descriptions" type="additional-gene-attributes" version="5.0.3">
+    <source name="gene-descriptions" type="additional-gene-attributes" version="5.1.0">
       <property name="attributeName" value="description"/>
       <property name="dataSourceName" value="Ensembl"/>
-      <property name="dataSetTitle" value="Ensembl Compara descriptions data set"/>
-      <property name="src.data.dir" location="/db/maizemine_v1.4/datasets/ensembl-plant-biomart/descriptions/"/>
+      <property name="dataSetTitle" value="Ensembl Plant BioMart descriptions data set"/>
+      <property name="src.data.dir" location="/db/maizemine_v1.5/datasets/ensembl-plant-biomart/descriptions"/>
       <property name="src.data.dir.includes" value="*.tab"/>
     </source>
 
 
-    <!-- Load these last three sources at the end, after all other sources -->
+    <!--Load these last sources at the end, after all other sources-->
 
 
-    <!-- Update data sources -->
-
-    <source name="update-data-sources" type="update-data-sources" version="5.0.3">
+    <!--Update data sources-->
+    <source name="update-data-sources" type="update-data-sources" version="5.1.0">
       <property name="src.data.file" location="datasources.xml"/>
-      <property name="dataSourceFile" value="/db/maizemine_v1.4/datasets/uniprot/xrefs/dbxref.txt"/>
+      <property name="dataSourceFile" value="/db/maizemine_v1.5/datasets/UniProt/xrefs/dbxref.txt"/>
+    </source>
+    <!--Custom data source info not in UniProt file-->
+    <source name="update-data-sources-custom" type="update-data-sources" version="5.1.0">
+      <property name="src.data.file" location="datasources-custom.xml"/>
+      <property name="dataSourceFile" value="/db/maizemine_v1.5/datasets/datasource-info/customsources.txt"/>
     </source>
 
 
-    <!-- NCBI Entrez -->
-
-    <source name="update-publications" type="update-publications-key" version="5.0.3">
+    <!--NCBI Entrez-->
+    <source name="update-publications" type="update-publications" version="5.1.0">
       <property name="src.data.file" location="publications.xml"/>
       <property name="loadFullRecord" value="true"/>
     </source>
-    <source name="entrez-organism" type="entrez-organism-key" version="5.0.3">
+    <source name="entrez-organism" type="entrez-organism" version="5.1.0">
       <property name="src.data.file" location="organisms.xml"/>
     </source>
 
   </sources>
 
-  <post-processing>
-
-    <!--Postprocesses beginning with 'maize-' are our customized versions-->
-    <!--IMPORTANT: The custom postprocesses assume certain SNP-related additions have been made to the genomic model.
-         As long as at least one custom source is included above (from maizemine-bio-sources), the custom versions
-         will work. If running a test using ONLY built-in sources (from bio/sources), use the built-in versions instead.
-    -->
-    <post-process name="maize-create-chromosome-locations-and-lengths"/>
-    <!--post-process name="create-chromosome-locations-and-lengths"/-->
+    <post-process name="create-chromosome-locations-and-lengths"/>
     <post-process name="create-references"/>
-    <post-process name="maize-transfer-sequences"/>
-    <!--post-process name="transfer-sequences"/-->
-    <post-process name="maize-create-overlap-view"/>
-    <!--post-process name="create-overlap-view"/-->
-    <post-process name="maize-create-location-overlap-index"/>
-    <!--post-process name="create-location-overlap-index"/-->
+    <post-process name="transfer-sequences"/>
+    <post-process name="create-overlap-view"/>
+    <post-process name="create-location-overlap-index"/>
     <post-process name="do-sources"/>
     <post-process name="create-attribute-indexes"/>
     <post-process name="create-search-index"/>
     <post-process name="summarise-objectstore"/>
     <post-process name="create-autocomplete-index"/>
 
-    <!-- do search index manually to check memory usage -->
-
-  </post-processing>
-
 </project>
-

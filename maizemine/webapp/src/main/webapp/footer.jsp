@@ -7,7 +7,6 @@
 <!-- footer.jsp -->
 <br/>
 <br/>
-<br/>
 
 <div class="body" align="center" style="clear:both">
     <!-- contact -->
@@ -37,7 +36,8 @@
         <p>Powered by</p>
         <a target="new" href="http://intermine.org" title="InterMine">
             <img src="images/icons/intermine-footer-logo.png" alt="InterMine logo" />
-        </a>
+        </a><br/><br/>
     </div>
 </div>
+
 <!-- /footer.jsp -->

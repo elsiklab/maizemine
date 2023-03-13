@@ -1,7 +1,7 @@
 package org.intermine.webservice.server;
 
 /*
- * Copyright (C) 2002-2021 FlyMine
+ * Copyright (C) 2002-2022 FlyMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
@@ -61,6 +61,7 @@ import org.intermine.webservice.server.output.JSONObjectFormatter;
 import org.intermine.webservice.server.output.JSONResultFormatter;
 import org.intermine.webservice.server.output.JSONRowFormatter;
 import org.intermine.webservice.server.output.JSONTableFormatter;
+import org.intermine.webservice.server.output.RDFOutput;
 import org.intermine.webservice.server.output.Output;
 import org.intermine.webservice.server.output.PlainFormatter;
 import org.intermine.webservice.server.output.StreamedOutput;
@@ -903,6 +904,15 @@ public abstract class WebService
                 if (isUncompressed()) {
                     ResponseUtil.setJSONHeader(response, "result.json", formatIsJSONP());
                 }
+                break;
+            case N_TRIPLES:
+                output = new RDFOutput(out);
+                ((RDFOutput) output).setNTripleFormat();
+                ResponseUtil.setNTriplesHeader(response, "result.nt");
+                break;
+            case RDF:
+                output = new RDFOutput(out);
+                ResponseUtil.setRDFHeader(response, "result.xml");
                 break;
             default:
                 output = getDefaultOutput(out, os, separator);

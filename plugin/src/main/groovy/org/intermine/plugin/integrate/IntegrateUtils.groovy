@@ -225,6 +225,8 @@ class IntegrateUtils {
                 handlerClassName: bioSourceProperties.getProperty("gff3.handlerClassName"),
                 seqHandlerClassName: gff3SeqHandlerClassName,
                 seqAssemblyVersion: BioSourceProperties.getUserProperty(source, "gff3.seqAssemblyVersion"),
+                loadDuplicateEntities: BioSourceProperties.getUserProperty(source, "gff3.loadDuplicateEntities"),
+                loadSequenceAlterations: BioSourceProperties.getUserProperty(source, "gff3.loadSequenceAlterations"),
                 licence: licence) {
             fileset(dir: BioSourceProperties.getUserProperty(source, "src.data.dir"),
                     includes: includes)

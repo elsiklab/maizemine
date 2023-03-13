@@ -5,45 +5,31 @@ include ':bio-source-plant-ontology'
 project(':bio-source-plant-ontology').projectDir = new File(settingsDir, './plant-ontology')
 include ':bio-source-snp-variation'
 project(':bio-source-snp-variation').projectDir = new File(settingsDir, './snp-variation')
-include ':bio-source-additional-chr-identifiers'
-project(':bio-source-additional-chr-identifiers').projectDir = new File(settingsDir, './additional-chr-identifiers')
-include ':bio-source-maize-gff'
-project(':bio-source-maize-gff').projectDir = new File(settingsDir, './maize-gff')
+include ':bio-source-fasta-assembly'
+project(':bio-source-fasta-assembly').projectDir = new File(settingsDir, './fasta-assembly')
 include ':bio-source-refseq-gff'
 project(':bio-source-refseq-gff').projectDir = new File(settingsDir, './refseq-gff')
-include ':bio-source-cross-references'
-project(':bio-source-cross-references').projectDir = new File(settingsDir, './cross-references')
-include ':bio-source-microarray-probe-gff'
-project(':bio-source-microarray-probe-gff').projectDir = new File(settingsDir, './microarray-probe-gff')
-include ':bio-source-maize-fasta'
-project(':bio-source-maize-fasta').projectDir = new File(settingsDir, './maize-fasta')
-include ':bio-source-expression-metadata'
-project(':bio-source-expression-metadata').projectDir = new File(settingsDir, './expression-metadata')
-include ':bio-source-maize-expression-gene'
-project(':bio-source-maize-expression-gene').projectDir = new File(settingsDir, './maize-expression-gene')
-include ':bio-source-maize-uniprot'
-project(':bio-source-maize-uniprot').projectDir = new File(settingsDir, './maize-uniprot')
-include ':bio-source-maize-go-annotation'
-project(':bio-source-maize-go-annotation').projectDir = new File(settingsDir, './maize-go-annotation')
-include ':bio-source-reactome-gramene'
-project(':bio-source-reactome-gramene').projectDir = new File(settingsDir, './reactome-gramene')
-include ':bio-source-corncyc'
-project(':bio-source-corncyc').projectDir = new File(settingsDir, './corncyc')
-include ':bio-source-maize-pathways'
-project(':bio-source-maize-pathways').projectDir = new File(settingsDir, './maize-pathways')
-include ':bio-source-additional-gene-attributes'
-project(':bio-source-additional-gene-attributes').projectDir = new File(settingsDir, './additional-gene-attributes')
-include ':bio-source-maize-kegg-pathway'
-project(':bio-source-maize-kegg-pathway').projectDir = new File(settingsDir, './maize-kegg-pathway')
-include ':bio-source-kegg-metadata'
-project(':bio-source-kegg-metadata').projectDir = new File(settingsDir, './kegg-metadata')
-include ':bio-source-maize-ensembl-compara'
-project(':bio-source-maize-ensembl-compara').projectDir = new File(settingsDir, './maize-ensembl-compara')
-include ':bio-source-update-publications-key'
-project(':bio-source-update-publications-key').projectDir = new File(settingsDir, './update-publications-key')
-include ':bio-source-entrez-organism-key'
-project(':bio-source-entrez-organism-key').projectDir = new File(settingsDir, './entrez-organism-key')
-include ':bio-source-aliases'
-project(':bio-source-aliases').projectDir = new File(settingsDir, './aliases')
+include ':bio-source-pseudogene-refseq-gff'
+project(':bio-source-pseudogene-refseq-gff').projectDir = new File(settingsDir, './pseudogene-refseq-gff')
+include ':bio-source-pseudogene-refseq-nottranscribed-gff'
+project(':bio-source-pseudogene-refseq-nottranscribed-gff').projectDir = new File(settingsDir, './pseudogene-refseq-nottranscribed-gff')
+include ':bio-source-maize-gff'
+project(':bio-source-maize-gff').projectDir = new File(settingsDir, './maize-gff')
 include ':bio-source-qtl-gff'
 project(':bio-source-qtl-gff').projectDir = new File(settingsDir, './qtl-gff')
+include ':bio-source-cross-references'
+project(':bio-source-cross-references').projectDir = new File(settingsDir, './cross-references')
+include ':bio-source-aliases'
+project(':bio-source-aliases').projectDir = new File(settingsDir, './aliases')
+include ':bio-source-maize-expression-gene'
+project(':bio-source-maize-expression-gene').projectDir = new File(settingsDir, './maize-expression-gene')
+include ':bio-source-maize-expression-metadata'
+project(':bio-source-maize-expression-metadata').projectDir = new File(settingsDir, './maize-expression-metadata')
+include ':bio-source-reactome-gramene'
+project(':bio-source-reactome-gramene').projectDir = new File(settingsDir, './reactome-gramene')
+include ':bio-source-e2p2-pathway'
+project(':bio-source-e2p2-pathway').projectDir = new File(settingsDir, './e2p2-pathway')
+include ':bio-source-additional-gene-attributes'
+project(':bio-source-additional-gene-attributes').projectDir = new File(settingsDir, './additional-gene-attributes')
+include ':bio-source-pangene'
+project(':bio-source-pangene').projectDir = new File(settingsDir, './pangene')

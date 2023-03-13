@@ -1,7 +1,7 @@
 package org.intermine.web.logic.export;
 
 /*
- * Copyright (C) 2002-2021 FlyMine
+ * Copyright (C) 2002-2022 FlyMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
@@ -130,6 +130,31 @@ public final class ResponseUtil
     public static void setJSONPHeader(HttpServletResponse response,
             String filename) {
         setJSONPContentType(response);
+        setFileName(response, filename);
+        setNoCache(response);
+    }
+
+
+    /**
+     * Sets the response header and content type for ntriples output
+     * @param response Our response to this request
+     * @param filename The name this response should have
+     */
+    public static void setNTriplesHeader(HttpServletResponse response,
+             String filename) {
+        setPlainTextContentType(response);
+        setFileName(response, filename);
+        setNoCache(response);
+    }
+
+    /**
+     * Sets the response header and content type for ntriples output
+     * @param response Our response to this request
+     * @param filename The name this response should have
+     */
+    public static void setRDFHeader(HttpServletResponse response,
+                                         String filename) {
+        setRDFXMLContentType(response);
         setFileName(response, filename);
         setNoCache(response);
     }
@@ -268,6 +293,15 @@ public final class ResponseUtil
      */
     public static void setJSONPContentType(HttpServletResponse response) {
         response.setContentType("application/javascript");
+        response.setCharacterEncoding("UTF-8");
+    }
+
+    /**
+     * Sets plain text content type.
+     * @param response response
+     */
+    public static void setRDFXMLContentType(HttpServletResponse response) {
+        response.setContentType("application/rdf+xml");
         response.setCharacterEncoding("UTF-8");
     }
 }

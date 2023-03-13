@@ -202,7 +202,7 @@ will be selected.
 
 <servlet>
   <servlet-name>ws-genomic-region-to-list</servlet-name>
-  <servlet-class>org.intermine.webservice.GenomicRegionSearchServlet</servlet-class>
+  <servlet-class>org.intermine.bio.webservice.GenomicRegionSearchServlet</servlet-class>
   <init-param>
      <param-name>debug</param-name>
      <param-value>true</param-value>
@@ -578,7 +578,7 @@ following [json-schema](http://json-schema.org/) schema:
 
 <servlet>
   <servlet-name>ws-genomic-region-to-bed</servlet-name>
-  <servlet-class>org.intermine.webservice.GenomicRegionBedServlet</servlet-class>
+  <servlet-class>org.intermine.bio.webservice.GenomicRegionBedServlet</servlet-class>
   <init-param>
      <param-name>debug</param-name>
      <param-value>true</param-value>

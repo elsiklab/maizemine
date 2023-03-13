@@ -1,7 +1,7 @@
 package org.intermine.bio.dataconversion;
 
 /*
- * Copyright (C) 2002-2021 FlyMine
+ * Copyright (C) 2002-2022 FlyMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
@@ -32,9 +32,10 @@ import org.intermine.xml.full.Item;
 
 
 /**
- *
+ * Modified from original to load Pathway.organism reference.
  *
  * @author Julie Sullivan
+ * @author
  */
 public class ReactomeConverter extends BioFileConverter
 {
@@ -91,7 +92,7 @@ public class ReactomeConverter extends BioFileConverter
                 // invalid organism
                 continue;
             }
-            Item pathway = getPathway(pathwayIdentifier, pathwayName);
+            Item pathway = getPathway(pathwayIdentifier, pathwayName, taxonId, uri);
 
             Item protein = getProtein(accession, taxonId);
             protein.addToCollection("pathways", pathway);
@@ -131,12 +132,15 @@ public class ReactomeConverter extends BioFileConverter
     }
 
 
-    private Item getPathway(String pathwayId, String pathwayName) throws ObjectStoreException {
+    private Item getPathway(String pathwayId, String pathwayName, String taxonId, String url) 
+        throws ObjectStoreException {
         Item item = pathways.get(pathwayId);
         if (item == null) {
             item = createItem("Pathway");
             item.setAttribute("identifier", pathwayId);
             item.setAttribute("name", pathwayName);
+            item.setAttribute("url", url);
+            item.setReference("organism", getOrganism(taxonId));
             pathways.put(pathwayId, item);
         }
         return item;

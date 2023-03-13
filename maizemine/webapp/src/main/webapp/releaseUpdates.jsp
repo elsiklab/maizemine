@@ -34,8 +34,27 @@
     <div id="content-wrap">
       <div id="release-updates">
         <div id="new-release-note">
-          <p>MaizeMine has been updated to the latest version 1.4. Please see the data sources page for a full list of data and their versions.</p>
+          <p>MaizeMine has been updated to the latest version 1.5. Please see the data sources page for a full list of data and their versions.</p>
           <p>If you have any questions, please see our docs and youtube videos. Please do not hesitate to contact us should you require any further assistance. For all types of help and feedback email <c:out value="${WEB_PROPERTIES['feedback.destination']}"/> .</p>
+        </div>
+        <br/>
+        <div class="note_header">
+          <h3>MaizeMine v1.5 release</h3>
+          <h5>November 2022</h5>
+        </div>
+        <div class="note_desc">
+          <h4>Updates</h4>
+          <ul>
+            <li>Genome assemblies and gene sets of 25 <em>Z. mays</em> NAM founder lines have been added.</li>
+            <li>Pangenes encompassing the NAM founder lines, computed at MaizeGDB, have been added, and template queries for these are found under a new template category tab called "Pangene".</li>
+            <li>All MaizeGDB gene sources are now named with both the name of the <em>Z. mays</em> line and the gene set name at MaizeGDB (e.g. B73 Zm00001eb.1).</li>
+            <li>GO annotations for all <em>Z. mays</em> lines computed using Pannzer at MaizeGDB have been added.</li>
+            <li>Gene symbols and descriptions for all <em>Z. mays</em> lines computed using Pannzer at MaizeGDB have been added.</li>
+            <li>Pathways for all lines computed using E2P2 at MaizeGDB have been added.</li>
+            <li>The following other datasets have been updated for B73: UniProt, UniProt GO annotations, KEGG, Reactome, InterPro, Publications, GWAS Atlas.</li>
+            <li>The InterMine application has been updated.</li>
+          </ul>
+          <br/>
         </div>
         <br/>
         <div class="note_header">

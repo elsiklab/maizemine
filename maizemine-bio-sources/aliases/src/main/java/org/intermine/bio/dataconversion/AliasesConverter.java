@@ -1,7 +1,7 @@
 package org.intermine.bio.dataconversion;
 
 /*
- * Copyright (C) 2002-2021 FlyMine
+ * Copyright (C) 2002-2022 FlyMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
@@ -20,6 +20,7 @@ import org.intermine.dataconversion.ItemWriter;
 import org.intermine.metadata.Model;
 import org.intermine.xml.full.Item;
 import org.apache.log4j.Logger;
+import org.apache.commons.lang.StringUtils;
 import org.intermine.metadata.TypeUtil;
 import org.intermine.model.bio.DataSet;
 import org.intermine.model.bio.Organism;
@@ -38,14 +39,16 @@ import org.intermine.xml.full.Attribute;
  */
 public class AliasesConverter extends BioFileConverter
 {
-    Map<String, Item> ftItemMap = new HashMap<String, Item>();
-    Map<String, Item> aliasItemMap = new HashMap<String, Item>();
-    Map<String, Item> dataSourceItemMap = new HashMap<String, Item>();
-    Map<String, Item> dataSetItemMap = new HashMap<String, Item>();
+    private Map<String, Item> ftItemMap = new HashMap<String, Item>();
+    private Map<String, Item> aliasItemMap = new HashMap<String, Item>();
     private String className = null;             // e.g., "Gene" or "org.intermine.model.bio.Gene"
     private String unqualifiedClassName = null;  // e.g., "Gene"
     private String taxonId = null;
-    String organismReferenceId = null;
+    private String dataSourceName = null;
+    private String dataSetTitle = null;
+    private Item dataSource = null;
+    private Item dataSet = null;
+    private String organismReferenceId = null;
 
     /**
      * Constructor
@@ -74,6 +77,22 @@ public class AliasesConverter extends BioFileConverter
     }
 
     /**
+     * Set the data source name.
+     * @param dataSourceName name of datasource for items created
+     */
+    public void setDataSourceName(String dataSourceName) {
+        this.dataSourceName = dataSourceName;
+    }
+
+    /**
+     * Set the data set title.
+     * @param dataSetTitle the title of the DataSets
+     */
+    public void setDataSetTitle(String dataSetTitle) {
+        this.dataSetTitle = dataSetTitle;
+    }
+
+    /**
      * 
      *
      * {@inheritDoc}
@@ -89,7 +108,7 @@ public class AliasesConverter extends BioFileConverter
         Class<?> cls = getModel().getClassDescriptorByName(className).getType();
         if (!SequenceFeature.class.isAssignableFrom(cls)) {
             throw new RuntimeException("className must be a valid class in the model"
-                        + " that inherits from SequenceFeature, but was: " + className);
+                        + " that extends SequenceFeature, but was: " + className);
         }
         // Need unqualified class name to use createItem()
         unqualifiedClassName = TypeUtil.unqualifiedName(className);
@@ -113,31 +132,28 @@ public class AliasesConverter extends BioFileConverter
             for (String aliasEntry : aliasEntryList) {
                 Item aliasItem = getAliasItem(aliasEntry);
                 aliasItem.addToCollection("features", ftItem.getIdentifier());
-                // Shouldn't need to add the reverse direction
-                //ftItem.addToCollection("aliases", aliasItem.getIdentifier());
-                // Add to maps after creating and setting refs + collections
-                aliasItemMap.put(aliasEntry, aliasItem);
-                ftItemMap.put(ftPrimaryIdentifier, ftItem);
             }
         }
     }
 
-    protected Item getFeatureItem(String ftPrimaryIdentifier, String ftSource) {
+    protected Item getFeatureItem(String ftPrimaryIdentifier, String ftSource) 
+        throws ObjectStoreException {
         Item ftItem;
 
         if (ftItemMap.containsKey(ftPrimaryIdentifier)) {
             ftItem = ftItemMap.get(ftPrimaryIdentifier);
         } else {
-            ftItem = createItem(unqualifiedClassName);
+            ftItem = createItem(unqualifiedClassName); // extends SequenceFeature
             ftItem.setAttribute("primaryIdentifier", ftPrimaryIdentifier);
             ftItem.setAttribute("source", ftSource);
             ftItem.setReference("organism", organismReferenceId);
+            ftItem.addToCollection("dataSets", getDataSet());
             ftItemMap.put(ftPrimaryIdentifier, ftItem);
         }
         return ftItem;
     }
 
-    protected Item getAliasItem(String aliasEntry) {
+    protected Item getAliasItem(String aliasEntry) throws ObjectStoreException {
         Item aliasItem;
 
         String[] aliasInfo = aliasEntry.split(":");
@@ -146,9 +162,6 @@ public class AliasesConverter extends BioFileConverter
         String aliasIdentifier = info;
         String aliasSource = aliasInfo[1];
 
-        Item dataSourceItem = getDataSourceItem(aliasSource);
-        Item dataSetItem = getDataSetItem(aliasSource, dataSourceItem);
-
         if (aliasItemMap.containsKey(aliasEntry)) {
             aliasItem = aliasItemMap.get(aliasEntry);
         } else {
@@ -156,7 +169,8 @@ public class AliasesConverter extends BioFileConverter
             aliasItem.setAttribute("identifier", aliasIdentifier);
             aliasItem.setAttribute("source", aliasSource);
             aliasItem.setReference("organism", organismReferenceId);
-            aliasItem.addToCollection("dataSets", dataSetItem);
+            aliasItem.addToCollection("dataSets", getDataSet());
+            aliasItemMap.put(aliasEntry, aliasItem);
         }
         return aliasItem;
     }
@@ -165,12 +179,11 @@ public class AliasesConverter extends BioFileConverter
      * Store a given item
      * @param item
      */
-    protected void storeItem(Item item) {
+    protected void storeItem(Item item) throws ObjectStoreException {
         try {
             store(item);
-        } catch (Exception e) {
-            System.out.println("Error while storing item: " + item);
-            System.out.println("Exception: " + e);
+        } catch (ObjectStoreException e) {
+            throw new RuntimeException("Error while storing item: " + item, e);
         }
     }
 
@@ -178,50 +191,43 @@ public class AliasesConverter extends BioFileConverter
      * Store all items in a given Map
      * @param itemMap
      */
-    protected void storeAllItems(Map<String, Item> itemMap) {
+    protected void storeAllItems(Map<String, Item> itemMap) throws ObjectStoreException {
         for (String key : itemMap.keySet()) {
             storeItem(itemMap.get(key));
         }
     }
 
-    /**
-     * Get or create an item for a given dataSourceName
-     * @param dataSourceName
-     * @return
-     */
-    protected Item getDataSourceItem(String dataSourceName) {
-        Item dataSourceItem = null;
-        if (dataSourceName != null) {
-            if (dataSourceItemMap.containsKey(dataSourceName)) {
-                dataSourceItem = dataSourceItemMap.get(dataSourceName);
-            } else {
-                dataSourceItem = createItem("DataSource");
-                dataSourceItem.setAttribute("name", dataSourceName);
-                dataSourceItemMap.put(dataSourceName, dataSourceItem);
+    private String getDataSourceRefId() {
+        if (dataSource == null) {
+            dataSource = createItem("DataSource");
+            if (StringUtils.isEmpty(dataSourceName)) {
+                throw new RuntimeException("Data source name not set in project.xml");
+            }
+            dataSource.setAttribute("name", dataSourceName);
+            try {
+                store(dataSource);
+            } catch (ObjectStoreException e) {
+                throw new RuntimeException("failed to store DataSource with name: " + dataSourceName, e);
             }
         }
-        return dataSourceItem;
+        return dataSource.getIdentifier();
     }
 
-    /**
-     * Get or create an item for a given dataSetName
-     * @param dataSetName
-     * @param dataSourceItem
-     * @return
-     */
-    protected Item getDataSetItem(String dataSetName, Item dataSourceItem) {
-        Item dataSetItem = null;
-        if (dataSetName != null) {
-            if (dataSetItemMap.containsKey(dataSetName)) {
-                dataSetItem = dataSetItemMap.get(dataSetName);
-            } else {
-                dataSetItem = createItem("DataSet");
-                dataSetItem.setAttribute("name", dataSetName);
-                dataSetItem.setReference("dataSource", dataSourceItem.getIdentifier());
-                dataSetItemMap.put(dataSetName, dataSetItem);
+    private Item getDataSet() throws ObjectStoreException {
+        if (dataSet == null) {
+            dataSet = createItem("DataSet");
+            if (StringUtils.isEmpty(dataSetTitle)) {
+                throw new RuntimeException("Data set title not set in project.xml");
+            }
+            dataSet.setAttribute("name", dataSetTitle);
+            dataSet.setReference("dataSource", getDataSourceRefId());
+            try {
+                store(dataSet);
+            } catch (ObjectStoreException e) {
+                throw new RuntimeException("failed to store DataSet with name: " + dataSetTitle, e);
             }
         }
-        return dataSetItem;
+        return dataSet;
     }
 
     /**
@@ -230,8 +236,6 @@ public class AliasesConverter extends BioFileConverter
      */
     @Override
     public void close() throws Exception {
-        storeAllItems(dataSourceItemMap);
-        storeAllItems(dataSetItemMap);
         storeAllItems(aliasItemMap);
         storeAllItems(ftItemMap);
     }

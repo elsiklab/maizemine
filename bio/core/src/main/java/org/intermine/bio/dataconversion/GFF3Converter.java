@@ -1,7 +1,7 @@
 package org.intermine.bio.dataconversion;
 
 /*
- * Copyright (C) 2002-2021 FlyMine
+ * Copyright (C) 2002-2022 FlyMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
@@ -63,6 +63,8 @@ public class GFF3Converter extends DataConverter
     private GFF3RecordHandler handler;
     private GFF3SeqHandler sequenceHandler;
     private boolean dontCreateLocations;
+    private boolean loadDuplicateEntities = false;
+    private boolean loadSequenceAlterations = false;
     private final Map<String, Item> dataSets = new HashMap<String, Item>();
     private final Map<String, Item> dataSources = new HashMap<String, Item>();
 
@@ -89,7 +91,7 @@ public class GFF3Converter extends DataConverter
      * @param licence URL to the licence for this data set
      * @throws ObjectStoreException if something goes wrong
      */
-    public GFF3Converter(ItemWriter writer, String seqClsName, String seqAssemblyVersion, 
+    public GFF3Converter(ItemWriter writer, String seqClsName, String seqAssemblyVersion,
             String orgTaxonId, String dataSourceName, String dataSetTitle, Model tgtModel,
             GFF3RecordHandler handler, GFF3SeqHandler sequenceHandler, String licence)
             throws ObjectStoreException {
@@ -119,13 +121,13 @@ public class GFF3Converter extends DataConverter
     }
 
     // Constructor without assemblyVersion (for generic GFFs)
-    public GFF3Converter(ItemWriter writer, String seqClsName, String orgTaxonId, 
+    public GFF3Converter(ItemWriter writer, String seqClsName, String orgTaxonId,
             String dataSourceName, String dataSetTitle, Model tgtModel,
             GFF3RecordHandler handler, GFF3SeqHandler sequenceHandler, String licence)
             throws ObjectStoreException {
         this(writer, seqClsName, "", orgTaxonId, dataSourceName, dataSetTitle, tgtModel,
-                handler, sequenceHandler, licence);  
-    } 
+                handler, sequenceHandler, licence);
+    }
 
     // default is gff_config.properties, but can be overridden by a property file for the
     // specific GFF3 source
@@ -789,6 +791,40 @@ public class GFF3Converter extends DataConverter
      */
     public void setDontCreateLocations(boolean dontCreateLocations) {
         this.dontCreateLocations = dontCreateLocations;
+    }
+
+    /**
+     * Set the loadDuplicateEntities flag
+     * @param loadDuplicateEntities if true, create duplicate entities for genes while processing
+     */
+    public void setLoadDuplicateEntities(boolean loadDuplicateEntities) {
+        System.out.println("Setting loadDuplicateEntities to " + loadDuplicateEntities);
+        this.loadDuplicateEntities = loadDuplicateEntities;
+    }
+
+    /**
+     * Return the value of loadDuplicateEntities flag
+     * @return boolean loadDuplicateEntities flag
+     */
+    public boolean getLoadDuplicateEntities() {
+        return this.loadDuplicateEntities;
+    }
+
+    /**
+     * Set the loadSequenceAlterations flag
+     * @param loadSequenceAlterations loadSequenceAlterations flag
+     */
+    public void setLoadSequenceAlterations(boolean loadSequenceAlterations) {
+        System.out.println("Setting loadSequenceAlterations to " + loadSequenceAlterations);
+        this.loadSequenceAlterations = loadSequenceAlterations;
+    }
+
+    /**
+     * Return the value of loadSequenceAlterations flag
+     * @return boolean loadSequenceAlterations flag
+     */
+    public boolean getLoadSequenceAlterations() {
+        return this.loadSequenceAlterations;
     }
 
     /**

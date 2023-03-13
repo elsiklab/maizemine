@@ -1,6 +1,25 @@
 
 <!-- geneStructureModel.jsp -->
 
+<c:set var="mineUrl" value="${WEB_PROPERTIES['project.sitePrefix']}"/>
+<c:set var="taxon" value="${reportObject.object.organism.taxonId}"/>
+<c:set var="assembly" value="${reportObject.object.chromosome.assembly}"/>
+<c:set var="chrId" value="${reportObject.object.chromosome.primaryIdentifier}"/>
+<c:set var="propKeyTaxon" value="attributelink.JBrowse.Gene.${taxon}.primaryIdentifier.url"/>
+<c:set var="propKeyAssembly" value="jbrowse.link.${taxon}.${assembly}.url"/>
+<c:set var="jBrowsePropTaxon" value="${WEB_PROPERTIES[propKeyTaxon]}"/>
+<c:set var="jBrowsePropAssembly" value="${WEB_PROPERTIES[propKeyAssembly]}"/>
+<c:choose>
+  <c:when test="${!empty jBrowsePropTaxon}">
+    <!-- One assembly per org: -->
+    <c:set var="jBrowseUrl" value="${jBrowsePropTaxon}"/>
+  </c:when>
+  <c:otherwise>
+    <!-- More than one assembly per org: -->
+    <c:set var="jBrowseUrl" value="${jBrowsePropAssembly}"/>
+  </c:otherwise>
+</c:choose>
+
 <div class="collection-of-collections" id="gene-structure-model" style="height:80px">
 
     <link rel="stylesheet" type="text/css" href="jbrowse_renderer/genome.css">
@@ -41,13 +60,10 @@
 </style>
 
 <script>
+var mineUrl = '${mineUrl}';
 var pid = '<c:out value="${gene.primaryIdentifier}"/>';
-
-var assemblyMap = {
-    "Zm-B73-REFERENCE-NAM-5.0" : "862",
-    "B73_RefGen_v3" : "20",
-    "B73_RefGen_v4" : "545"
-};
+var jBrowseUrl = '${jBrowseUrl}';
+//console.log("JBrowse url is " + jBrowseUrl);
 
 // Require bare bones jbrowse components without using the main browser object
 require({
@@ -81,7 +97,8 @@ require({
    'JBrowse/Store/Sequence/StaticChunked'
 ],
 function (cookie,dom,domConstruct,domStyle,domClass,Browser,HTMLFeatures,NCList,SimpleFeature,Layout,StaticChunkedSequence) {
-   var maizemine = new intermine.Service({root: "https://maizemine.rnet.missouri.edu/maizemine"});
+   var mymine = new intermine.Service({root: mineUrl});
+
    var query = {
        from: 'Gene',
        select: [
@@ -94,14 +111,13 @@ function (cookie,dom,domConstruct,domStyle,domClass,Browser,HTMLFeatures,NCList,
            'transcripts.exons.chromosomeLocation.end',
            'transcripts.primaryIdentifier',
            'transcripts.secondaryIdentifier',
-           'transcripts.symbol',
-           'organism.shortName'
+           'transcripts.symbol'
        ],
        where: {
            primaryIdentifier: pid
        }
    };
-   var createJBrowse=function(features, organism, assembly){
+   var createJBrowse=function(features){
        var node=dom.byId("gene-structure-model");
        var height=15+Object.keys(features).length*31;
        domStyle.set(node,"height",height+'px');
@@ -120,10 +136,12 @@ function (cookie,dom,domConstruct,domStyle,domClass,Browser,HTMLFeatures,NCList,
           "menuTemplate":null
        };
 
-       if (assembly in assemblyMap) {
+       if (jBrowseUrl) {
+          var jBrowseBaseUrl = jBrowseUrl.substr(0, jBrowseUrl.indexOf('?'));
+          var tracks = jBrowseUrl.substr(jBrowseUrl.indexOf('&tracks='), jBrowseUrl.length);
           trackConfig.onClick = {
               "label": "Feature name {name}\nFeature start {start}\nFeature end {end}",
-              "url": "http://jbrowse-maizemine.rnet.missouri.edu:8080/apollo/" + assemblyMap[assembly] + "/jbrowse/index.html?loc={seq}:{start}..{end}",
+              "url": jBrowseBaseUrl + "?loc={seq}:{start}..{end}" + tracks,
               "action": "newWindow"
           }
        }
@@ -185,7 +203,7 @@ function (cookie,dom,domConstruct,domStyle,domClass,Browser,HTMLFeatures,NCList,
        }
        track.updateStaticElements({x:0,y:0,width:2000,height:height});
    }
-   maizemine.rows(query).then(function(rows) {
+   mymine.rows(query).then(function(rows) {
        var features={};
        rows.forEach(function printRow(row) {
            var transcript=row[7];
@@ -202,8 +220,6 @@ function (cookie,dom,domConstruct,domStyle,domClass,Browser,HTMLFeatures,NCList,
                        "name":row[7]
                    };
            }
-           assembly=row[1];
-           organism=row[10];
            features[transcript].subfeatures.push({
                    "start": row[5],
                    "end": row[6],
@@ -212,7 +228,7 @@ function (cookie,dom,domConstruct,domStyle,domClass,Browser,HTMLFeatures,NCList,
                 });
        });
        
-       createJBrowse(features, organism, assembly);
+       createJBrowse(features);
    });
 });
 </script>
@@ -221,10 +237,5 @@ function (cookie,dom,domConstruct,domStyle,domClass,Browser,HTMLFeatures,NCList,
 <div id="label"></div>
 
 </div>
-
-
-
-
-
 
 <!-- /geneStructureModel.jsp -->

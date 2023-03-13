@@ -34,7 +34,7 @@
       <collection name="genes" referenced-type="Gene" reverse-reference="introns"/>
     </class>
 
-    <class name="Protein" is-interface="true" term="http://semanticscience.org/resource/SIO_010043">
+    <class name="Protein" is-interface="true" term="http://purl.uniprot.org/core/Protein,http://semanticscience.org/resource/SIO_010043">
       <collection name="CDSs" referenced-type="CDS" reverse-reference="protein"/>
       <collection name="transcripts" referenced-type="Transcript" reverse-reference="protein"/>
     </class>
@@ -51,10 +51,14 @@
       <reference name="gene" referenced-type="Gene" reverse-reference="UTRs"/>
     </class>
 
-    <!-- MaizeMine additions, need to be added here due to dependencies -->
-    <class name="SequenceAlteration" extends="SequenceFeature" is-interface="true"/>
-    <class name="Indel" extends="SequenceAlteration" is-interface="true"/>
-    <class name="SNP" extends="SequenceAlteration" is-interface="true"/>
+    <!--Custom additions, need to be added here due to dependencies-->
+
+    <!--CDS/Protein FASTA-->
     <class name="CodingSequence" extends="SequenceFeature" is-interface="true"/>
     <class name="Polypeptide" extends="SequenceFeature" is-interface="true"/>
+
+    <!--SNP-->
+    <class name="SequenceAlteration" extends="SequenceFeature" is-interface="true"/>
+    <class name="SNV" extends="SequenceAlteration" is-interface="true"/>
+
 </classes>

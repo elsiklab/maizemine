@@ -1,7 +1,7 @@
 package org.intermine.bio.dataconversion;
 
 /*
- * Copyright (C) 2002-2021 FlyMine
+ * Copyright (C) 2002-2022 FlyMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
@@ -54,7 +54,7 @@ public class OmimConverter extends BioDirectoryConverter
     protected IdResolver rslv = null;
     private static final String OMIM_TXT_FILE = "mimTitles.txt";
     private static final String MORBIDMAP_FILE = "morbidmap.txt";
-    private static final String PUBMED_FILE = "pubmed_cited";
+    private static final String PUBMED_FILE = "pubmed_cited.txt";
     // An asterisk (*) before an entry number indicates a gene.
     private static final String GENE_ENTRY = "Asterisk";
     private static final String GENE_PHENOTYPE_ENTRY = "Plus";

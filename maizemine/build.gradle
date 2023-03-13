@@ -27,9 +27,10 @@ subprojects {
   repositories {
     mavenLocal()
     mavenCentral()
+    jcenter()
     maven { url 'https://clojars.org/repo' }
     maven {
-        url 'http://www.ebi.ac.uk/intact/maven/nexus/content/repositories/ebi-repo/'
+        url 'https://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-repo/'
     }
   }
 
@@ -55,6 +56,8 @@ task clean(type: Delete) {
     println "deleting idresolver cache"
     delete "datasources.xml"
     println "deleting datasources.xml"
+    delete "datasources-custom.xml"
+    println "deleting datasources-custom.xml"
     delete "organisms.xml"
     println "deleting organisms.xml"
     delete "publications.xml"

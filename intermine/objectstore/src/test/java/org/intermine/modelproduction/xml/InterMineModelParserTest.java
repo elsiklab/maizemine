@@ -1,7 +1,7 @@
 package org.intermine.modelproduction.xml;
 
 /*
- * Copyright (C) 2002-2021 FlyMine
+ * Copyright (C) 2002-2022 FlyMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
@@ -64,13 +64,13 @@ public class InterMineModelParserTest extends TestCase
         ClassDescriptor intermineObject = new ClassDescriptor("org.intermine.model.InterMineObject", null, true,
                                                               new HashSet(Collections.singleton(id)), new HashSet(), new HashSet(), null);
         AttributeDescriptor companyName = new AttributeDescriptor("name", "java.lang.String", NAME_TERM);
-        CollectionDescriptor companyDepartments = new CollectionDescriptor("departments", PKG + "Department", "company");
+        CollectionDescriptor companyDepartments = new CollectionDescriptor("departments", PKG + "Department", "company", null);
         ClassDescriptor company = new ClassDescriptor(PKG + "Company", PKG + "HasAddress", true,
                                                       new HashSet(Collections.singleton(companyName)),
                                                       new HashSet(),
                                                       new HashSet(Collections.singleton(companyDepartments)), COMPANY_TERM);
 
-        ReferenceDescriptor departmentCompany = new ReferenceDescriptor("company", PKG + "Company", "departments");
+        ReferenceDescriptor departmentCompany = new ReferenceDescriptor("company", PKG + "Company", "departments", null);
         ClassDescriptor department = new ClassDescriptor(PKG + "Department", null, false,
                                                          new HashSet(),
                                                          new HashSet(Collections.singleton(departmentCompany)),

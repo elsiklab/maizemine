@@ -1,7 +1,7 @@
 package org.intermine.bio.task;
 
 /*
- * Copyright (C) 2002-2021 FlyMine
+ * Copyright (C) 2002-2022 FlyMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
@@ -23,6 +23,7 @@ import org.intermine.bio.io.gff3.GFF3Parser;
 import org.intermine.dataconversion.ItemWriter;
 import org.intermine.dataconversion.ObjectStoreItemWriter;
 import org.intermine.metadata.Model;
+
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
@@ -52,6 +53,8 @@ public class GFF3ConverterTask extends Task
     private String seqHandlerClassName;
 
     private boolean dontCreateLocations = false;
+    private boolean loadDuplicateEntities = false;
+    private boolean loadSequenceAlterations = false;
 
      /**
      * Set the data fileset
@@ -69,6 +72,7 @@ public class GFF3ConverterTask extends Task
         this.converter = converter;
     }
 
+
     /**
      * Set the target ObjectStore alias
      * @param targetAlias the targetAlias
@@ -77,13 +81,15 @@ public class GFF3ConverterTask extends Task
         this.targetAlias = targetAlias;
     }
 
-    /**
+
+     /**
      * Set the sequenceClassName
      * @param seqClsName the seqClsName;
      */
     public void setSeqClsName(String seqClsName) {
         this.seqClsName = seqClsName;
     }
+
 
     /**
      * Set the organism taxon id
@@ -99,6 +105,30 @@ public class GFF3ConverterTask extends Task
      */
     public void setSeqAssemblyVersion(String seqAssemblyVersion) {
         this.seqAssemblyVersion = seqAssemblyVersion;
+    }
+
+    /**
+     * Set whether to create Duplicate Entity items
+     * @param loadDuplicateEntities whether to load duplicate entities
+     */
+    public void setLoadDuplicateEntities(String loadDuplicateEntities) {
+        if ("true".equalsIgnoreCase(loadDuplicateEntities)) {
+            this.loadDuplicateEntities = true;
+        } else {
+            this.loadDuplicateEntities = false;
+        }
+    }
+
+    /**
+     * Set whether to load Sequence Alterations as flank markers
+     * @param loadSequenceAlterations whether to load Sequence Alterations
+     */
+    public void setLoadSequenceAlterations(String loadSequenceAlterations) {
+        if ("true".equalsIgnoreCase(loadSequenceAlterations)) {
+            this.loadSequenceAlterations = true;
+        } else {
+            this.loadSequenceAlterations = false;
+        }
     }
 
     /**
@@ -251,10 +281,16 @@ public class GFF3ConverterTask extends Task
             if (dontCreateLocations) {
                 gff3converter.setDontCreateLocations(dontCreateLocations);
             }
+            if (loadDuplicateEntities) {
+                gff3converter.setLoadDuplicateEntities(loadDuplicateEntities);
+            }
+            if (loadSequenceAlterations) {
+                gff3converter.setLoadSequenceAlterations(loadSequenceAlterations);
+            }
 
             for (int i = 0; i < files.length; i++) {
                 File f = new File(ds.getBasedir(), files[i]);
-                System.err.println("Processing file: " + f.getName());
+                System.err .println("Processing file: " + f.getName());
                 gff3converter.parse(new BufferedReader(new FileReader(f)));
             }
             gff3converter.storeAll();

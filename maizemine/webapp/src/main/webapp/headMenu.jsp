@@ -35,13 +35,25 @@
     </div>
   </c:if>
   <div id="header">
-    <a href="${WEB_PROPERTIES['project.sitePrefix']}" alt="Home" rel="NOFOLLOW"><img id="logo" src="model/images/logo.png" width="45px" height="43px" alt="Logo" /></a>
-    <h1><html:link href="${WEB_PROPERTIES['project.sitePrefix']}/"><c:out value="${WEB_PROPERTIES['project.title']}" escapeXml="false"/></html:link></h1>
+    <c:if test="${WEB_PROPERTIES['branding.images.displayLogo'] == 'true'}">
+      <a href="${WEB_PROPERTIES['project.sitePrefix']}" alt="Home" rel="NOFOLLOW"><img id="logo" src="${WEB_PROPERTIES['branding.images.logo']}" width="45px" height="43px" alt="Logo" /></a>
+    </c:if>
+    <h1>
+      <html:link href="${WEB_PROPERTIES['project.sitePrefix']}/">
+        <c:choose>
+          <c:when test="${!empty WEB_PROPERTIES['project.titlefancy']}">
+            <c:out value="${WEB_PROPERTIES['project.titlefancy']}" escapeXml="false"/>
+	  </c:when>
+	  <c:otherwise>
+	    <c:out value="${WEB_PROPERTIES['project.title']}" escapeXml="false"/>
+	  </c:otherwise>
+	</c:choose>
+      </html:link>
+    </h1>
     <p id="version"><fmt:message key="header.version"/> <c:out value="${WEB_PROPERTIES['project.releaseVersion']}" escapeXml="false"/></span>
-    <p>
-      <c:out value="${WEB_PROPERTIES['project.subTitle']}" escapeXml="false"/>.&nbsp;
-      <!--MaizeMine v1.3 link-->
-      Click <a href="http://maizemine-v13.rnet.missouri.edu/maizemine/begin.do" target="_blank">here to go to MaizeMine v1.3 (the previous release)</a>.
+    <p>&nbsp;&nbsp;&nbsp;<c:out value="${WEB_PROPERTIES['project.subTitle']}" escapeXml="false"/>.&nbsp;
+      <!--MaizeMine v1.4 link-->
+      <a href="https://maizemine-v14.rnet.missouri.edu/maizemine" target="_blank">Click here to go to MaizeMine v1.4 (previous release)</a>
     </p>
   </div>
 
@@ -86,16 +98,23 @@
           <fmt:message key="menu.dataCategories"/>
         </a>
       </li>
-      <li id="Help"  <c:if test="${tab == 'Help'}">class="activelink"</c:if>>
-        <a href="https://maizemine.readthedocs.io/en/v1.4/" target="_blank">
+      <li id="Help" <c:if test="${tab == 'Help'}">class="activelink"</c:if>>
+        <a href="${WEB_PROPERTIES['project.helpLocation']}" target="_blank">
           <fmt:message key="menu.help"/>
         </a>
       </li>
-      <li id="api"  <c:if test="${tab == 'api'}">class="activelink"</c:if>>
+      <li id="api" <c:if test="${tab == 'api'}">class="activelink"</c:if>>
         <a href="/${WEB_PROPERTIES['webapp.path']}/api.do">
           <fmt:message key="menu.api"/>
         </a>
       </li>
+      <c:if test="${WEB_PROPERTIES['blast.display'] == 'true'}">
+        <li id="blast" <c:if test="${tab == 'blast'}">class="activelink"</c:if>>
+          <a href="${WEB_PROPERTIES['blast.url']}" target="_blank">
+            <fmt:message key="menu.blast"/>
+          </a>
+        </li>
+      </c:if>
     </ul>
   <ul id="loginbar">
         <li><a href="#" onclick="showContactForm();return false;"><fmt:message key="feedback.link"/></a></li>

@@ -1,7 +1,7 @@
 package org.intermine.bio.dataconversion;
 
 /*
- * Copyright (C) 2002-2021 FlyMine
+ * Copyright (C) 2002-2022 FlyMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
@@ -35,14 +35,18 @@ import org.intermine.model.bio.Consequence;
 import org.intermine.model.bio.ConsequenceType;
 import org.intermine.model.bio.DataSet;
 import org.intermine.model.bio.DataSource;
+import org.intermine.model.bio.Deletion;
+import org.intermine.model.bio.Delins;
 import org.intermine.model.bio.Indel;
+import org.intermine.model.bio.Insertion;
 import org.intermine.model.bio.Gene;
 import org.intermine.model.bio.Location;
+import org.intermine.model.bio.MNV;
 import org.intermine.model.bio.Ontology;
 import org.intermine.model.bio.Organism;
 import org.intermine.model.bio.SequenceAlteration;
 import org.intermine.model.bio.SequenceFeature;
-import org.intermine.model.bio.SNP;
+import org.intermine.model.bio.SNV;
 import org.intermine.model.bio.SOTerm;
 import org.intermine.model.bio.Transcript;
 import org.intermine.objectstore.ObjectStoreException;
@@ -71,9 +75,6 @@ import org.intermine.util.FormattedTextParser;
 public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
 {
     private static final Logger LOG = Logger.getLogger(SNPVariationLoaderTask.class);
-
-    private static final String DATASET_TITLE = "Ensembl Plants variants and variant annotations data set";
-    private static final String DATA_SOURCE_NAME = "EnsemblPlants";
     private static final String[] EXPECTED_HEADERS = {
         "#CHROM",
         "POS",
@@ -90,6 +91,8 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
     private String taxonId = null;
     private String assemblyVersion = null;
     private Organism organism = null;
+    private String dataSourceName = null;
+    private String dataSetTitle = null;
     private DataSet dataSet = null;
     private DataSource dataSource = null;
     private Ontology ontology = null;
@@ -104,6 +107,7 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
     private Map<Transcript, HashSet<SequenceAlteration>> transcriptToSequenceAlterationMap = new HashMap<Transcript, HashSet<SequenceAlteration>>();
     private Map<String, SOTerm> createdSotermMap = new HashMap<String, SOTerm>();
     private Map<String, Gene> createdGeneMap = new HashMap<String, Gene>();
+    private Map<String, AliasName> createdAliasNameMap = new HashMap<String, AliasName>();
     private Map<String, Chromosome> createdChromosomeMap = new HashMap<String, Chromosome>();
     private Map<String, Transcript> createdTranscriptMap = new HashMap<String, Transcript>();
     private Map<String, ConsequenceType> consequenceTypeMap = new HashMap<String, ConsequenceType>();
@@ -123,16 +127,34 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
     }
 
     /**
+     * Sets the data set title.
+     *
+     * @param dataSetTitle data set title
+     */
+    public void setDataSetTitle(String dataSetTitle) {
+        this.dataSetTitle = dataSetTitle;
+    }
+
+    /**
+     * Sets the data source name.
+     *
+     * @param dataSourceName data source name
+     */
+    public void setDataSourceName(String dataSourceName) {
+        this.dataSourceName = dataSourceName;
+    }
+
+    /**
      * Set the assembly version for chromosomes.
-     * @param assemblyVersion
+     * @param assemblyVersion assembly version
      */
     public void setAssemblyVersion(String assemblyVersion) {
         this.assemblyVersion = assemblyVersion;
     }
 
     /**
-     * Set the gene source
-     * @param geneSource
+     * Set the gene source for genes.
+     * @param geneSource gene source
      */
     public void setGeneSource(String geneSource) {
         this.geneSource = geneSource;
@@ -251,8 +273,7 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
      * @return boolean
      * @throws ObjectStoreException
      */
-    private boolean processVcfEntry(String[] fields)
-        throws ObjectStoreException {
+    private boolean processVcfEntry(String[] fields) throws ObjectStoreException {
         if (fields.length < EXPECTED_HEADERS.length) {
             System.out.println("Fields length of " + fields.length + " vs Expected length of " + EXPECTED_HEADERS.length);
             throw new BuildException("unexpected number of columns in VCF file");
@@ -264,13 +285,12 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
         String ref = fields[3];
         String alt = fields[4];
         String info = fields[7];
-        ArrayList<String> infoElements = splitInfoField(info);
+        ArrayList<String> infoElements = new ArrayList<String>(Arrays.asList(StringUtil.split(info, ";")));
 
         Chromosome chromosome = getChromosome(chromosomeIdentifier);
         chromosome.setAssembly(assemblyVersion);
 
         String type = getKeyValuePair(infoElements, "TSA=").get(1);
-        //String dbSnpBuild = getKeyValuePair(infoElements, "dbSNPBuildID=").get(1);
         ArrayList<String> aliases = getKeyValuePair(infoElements, "alias=");
         ArrayList<String> csq = getKeyValuePair(infoElements, "CSQ=");
         ArrayList<HashSet> returnObject = new ArrayList<HashSet>();
@@ -281,13 +301,29 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
         String saClassName, soTerm, saName;
 
         if (type.toUpperCase().equals("SNV")) {
-            saClassName = "SNP";
-            soTerm = "SNP";
-            saName = "SNP";
-        } else if (type.toUpperCase().equals("INSERTION") || type.toUpperCase().equals("DELETION") || type.toUpperCase().equals("INDEL")) {
+            saClassName = "SNV";
+            soTerm = "SNV";
+            saName = "SNV";
+        } else if (type.toUpperCase().equals("INDEL")) {
             saClassName = "Indel";
             soTerm = "indel";
             saName = "INDEL";
+        } else if (type.toUpperCase().equals("INSERTION")) {
+            saClassName = "Insertion";
+            soTerm = "insertion";
+            saName = "INSERTION";
+        } else if (type.toUpperCase().equals("DELETION")) {
+            saClassName = "Deletion";
+            soTerm = "deletion";
+            saName = "DELETION";
+        } else if (type.toUpperCase().equals("MNV")) {
+            saClassName = "MNV";
+            soTerm = "MNV";
+            saName = "MNV";
+        } else if (type.toUpperCase().equals("DELINS")) {
+            saClassName = "Delins";
+            soTerm = "delins";
+            saName = "DELINS";
         } else if (type.toUpperCase().equals("SEQUENCE_ALTERATION")) {
             saClassName = "SequenceAlteration";
             soTerm = "sequence_alteration";
@@ -325,16 +361,17 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
         snp.setPrimaryIdentifier(id);
         imoTracker.put(snp.getId(), snp);
         snp.setName(saName);
+        snp.setSource(geneSource);
         snp.setSequenceOntologyTerm(getSoTerm(soTerm));
         snp.setOrganism(getOrganism());
-        if (saClassName.equals("SNP")) {
+        if (saClassName.equals("SNV")) {
             snp.setLength(1);
         }
         snp.setReferenceAllele(ref);
         snp.setAlternateAllele(alt);
         snp.setChromosome(chromosome);
-        // set dataSets collection
-        snp.setDataSets(new HashSet<DataSet>(Arrays.asList(getDataSet())));
+        snp.addDataSets(getDataSet());
+        //snp.setDataSets(new HashSet<DataSet>(Arrays.asList(getDataSet())));
 
         // Processing ssIds corresponding to each SNP ID
         Set<AliasName> aliasSet = null;
@@ -435,15 +472,7 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
             String[] eachAlias = aliases[i].split(":");
             String ssId = eachAlias[0];
             String ssIdSource = eachAlias[1];
-            AliasName alias = getDirectDataLoader().createObject(AliasName.class);
-            imoTracker.put(alias.getId(), alias);
-            alias.setIdentifier(ssId);
-            alias.setSource(ssIdSource);
-            alias.setOrganism(getOrganism());
-            // set AliasName -> feature reference
-            alias.setFeatures(new HashSet<SequenceFeature>(Arrays.asList((SequenceFeature) saFeature)));
-            getDirectDataLoader().store(alias);
-            imoTracker.remove(alias.getId());
+            AliasName alias = getAliasName(ssId, ssIdSource);
             setOfSsIdObjects.add(alias);
         }
         return setOfSsIdObjects;
@@ -493,7 +522,8 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
         HashSet<Transcript> transcriptSet = new HashSet<Transcript>();
 
         for (int i = 0; i < csqs.length; i++) {
-            // order of info: [ GeneID, TranscriptID, consequence, impact, cDNA_pos, CDS_pos, Protein_pos, AA_change, Codon_change ]
+            // order of info: Alternate Allele|Consequence Type|SO Term|Transcript ID|Residue|Sift
+            // not all fields always present
             HashSet<ConsequenceType> consequenceTypeSet = new HashSet<ConsequenceType>();
             String[] csqInfo = csqs[i].split("\\|");
 
@@ -566,6 +596,7 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
         imoTracker.put(location.getId(), location);
         location.setLocatedOn(locatedOn);
         location.setFeature((BioEntity) feature);
+        location.addDataSets(getDataSet());
         length = refAllele.length();
 
         int end = (start + length) - 1;
@@ -584,15 +615,6 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
         getDirectDataLoader().store(location);
         imoTracker.remove(location.getId());
         return location;
-    }
-
-    /**
-     * Splits INFO fields of a VCF entry
-     * @param infoField
-     * @return
-     */
-    private ArrayList<String> splitInfoField(String infoField) {
-        return new ArrayList<String>(Arrays.asList(StringUtil.split(infoField, ";")));
     }
 
     /**
@@ -617,9 +639,12 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
      */
     private DataSource getDataSource() throws ObjectStoreException {
         if (dataSource == null) {
+            if (StringUtils.isEmpty(dataSourceName)) {
+                throw new RuntimeException("Data source name not set in project.xml");
+            }
             dataSource = getDirectDataLoader().createObject(DataSource.class);
             imoTracker.put(dataSource.getId(), dataSource);
-            dataSource.setName(DATA_SOURCE_NAME);
+            dataSource.setName(dataSourceName);
             getDirectDataLoader().store(dataSource);
             imoTracker.remove(dataSource.getId());
         }
@@ -633,9 +658,12 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
      */
     private DataSet getDataSet() throws ObjectStoreException {
         if (dataSet == null) {
+            if (StringUtils.isEmpty(dataSetTitle)) {
+                throw new RuntimeException("Data set title not set in project.xml");
+            }
             dataSet = getDirectDataLoader().createObject(DataSet.class);
             imoTracker.put(dataSet.getId(), dataSet);
-            dataSet.setName(DATASET_TITLE);
+            dataSet.setName(dataSetTitle);
             dataSet.setDataSource(getDataSource());
             getDirectDataLoader().store(dataSet);
             imoTracker.remove(dataSet.getId());
@@ -679,28 +707,6 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
     }
 
     /**
-     * For a given identifier, returns a Gene entity
-     * @param identifier
-     * @return
-     * @throws ObjectStoreException
-     */
-    private Gene getGene(String identifier) throws ObjectStoreException {
-        Gene gene;
-        if (createdGeneMap.containsKey(identifier)) {
-            gene = createdGeneMap.get(identifier);
-        } else {
-            gene = getDirectDataLoader().createObject(Gene.class);
-            gene.setSequenceOntologyTerm(getSoTerm("gene"));
-            imoTracker.put(gene.getId(), gene);
-            gene.setOrganism(getOrganism());
-            gene.setSource(geneSource);
-            createdGeneMap.put(identifier, gene);
-            //getDirectDataLoader().store(gene);
-        }
-        return gene;
-    }
-
-    /**
      * For a given identifier, returns a Transcript entity
      * @param identifier
      * @return
@@ -716,6 +722,7 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
             transcript.setPrimaryIdentifier(identifier);
             transcript.setSource(geneSource);
             transcript.setOrganism(getOrganism());
+            transcript.addDataSets(getDataSet());
             imoTracker.put(transcript.getId(), transcript);
             createdTranscriptMap.put(identifier, transcript);
         }
@@ -746,6 +753,30 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
         return chr;
     }
 
+    /** For a given identifier + source, returns an AliasName entity
+     * @param identifier
+     * @param source
+     * @return
+     * @throws ObjectStoreException
+     */
+    private AliasName getAliasName(String identifier, String source) throws ObjectStoreException {
+        AliasName alias;
+        if (createdAliasNameMap.containsKey(identifier)) {
+            alias = createdAliasNameMap.get(identifier);
+        } else {
+            alias = getDirectDataLoader().createObject(AliasName.class);
+            imoTracker.put(alias.getId(), alias);
+            alias.setIdentifier(identifier);
+            alias.setSource(source);
+            alias.setOrganism(getOrganism());
+            alias.addDataSets(getDataSet());
+            getDirectDataLoader().store(alias);
+            imoTracker.remove(alias.getId());
+            createdAliasNameMap.put(identifier, alias);
+        }
+        return alias;
+    }
+
     /**
      * Returns a Ontology entity for 'Sequence Ontology'
      * @return
@@ -757,6 +788,7 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
             imoTracker.put(ontology.getId(), ontology);
             ontology.setName("Sequence Ontology");
             ontology.setUrl("http://www.sequenceontology.org");
+            ontology.addDataSets(getDataSet());
             getDirectDataLoader().store(ontology);
             imoTracker.remove(ontology.getId());
         }
@@ -776,6 +808,7 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
             imoTracker.put(soTerm.getId(), soTerm);
             soTerm.setOntology(getSequenceOntology());
             soTerm.setName(featureType);
+            soTerm.addDataSets(getDataSet());
             getDirectDataLoader().store(soTerm);
             imoTracker.remove(soTerm.getId());
             createdSotermMap.put(featureType, soTerm);
@@ -792,46 +825,5 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
             System.out.print(line[i] + "\t");
         }
         System.out.print("\n");
-    }
-
-    /**
-     * Queries the production database and returns a Map of proxy references for a entities of a given class
-     * @param map
-     * @param objectClass
-     */
-    private void preFill(Map<String, ProxyReference> map, Class<? extends InterMineObject> objectClass) {
-        Query q = new Query();
-        QueryClass qC = new QueryClass(objectClass);
-        q.addFrom(qC);
-        QueryField qFName = new QueryField(qC, "primaryIdentifier");
-        QueryField qFId = new QueryField(qC, "id");
-        q.addToSelect(qFName);
-        q.addToSelect(qFId);
-        QueryClass qcOrg = new QueryClass(Organism.class);
-        q.addFrom(qcOrg);
-        QueryObjectReference orgRef = new QueryObjectReference(qC, "organism");
-        QueryField qFTaxonId = new QueryField(qcOrg, "taxonId");
-
-        ConstraintSet cs = new ConstraintSet(ConstraintOp.AND);
-        cs.addConstraint(new ContainsConstraint(orgRef, ConstraintOp.CONTAINS, qcOrg));
-        cs.addConstraint(new SimpleConstraint(qFTaxonId, ConstraintOp.EQUALS, new QueryValue(taxonId)));
-        q.setConstraint(cs);
-
-        LOG.info("Prefilling ProxyReferences with query: " + q);
-
-        try {
-            Results res = getIntegrationWriter().getObjectStore().execute(q, 5000, false, false, false);
-            Iterator<Object> resIter = res.iterator();
-            while (resIter.hasNext()) {
-                ResultsRow<Object> rr = (ResultsRow<Object>) resIter.next();
-                String name = (String) rr.get(0);
-                Integer id = (Integer) rr.get(1);
-                map.put(name, new ProxyReference(getIntegrationWriter().getObjectStore(), id, objectClass));
-            }
-        } catch (Exception e) {
-            throw new BuildException("Problem in prefilling ProxyReferences: " + e);
-        }
-        LOG.info("Prefill complete with map containing " + map.size() + " ProxyReferences");
-        System.out.println("Prefill complete with map containing " + map.size() + " ProxyReferences");
     }
 }

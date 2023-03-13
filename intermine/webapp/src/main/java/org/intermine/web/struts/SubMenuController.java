@@ -1,7 +1,7 @@
 package org.intermine.web.struts;
 
 /*
- * Copyright (C) 2002-2021 FlyMine
+ * Copyright (C) 2002-2022 FlyMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
@@ -22,15 +22,12 @@ import org.apache.struts.tiles.actions.TilesAction;
 import org.intermine.web.logic.results.WebState;
 import org.intermine.web.logic.session.SessionMethods;
 
-import org.apache.log4j.Logger;
-
 /**
  * Controller for the submenu at the top of every page
  * @author Xavier Watkins
  */
 public class SubMenuController extends TilesAction
 {
-    protected static final Logger LOG = Logger.getLogger(SubMenuController.class);
     /**
      * {@inheritDoc}
      */
@@ -40,11 +37,10 @@ public class SubMenuController extends TilesAction
                                  HttpServletRequest request,
                                  HttpServletResponse response)
         throws Exception {
+
         String subtab = request.getParameter("subtab");
         String pageName = (String) request.getAttribute("pageName");
         WebState webState = SessionMethods.getWebState(request.getSession());
-
-        LOG.info("Calling SubMenuController");
 
         if (subtab != null && subtab.length() != 0) {
             webState.addSubtab("subtab" + pageName, StringEscapeUtils.escapeHtml(subtab));

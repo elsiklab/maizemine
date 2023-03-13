@@ -2,10 +2,39 @@
 <!-- This file details any extensions needed to the data model to store data from this source, everything else is automatically generated from the model description so this is all we need to do to add to the model. -->
 
 <classes>
+  <!--Comment out term names if not loaded-->
+  <class name="CMOTerm" extends="OntologyTerm" is-interface="true"/>
+  <class name="LPTTerm" extends="OntologyTerm" is-interface="true"/>
+  <class name="VTTerm" extends="OntologyTerm" is-interface="true"/>
   <class name="QTL" extends="SequenceFeature" is-interface="true">
-    <attribute name="flankMarker" type="java.lang.String"/>
+    <attribute name="qtlId" type="java.lang.String"/>
+    <attribute name="traitId" type="java.lang.String"/>
+    <attribute name="trait" type="java.lang.String"/>
+    <attribute name="type" type="java.lang.String"/>
+    <attribute name="abbreviation" type="java.lang.String"/>
+    <attribute name="additiveEffect" type="java.lang.Float"/>
+    <attribute name="bayesValue" type="java.lang.String"/>
+    <attribute name="breed" type="java.lang.String"/>
+    <attribute name="coordSource" type="java.lang.String"/>
+    <attribute name="dominanceEffect" type="java.lang.Float"/>
+    <attribute name="flankMarkers" type="java.lang.String"/>
+    <attribute name="fStat" type="java.lang.Float"/>
+    <attribute name="lodScore" type="java.lang.String"/>
+    <attribute name="lsMeans" type="java.lang.String"/>
+    <attribute name="likelihoodRatio" type="java.lang.Float"/>
+    <attribute name="mapType" type="java.lang.String"/>
+    <attribute name="model" type="java.lang.String"/>
+    <attribute name="peakCentimorgan" type="java.lang.String"/>
     <attribute name="pValue" type="java.lang.String"/>
-    <!--Removing since we have no rsIDs in DB to link to-->
-    <!--collection name="snpsAsFlankMarkers" referenced-type="SequenceAlteration"/-->
+    <attribute name="significance" type="java.lang.String"/>
+    <attribute name="testBase" type="java.lang.String"/>
+    <attribute name="tissue" type="java.lang.String"/>
+    <attribute name="variance" type="java.lang.Float"/>
+    <!--Comment these out if these ontologies are not loaded-->
+    <reference name="clinicalMeasurementOntology" referenced-type="CMOTerm"/>
+    <reference name="livestockProductTraitOntology" referenced-type="LPTTerm"/>
+    <reference name="vertebrateTraitOntology" referenced-type="VTTerm"/>
+    <collection name="snpsAsFlankMarkers" referenced-type="SequenceAlteration"/>
   </class>
+  <class name="SequenceAlteration" extends="SequenceFeature" is-interface="true"/>
 </classes>

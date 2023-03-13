@@ -2,16 +2,8 @@
 <!-- This file details any extensions needed to the data model to store data from this source, everything else is automatically generated from the model description so this is all we need to do to add to the model. -->
 
 <classes>
-  <class name="AliasName" is-interface="true">
-    <attribute name="name" type="java.lang.String"/>
-    <attribute name="identifier" type="java.lang.String"/>
-    <attribute name="source" type="java.lang.String"/>
-    <reference name="organism" referenced-type="Organism"/>
-    <collection name="features" referenced-type="SequenceFeature" reverse-reference="aliases"/>
-  </class>
-  <class name="CDS" extends="SequenceFeature" is-interface="true">
-    <attribute name="hasEarlyStopCodon" type="java.lang.String"/>
-  </class>
+  <!--Comment out classes that don't apply to this mine release-->
+  <class name="CGeneSegment" extends="MRNA" is-interface="true"/>
   <class name="DuplicateEntity" is-interface="true">
     <attribute name="geneIdentifier" type="java.lang.String"/>
     <attribute name="chromosome" type="java.lang.String"/>
@@ -25,28 +17,21 @@
   <class name="Gene" extends="SequenceFeature" is-interface="true">
     <collection name="duplicateEntities" referenced-type="DuplicateEntity"/>
   </class>
-  <class name="LncRNA" extends="NcRNA" is-interface="true"/>
-  <class name="MatureTranscript" is-interface="true">
-    <attribute name="chromosome" type="java.lang.String"/>
-    <attribute name="start" type="java.lang.Integer"/>
-    <attribute name="end" type="java.lang.Integer"/>
-    <attribute name="strand" type="java.lang.Integer"/>
-    <attribute name="transcriptIdentifier" type="java.lang.String"/>
-    <attribute name="mirbaseIdentifier" type="java.lang.String"/>
-    <attribute name="description" type="java.lang.String"/>
+  <class name="MiRNA" extends="NcRNA" is-interface="true">
+    <reference name="transcript" referenced-type="PrimaryTranscript" reverse-reference="miRNAs"/>
   </class>
-  <class name="MiRNA" extends="NcRNA" is-interface="true"/>
-  <class name="MRNA" extends="Transcript" is-interface="true">
-    <attribute name="proteinIdentifier" type="java.lang.String"/>
-  </class>
+  <class name="MRNA" extends="Transcript" is-interface="true"/>
   <class name="NcRNA" extends="Transcript" is-interface="true">
     <attribute name="mirbaseIdentifier" type="java.lang.String"/>
   </class>
   <class name="PrimaryTranscript" extends="Transcript" is-interface="true">
     <attribute name="mirbaseIdentifier" type="java.lang.String"/>
-    <collection name="matureTranscripts" referenced-type="MatureTranscript"/>
+    <collection name="miRNAs" referenced-type="MiRNA" reverse-reference="transcript"/>
   </class>
   <class name="SequenceFeature" extends="BioEntity" is-interface="true">
-    <collection name="aliases" referenced-type="AliasName" reverse-reference="features"/>
+    <!--"exception" is a reserved word in database-->
+    <attribute name="exceptionNote" type="java.lang.String"/>
+    <attribute name="note" type="java.lang.String"/>
   </class>
+  <class name="VGeneSegment" extends="MRNA" is-interface="true"/>
 </classes>

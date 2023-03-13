@@ -1,7 +1,7 @@
 package org.intermine.bio.dataconversion;
 
 /*
- * Copyright (C) 2002-2021 FlyMine
+ * Copyright (C) 2002-2022 FlyMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
@@ -21,23 +21,37 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 /**
+ * Modified from original to read properties filename from project.xml.
  *
  * @author julie sullivan
- *
+ * @author
  */
 public class UniprotConfig
 {
     private static final Logger LOG = Logger.getLogger(UniprotConfig.class);
-    private static final String PROP_FILE = "uniprot_config.properties";
+    //private static final String PROP_FILE = "uniprot_config.properties";
+    private static final String DEFAULT_PROP_FILE = "uniprot_config.properties";
     private List<String> featureTypes = new ArrayList<String>();
     private List<String> xrefs = new ArrayList<String>();
     private Map<String, ConfigEntry> entries = new HashMap<String, ConfigEntry>();
     private Map<String, String> subspecies = new HashMap<String, String>();
+    private String propFile = DEFAULT_PROP_FILE;
 
     /**
      * read configuration file
      */
     public UniprotConfig() {
+        this(DEFAULT_PROP_FILE);
+    }
+
+    /**
+     * read specified configuration file if provided
+     */
+    public UniprotConfig(String propFile) {
+        if (propFile != null) {
+            this.propFile = propFile;
+        }
+        System.out.println("Reading configuration file " + propFile);
         readConfig();
     }
 
@@ -81,9 +95,9 @@ public class UniprotConfig
     private void readConfig() {
         Properties props = new Properties();
         try {
-            props.load(getClass().getClassLoader().getResourceAsStream(PROP_FILE));
-        } catch (IOException e) {
-            throw new RuntimeException("Problem loading properties '" + PROP_FILE + "'", e);
+            props.load(getClass().getClassLoader().getResourceAsStream(propFile));
+        } catch (Exception e) {
+            throw new RuntimeException("Problem loading properties '" + propFile + "'", e);
         }
 
         for (Map.Entry<Object, Object> entry: props.entrySet()) {
@@ -93,7 +107,7 @@ public class UniprotConfig
 
             String[] attributes = key.split("\\.");
             if (attributes.length == 0) {
-                throw new RuntimeException("Problem loading properties '" + PROP_FILE + "' on line "
+                throw new RuntimeException("Problem loading properties '" + propFile + "' on line "
                                            + key);
             }
             String taxonId = attributes[0];
@@ -122,7 +136,7 @@ public class UniprotConfig
             } else if (attributes.length == 3) {
                 configEntry.addIdentifier(attributes[1], attributes[2], value);
             } else {
-                LOG.error("Problem processing properties '" + PROP_FILE + "' on line "
+                LOG.error("Problem processing properties '" + propFile + "' on line "
                         + key + ".  This line has not been processed.");
             }
         }

@@ -1,7 +1,7 @@
 package org.intermine.objectstore.query;
 
 /*
- * Copyright (C) 2002-2021 FlyMine
+ * Copyright (C) 2002-2022 FlyMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
@@ -230,9 +230,6 @@ public class Results extends AbstractList<Object> implements LazyCollection<Obje
             e2.initCause(e);
             throw e2;
         } catch (ObjectStoreException e) {
-            System.out.println("Error!!!");
-            System.out.println(e.getMessage());
-            e.printStackTrace();
             throw new RuntimeException("ObjectStore error has occurred (in get)", e);
         }
         return resultList.get(0);

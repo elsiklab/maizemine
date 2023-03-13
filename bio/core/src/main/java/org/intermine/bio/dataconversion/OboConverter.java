@@ -1,7 +1,7 @@
 package org.intermine.bio.dataconversion;
 
 /*
- * Copyright (C) 2002-2021 FlyMine
+ * Copyright (C) 2002-2022 FlyMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
@@ -51,7 +51,7 @@ public class OboConverter extends DataConverter
     protected Item ontology;
     private boolean createRelations = true;
     protected String prefix = null;
-    private String licence, dataset, datasource;
+    private String licence, url, dataset, datasource;
     private String ontologyName;
 
     /**
@@ -69,6 +69,7 @@ public class OboConverter extends DataConverter
         super(writer, model);
         this.dagFilename = dagFilename;
         this.termClass = termClass;
+        this.url = url;
         ontologyName = dagName;
 
         ontology = createItem("Ontology");
@@ -195,12 +196,18 @@ public class OboConverter extends DataConverter
 
         Item datasourceItem = createItem("DataSource");
         datasourceItem.setAttribute("name", datasource);
+        if (url != null) {
+            datasourceItem.setAttributeIfNotNull("url", url);
+        }
         store(datasourceItem);
 
         Item datasetItem = createItem("DataSet");
         datasetItem.setAttribute("name", dataset);
         if (licence != null) {
             datasetItem.setAttributeIfNotNull("licence", licence);
+        }
+        if (url != null) {
+            datasetItem.setAttributeIfNotNull("url", url);
         }
         datasetItem.setReference("dataSource", datasourceItem);
         store(datasetItem);

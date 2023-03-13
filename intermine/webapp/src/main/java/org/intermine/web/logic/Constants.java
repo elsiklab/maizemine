@@ -1,7 +1,7 @@
 package org.intermine.web.logic;
 
 /*
- * Copyright (C) 2002-2021 FlyMine
+ * Copyright (C) 2002-2022 FlyMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
@@ -219,13 +219,16 @@ public final class Constants
      * 30 - Jaccard Index,  Add semantic markup endpoints & permanent URL
      * 31 - Login/Logout/Change password, simplified markup endpoints
      * 32 - Added the mandatory input type to the chart graphs when ids is used
+     * 33 - Added precompute and summarize templates
+     * 34 - Add alltemplates
+     * 35 - Entity representation
      */
-    public static final int WEB_SERVICE_VERSION = 32;
+    public static final int WEB_SERVICE_VERSION = 35;
 
     /**
      * Current version of the InterMine code
      */
-    public static final String INTERMINE_VERSION = "5.0.3";
+    public static final String INTERMINE_VERSION = "5.1.0";
 
     /**
      * Key for a Map from class name to Boolean.TRUE for all classes in the model that do not have

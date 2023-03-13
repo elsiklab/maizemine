@@ -11,6 +11,9 @@
 <tiles:importAttribute name="pageName" ignore="true"/>
 
 <link href="${WEB_PROPERTIES['project.rss']}" rel="alternate" type="application/rss+xml" title="${WEB_PROPERTIES['project.title']} | News" />
+<c:if test="${pageName == 'report' && lui != null}">
+<link href="<html:rewrite page='/${lui}.rdf'/>" title="RDF" type="application/rdf+xml" rel="alternate"/>
+</c:if>
 
 <im:headResources section="all"/>
 
@@ -91,6 +94,7 @@ if(new java.io.File(application.getRealPath("/js")+"/"+pageName+".js").exists())
 </c:if>
 
 <c:set var="theme" value="${WEB_PROPERTIES['theme']}"/>
+<link rel="stylesheet" media="all" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700" />
 <link rel="stylesheet" type="text/css" href="<html:rewrite page='/themes/${theme}/theme.css'/>"/>
 
 <!-- propagate cdn.location to runtime -->

@@ -1,7 +1,7 @@
 package org.intermine.bio.dataconversion;
 
 /*
- * Copyright (C) 2002-2021 FlyMine
+ * Copyright (C) 2002-2022 FlyMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
@@ -22,10 +22,10 @@ import org.intermine.xml.full.Item;
  *
  * @author
  */
-public class ReactomeGrameneConverter extends MaizePathwaysConverter
+public class ReactomeGrameneConverter extends KeggPathwayConverter
 {
     private static final String DATASET_TITLE = "Reactome Gramene data set";
-    private static final String DATA_SOURCE_NAME = "Reactome Gramene";
+    private static final String DATA_SOURCE_NAME = "PlantReactome";
     protected static final Logger LOG = Logger.getLogger(ReactomeGrameneConverter.class);
     private static final String PROP_FILE = "reactome-gramene_config.properties";
 

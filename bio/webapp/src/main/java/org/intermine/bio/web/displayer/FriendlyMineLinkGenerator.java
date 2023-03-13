@@ -1,7 +1,7 @@
 package org.intermine.bio.web.displayer;
 
 /*
- * Copyright (C) 2002-2021 FlyMine
+ * Copyright (C) 2002-2022 FlyMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
@@ -35,10 +35,7 @@ import org.intermine.webservice.server.core.Predicate;
 /**
  * Helper class for intermine links generated on report and lists pages
  *
- * Handles PhytoMine as a special case.
- *
  * @author Julie Sullivan
- * @author
  */
 public final class FriendlyMineLinkGenerator implements InterMineLinkGenerator
 {
@@ -143,28 +140,14 @@ public final class FriendlyMineLinkGenerator implements InterMineLinkGenerator
 
         private PathQuery getHomologueQuery(Mine mine, ObjectRequest req) {
             PathQuery q = new PathQuery(mine.getModel());
-            if (mine.getName().equals("PhytoMine")) {
-                // query for phytomine homolog data model
-                q.addViews(
-                        "Gene.homolog.ortholog_gene.primaryIdentifier",
-                        "Gene.homolog.ortholog_gene.symbol",
-                        "Gene.homolog.ortholog_gene.organism.shortName"
-                );
-                q.addOrderBy("Gene.homolog.ortholog_gene.organism.shortName", OrderDirection.ASC);
-                q.addConstraint(Constraints.lookup("Gene.homolog.gene", req.getIdentifier(), req.getDomain()), "A");
-                q.addConstraint(Constraints.neq("Gene.homolog.ortholog_gene.organism.shortName", req.getDomain()), "B");
-                q.setConstraintLogic("A and B");
-            } else {
-                // query for the standard homologue data model
-                q.addViews(
-                    "Gene.homologues.homologue.primaryIdentifier",
-                    "Gene.homologues.homologue.symbol",
-                    "Gene.homologues.homologue.organism.shortName"
-                );
-                q.addOrderBy("Gene.homologues.homologue.organism.shortName", OrderDirection.ASC);
-                q.addConstraint(Constraints.lookup("Gene", req.getIdentifier(), req.getDomain()));
-                q.addConstraint(Constraints.neq("Gene.homologues.type", "paralogue"));
-            }
+            q.addViews(
+                "Gene.homologues.homologue.primaryIdentifier",
+                "Gene.homologues.homologue.symbol",
+                "Gene.homologues.homologue.organism.shortName"
+            );
+            q.addOrderBy("Gene.homologues.homologue.organism.shortName", OrderDirection.ASC);
+            q.addConstraint(Constraints.lookup("Gene", req.getIdentifier(), req.getDomain()));
+            q.addConstraint(Constraints.neq("Gene.homologues.type", "paralogue"));
             return q;
         }
 
