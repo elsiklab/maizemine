@@ -52,8 +52,6 @@
     </h1>
     <p id="version"><fmt:message key="header.version"/> <c:out value="${WEB_PROPERTIES['project.releaseVersion']}" escapeXml="false"/></span>
     <p>&nbsp;&nbsp;&nbsp;<c:out value="${WEB_PROPERTIES['project.subTitle']}" escapeXml="false"/>.&nbsp;
-      <!--MaizeMine v1.4 link-->
-      <a href="https://maizemine-v14.rnet.missouri.edu/maizemine" target="_blank">Click here to go to MaizeMine v1.4 (previous release)</a>
     </p>
   </div>
 

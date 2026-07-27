@@ -15,6 +15,8 @@ include ':bio-source-pseudogene-refseq-nottranscribed-gff'
 project(':bio-source-pseudogene-refseq-nottranscribed-gff').projectDir = new File(settingsDir, './pseudogene-refseq-nottranscribed-gff')
 include ':bio-source-maize-gff'
 project(':bio-source-maize-gff').projectDir = new File(settingsDir, './maize-gff')
+include ':bio-source-maize-community-gff'
+project(':bio-source-maize-community-gff').projectDir = new File(settingsDir, './maize-community-gff')
 include ':bio-source-qtl-gff'
 project(':bio-source-qtl-gff').projectDir = new File(settingsDir, './qtl-gff')
 include ':bio-source-cross-references'
@@ -33,3 +35,5 @@ include ':bio-source-additional-gene-attributes'
 project(':bio-source-additional-gene-attributes').projectDir = new File(settingsDir, './additional-gene-attributes')
 include ':bio-source-pangene'
 project(':bio-source-pangene').projectDir = new File(settingsDir, './pangene')
+include ':bio-source-transcription-factors'
+project(':bio-source-transcription-factors').projectDir = new File(settingsDir, './transcription-factors')

@@ -147,6 +147,13 @@
     </fields>
   </class>
 
+  <class className="org.intermine.model.bio.Image">
+    <fields>
+      <fieldconfig fieldExpr="primaryIdentifier" label="Image ID" showInSummary="false" showInResults="false"/>
+      <fieldconfig fieldExpr="url"/>
+    </fields>
+  </class>
+
   <class className="org.intermine.model.bio.Location">
     <fields>
       <fieldconfig fieldExpr="feature.primaryIdentifier" showInSummary="false"/>
@@ -394,7 +401,7 @@
       <fieldconfig fieldExpr="chromosomeLocation.start" showInInlineCollection="false" showInSummary="false"/>
       <fieldconfig fieldExpr="chromosomeLocation.end" showInInlineCollection="false" showInSummary="false"/>
       <fieldconfig fieldExpr="chromosome.assembly" label="Assembly"/>
-      <fieldconfig fieldExpr="aliases.identifier" label="Alias ID"/>
+      <!--fieldconfig fieldExpr="aliases.identifier" label="Alias ID"/-->
     </fields>
   </class>
 
@@ -437,6 +444,19 @@
       <fieldconfig fieldExpr="chromosomeLocation.end" showInInlineCollection="false" showInSummary="false"/>
       <fieldconfig fieldExpr="chromosomeLocation.strand" showInInlineCollection="false" showInSummary="false"/>
       <fieldconfig fieldExpr="chromosome.assembly" label="Assembly"/>
+    </fields>
+  </class>
+
+  <class className="org.intermine.model.bio.TranscriptionFactor">
+    <headerconfig>
+      <titles>
+        <title mainTitles="tfName" subTitles="*gene.organism.shortName*"/>
+      </titles>
+    </headerconfig>
+    <fields>
+      <fieldconfig fieldExpr="tfName"/>
+      <fieldconfig fieldExpr="geneName"/>
+      <fieldconfig fieldExpr="gene.primaryIdentifier" label="Gene ID" showInInlineCollection="false"/>
     </fields>
   </class>
 
@@ -493,6 +513,7 @@
 
   <!-- widgets -->
   <widgets>
+
     <enrichmentwidgetdisplayer id="go_enrichment_for_gene"
                                title="Gene Ontology Enrichment"
                                description="GO terms enriched for items in this list."
@@ -509,7 +530,7 @@
                                             goAnnotation.ontologyTerm.parents.identifier != go:0003674,
                                             goAnnotation.ontologyTerm.parents.identifier != go:0005575"
                                typeClass="Gene"
-                               views="secondaryIdentifier,symbol,primaryIdentifier,organism.name,
+                               views="primaryIdentifier,symbol,organism.name,
                                      goAnnotation.ontologyTerm.identifier, goAnnotation.ontologyTerm.name,
                                      goAnnotation.ontologyTerm.parents.identifier,goAnnotation.ontologyTerm.parents.name"
                                externalLink="http://amigo.geneontology.org/amigo/term/"
@@ -525,7 +546,7 @@
                                enrichIdentifier="publications.pubMedId"
                                constraints="organism.name=[list],primaryIdentifier != null"
                                typeClass="Gene"
-                               views="secondaryIdentifier, symbol, organism.name,
+                               views="primaryIdentifier, symbol, organism.name,
                                      publications.title, publications.firstAuthor,
                                      publications.journal, publications.year, publications.pubMedId"
                                externalLink="https://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&amp;db=PubMed&amp;dopt=Abstract&amp;list_uids="/>
@@ -542,6 +563,6 @@
                                enrichIdentifier="pathways.identifier"
                                constraints="pathways.dataSets.name=[DataSet],organism.taxonId=[list], primaryIdentifier != null"
                                typeClass="Gene"
-                               views="secondaryIdentifier, symbol, organism.name, pathways.identifier, pathways.name, pathways.dataSets.name"/>
+                               views="primaryIdentifier, symbol, organism.name, pathways.identifier, pathways.name, pathways.dataSets.name"/>
   </widgets>
 </webconfig>

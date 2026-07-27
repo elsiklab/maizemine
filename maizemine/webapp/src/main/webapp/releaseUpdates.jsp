@@ -34,11 +34,29 @@
     <div id="content-wrap">
       <div id="release-updates">
         <div id="new-release-note">
-          <p>MaizeMine has been updated to the latest version 1.5. Please see the data sources page for a full list of data and their versions.</p>
-          <p>If you have any questions, please see our docs and youtube videos. Please do not hesitate to contact us should you require any further assistance. For all types of help and feedback email <c:out value="${WEB_PROPERTIES['feedback.destination']}"/> .</p>
+          <p>MaizeMine has been updated to the latest version 1.6. Please see the data sources page for a full list of data and their versions.</p>
+          <p>If you have any questions, please see our docs and youtube videos. Please do not hesitate to contact us should you require any further assistance. For all types of help and feedback email <c:out value="${WEB_PROPERTIES['feedback.destination.public']}"/> .</p>
         </div>
         <br/>
-        <div class="note_header">
+        <div class="note_header" id="v1.6">
+          <h3>MaizeMine v1.6 release</h3>
+          <h5>June 2024</h5>
+        </div>
+        <div class="note_desc">
+          <h4>Updates</h4>
+          <ul>
+            <li>Gene expression data and metadata have been added for all NAM lines.</li>
+            <li>The sample and replicate ids for the old B73 expression data have been changed by adding "B73_" to the beginning of each id.</li>
+            <li>The following new community datasets have been added: BonnMU Insertion Sites, Grassius Transcription Factors, NAM Illumina SNP50, NAM ATAC-seq.</li>
+            <li>B73 SNV data now includes data from the EVA RS release, which has rsIDs.</li>
+            <li>B73 SNV data from Ensembl Plants (with Panzea ids) has been updated.</li>
+            <li>Alias ids have been added to each of the SNV datasets, so that Panzea ids now have rsID aliases, and rsIDs have Panzea id aliases.</li>
+            <li>The following other datasets have been updated for B73: UniProt, UniProt GO annotations, KEGG, Reactome, InterPro, Homologs from Ensembl Plants, Publications.</li>
+          </ul>
+          <br/>
+        </div>
+        <br/>
+        <div class="note_header" id="v1.5">
           <h3>MaizeMine v1.5 release</h3>
           <h5>November 2022</h5>
         </div>
@@ -57,7 +75,7 @@
           <br/>
         </div>
         <br/>
-        <div class="note_header">
+        <div class="note_header" id="v1.4">
           <h3>MaizeMine v1.4 release</h3>
           <h5>December 2021</h5>
         </div>
@@ -82,7 +100,7 @@
           <br/>
         </div>
         <br/>
-        <div class="note_header">
+        <div class="note_header" id="v1.3">
           <h3>MaizeMine v1.3 release</h3>
           <h5>March 2019</h5>
         </div>
@@ -101,7 +119,7 @@
           </ul>
         </div>
         <br/>
-        <div class="note_header">
+        <div class="note_header" id="v1.2">
           <h3>MaizeMine v1.2 release</h3>
           <h5>December 2018</h5>
         </div>
@@ -112,7 +130,7 @@
           </ul>
         </div>
         <br/>
-        <div class="note_header">
+        <div class="note_header" id="v1.1">
           <h3>MaizeMine v1.1 release</h3>
           <h5>October 2017</h5>
         </div>
@@ -133,7 +151,7 @@
           </ul>
         </div>
         <br/>
-        <div class="note_header">
+        <div class="note_header" id="v1.0">
           <h3>MaizeMine v1.0 release</h3>
           <h5>December 2016</h5>
         </div>

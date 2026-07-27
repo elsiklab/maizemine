@@ -16,7 +16,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.intermine.dataconversion.ItemWriter;
 import org.intermine.metadata.Model;
@@ -67,6 +69,10 @@ public class MaizeExpressionMetadataConverter extends BioFileConverter
         Iterator<String[]> lineIter = FormattedTextParser.parseTabDelimitedReader(reader);
         while(lineIter.hasNext()) {
             String[] line = lineIter.next();
+            if (Pattern.matches("Sample_Rep_ID", line[0])) {
+                // skipping header
+                continue;
+            }
             String sampleReplicateName = line[0];
             String sampleName = line[1];
             String sraBioSampleId = line[2];
@@ -88,11 +94,13 @@ public class MaizeExpressionMetadataConverter extends BioFileConverter
             String growthStage = line[14];
             String replicateNumber = line[15];
             String qTellerId = line[16];
+            String namLine = line[17];
+            String libraryName = line[18];
 
-            if (sampleName.isEmpty()) {
+            if (!fieldNotEmpty(sampleName)) {
                 throw new RuntimeException("sampleName cannot be empty");
             }
-            if (sampleReplicateName.isEmpty()) {
+            if (!fieldNotEmpty(sampleReplicateName)) {
                 throw new RuntimeException("sampleReplicateName cannot be empty");
             }
 
@@ -105,14 +113,15 @@ public class MaizeExpressionMetadataConverter extends BioFileConverter
                 sampleItem.setAttribute("name", sampleName);
                 sampleItem.setAttribute("sampleName", sampleName);
                 sampleItem.setReference("organism", orgRefId);
-                if (!sraStudyId.isEmpty()) sampleItem.setAttribute("sraStudyId", sraStudyId);
-                if (!sraBioProjectId.isEmpty()) sampleItem.setAttribute("sraBioProjectId", sraBioProjectId);
-                if (!libraryLayout.isEmpty()) sampleItem.setAttribute("libraryLayout", libraryLayout);
-                if (!growthStage.isEmpty()) sampleItem.setAttribute("growthStage", growthStage);
+                if (fieldNotEmpty(sraStudyId)) sampleItem.setAttribute("sraStudyId", sraStudyId);
+                if (fieldNotEmpty(sraBioProjectId)) sampleItem.setAttribute("sraBioProjectId", sraBioProjectId);
+                if (fieldNotEmpty(libraryLayout)) sampleItem.setAttribute("libraryLayout", libraryLayout);
+                if (fieldNotEmpty(growthStage)) sampleItem.setAttribute("growthStage", growthStage);
                 sampleItem.setReference("poName", getPlantOntologyTerm(poTerm, poTermName));
-                if (!organGroup.isEmpty()) sampleItem.setAttribute("organGroup", organGroup);
-                if (!tissueDescription.isEmpty()) sampleItem.setAttribute("tissueDescription", tissueDescription);
-                if (!qTellerId.isEmpty()) sampleItem.setAttribute("qTellerId", qTellerId);
+                if (fieldNotEmpty(organGroup)) sampleItem.setAttribute("organGroup", organGroup);
+                if (fieldNotEmpty(tissueDescription)) sampleItem.setAttribute("tissueDescription", tissueDescription);
+                if (fieldNotEmpty(qTellerId)) sampleItem.setAttribute("qTellerId", qTellerId);
+                if (fieldNotEmpty(namLine)) sampleItem.setAttribute("namLine", namLine);
                 sampleMap.put(sampleName, sampleItem);
             }
 
@@ -121,12 +130,13 @@ public class MaizeExpressionMetadataConverter extends BioFileConverter
             repItem.setAttribute("name", sampleReplicateName);
             repItem.setAttribute("sampleReplicateName", sampleReplicateName);
             repItem.setReference("organism", orgRefId);
-            if (!sraBioSampleId.isEmpty()) repItem.setAttribute("sraBioSampleId", sraBioSampleId);
-            if (!sraRunId.isEmpty()) repItem.setAttribute("sraRunId", sraRunId);
-            if (!sraExperimentId.isEmpty()) repItem.setAttribute("sraExperimentId", sraExperimentId);
-            if (!sraSampleId.isEmpty()) repItem.setAttribute("sraSampleId", sraSampleId);
-            if (!bioSampleDescription.isEmpty()) repItem.setAttribute("bioSampleDescription", bioSampleDescription);
-            if (!replicateNumber.isEmpty()) repItem.setAttribute("replicateNumber", replicateNumber);
+            if (fieldNotEmpty(sraBioSampleId)) repItem.setAttribute("sraBioSampleId", sraBioSampleId);
+            if (fieldNotEmpty(sraRunId)) repItem.setAttribute("sraRunId", sraRunId);
+            if (fieldNotEmpty(sraExperimentId)) repItem.setAttribute("sraExperimentId", sraExperimentId);
+            if (fieldNotEmpty(sraSampleId)) repItem.setAttribute("sraSampleId", sraSampleId);
+            if (fieldNotEmpty(bioSampleDescription)) repItem.setAttribute("bioSampleDescription", bioSampleDescription);
+            if (fieldNotEmpty(replicateNumber)) repItem.setAttribute("replicateNumber", replicateNumber);
+            if (fieldNotEmpty(libraryName)) repItem.setAttribute("libraryName", libraryName);
 
             // set Sample as sample reference for Replicate
             repItem.setReference("sample", sampleItem.getIdentifier());
@@ -175,6 +185,18 @@ public class MaizeExpressionMetadataConverter extends BioFileConverter
             ontologies.put(ontologyName, ontology);
         }
         return ontology;
+    }
+
+    /**
+     * Return true if field has a nonempty value
+     */
+    protected boolean fieldNotEmpty(String fieldValue) {
+        // Consider "-", ".", "NA", or "N/A" to be empty / no value
+        if ("-".equals(fieldValue) || ".".equals(fieldValue) || "NA".equals(fieldValue) || "N/A".equals(fieldValue)) {
+            return false;
+        }
+
+        return StringUtils.isNotEmpty(fieldValue);
     }
 
     /**

@@ -265,6 +265,8 @@ div.report-page #header_wrap table td {
 }
 
 /* keyword search results */
+.keywordSearchResults .facets { width: 270px!important; }
+.keywordSearchResults .resultTableContainer { margin-left: 300px!important; }
 .keywordSearchResults .resultTableContainer table.dbsources { border-left: 1px solid #DFDFDF; }
 .keywordSearchResults .resultTableContainer table.dbsources th { background:#62564F; color:#FFF; font-size:13px; padding:2px 8px; }
 .keywordSearchResults .resultTableContainer table.dbsources tr.keywordSearchResult { color:#000; }
@@ -461,6 +463,11 @@ div.bagDetails-page div.widget table.table-striped tbody tr:hover td { backgroun
 .intermine .im-column-th .dropdown-menu:after {
   border-bottom-color: #004499;
 }
+
+/* list view */
+/* comment out below if we have bag displayers */
+/* otherwise we hide the empty gray box */
+.bagDetails-page #convertList { display: none; }
 
 /* =FOOTER
  * --------------------------*/

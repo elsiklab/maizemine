@@ -444,20 +444,28 @@
 <td><a href="https://download.maizegdb.org/Pan-genes/MaizeGDB_maize_pangene_2020_08.tsv.gz" target="_blank">MaizeGDB Download</a></td>
 </tr>
 <tr class="new-category-row">
-<td class="leftcol"><h2><p>Gene Expression</p></h2></td>
+<td class="leftcol" rowspan="2"><h2><p>Gene Expression</p></h2></td>
 <td>Gene expression computed on Zm00001eb.1 gene models</td>
 <td><em>Zea mays</em> B73</td>
 <td>MaizeGDB; 24 Aug 2021</td>
 <td>Woodhouse et al. - PubMed <a href="https://www.ncbi.nlm.nih.gov/pubmed/34406385" target="_blank">34406385</a></td>
 <td><a href="https://download.maizegdb.org/MaizeMine/PRJNA171684/" target="_blank">MaizeGDB Download</a></td>
 </tr>
+<tr>
+<!-- part of rowspan -->
+<td>Gene expression computed on all NAM gene models</td>
+<td>All NAM lines</td>
+<td>MaizeGDB; May 2024</td>
+<td>Diepenbrock et al. - PubMed <a href="https://www.ncbi.nlm.nih.gov/pubmed/28970338" target="_blank">28970338</a>; Hufford et al. - PubMed <a href="https://www.ncbi.nlm.nih.gov/pubmed/34353948" target="_blank">34353948</a>; Lin et al. - PubMed <a href="https://www.ncbi.nlm.nih.gov/pubmed/29041960" target="_blank">29041960</a></td>
+<td><a href="https://ars-usda.app.box.com/v/maizegdb-public/folder/165395343303" target="_blank">MaizeGDB Box</a></td>
+</tr>
 <tr class="new-category-row">
 <td class="leftcol" rowspan="2"><h2><p>Gene Ontology</p></h2></td>
 <td>GO Annotation from UniProt</td>
 <td><em>Zea mays</em> B73</td>
-<td>UniProt Release 2022_03; 03 Aug 2022</td>
-<td>UniProt Consortium - PubMed <a href="https://www.ncbi.nlm.nih.gov/pubmed/33237286" target="_blank">33237286</a></td>
-<td><a href="https://ftp.uniprot.org/pub/databases/uniprot/previous_major_releases/release-2022_03/" target="_blank">UniProt FTP</a></td>
+<td>UniProt Release 2024_01; 24 Jan 2024</td>
+<td>UniProt Consortium - PubMed <a href="https://www.ncbi.nlm.nih.gov/pubmed/36408920" target="_blank">36408920</a></td>
+<td><a href="https://ftp.uniprot.org/pub/databases/uniprot/previous_major_releases/release-2024_01/" target="_blank">UniProt FTP</a></td>
 </tr>
 <tr>
 <!-- part of rowspan -->
@@ -471,32 +479,32 @@
 <td class="leftcol" rowspan="2"><h2><p>Proteins</p></h2></td>
 <td>Protein Annotations from UniProt</td>
 <td><em>Zea mays</em> B73</td>
-<td>UniProt Release 2022_03; 03 Aug 2022</td>
-<td>UniProt Consortium - PubMed <a href="https://www.ncbi.nlm.nih.gov/pubmed/33237286" target="_blank">33237286</a></td>
-<td><a href="https://ftp.uniprot.org/pub/databases/uniprot/previous_major_releases/release-2022_03/" target="_blank">UniProt FTP</a></td>
+<td>UniProt Release 2024_01; 24 Jan 2024</td>
+<td>UniProt Consortium - PubMed <a href="https://www.ncbi.nlm.nih.gov/pubmed/36408920" target="_blank">36408920</a></td>
+<td><a href="https://ftp.uniprot.org/pub/databases/uniprot/previous_major_releases/release-2024_01/" target="_blank">UniProt FTP</a></td>
 </tr>
 <tr>
 <!-- part of rowspan -->
 <td>Protein family and domain assignments to proteins from InterPro</td>
 <td><em>Zea mays</em> B73</td>
-<td>InterPro Release 90.0; 4 Aug 2022</td>
-<td>Blum et al. - PubMed <a href="https://www.ncbi.nlm.nih.gov/pubmed/33156333" target="_blank">33156333</a></td>
-<td><a href="https://ftp.ebi.ac.uk/pub/databases/interpro/releases/90.0/" target="_blank">InterPro FTP</a></td>
+<td>InterPro Release 98.0; 25 Jan 2024</td>
+<td>Paysan-Lafosse et al. - PubMed <a href="https://www.ncbi.nlm.nih.gov/pubmed/36350672" target="_blank">36350672</a></td>
+<td><a href="https://ftp.ebi.ac.uk/pub/databases/interpro/releases/98.0/" target="_blank">InterPro FTP</a></td>
 </tr>
 <tr class="new-category-row">
 <td class="leftcol" rowspan="3"><h2><p>Pathways</p></h2></td>
 <td>KEGG</td>
 <td><em>Zea mays</em> B73</td>
-<td>KEGG Release 104.0; 1 Oct 2022</td>
-<td>Kanehisa et al. - PubMed <a href="https://www.ncbi.nlm.nih.gov/pubmed/33125081" target="_blank">33125081</a></td>
-<td><a href="https://www.kegg.jp/kegg/rest/" target="_blank">KEGG Download</a></td>
+<td>KEGG Release 109.1; 1 Mar 2024</td>
+<td>Kanehisa et al. - PubMed <a href="https://www.ncbi.nlm.nih.gov/pubmed/36300620" target="_blank">36300620</a></td>
+<td><a href="https://www.kegg.jp/kegg/rest/keggapi.html" target="_blank">KEGG Download</a></td>
 </tr>
 <tr>
 <!-- part of rowspan -->
 <td>Plant Reactome</td>
 <td><em>Zea mays</em> B73</td>
-<td>Plant Reactome Version 22, Apr 2022</td>
-<td>Naithani et al. - PubMed <a href="https://www.ncbi.nlm.nih.gov/pubmed/31680153" target="_blank">31680153</a></td>
+<td>Plant Reactome Version 23, Aug 2023</td>
+<td>Gupta et al. - PubMed <a href="https://www.ncbi.nlm.nih.gov/pubmed/37986220" target="_blank">37986220</a></td>
 <td><a href="https://plantreactome.gramene.org/download/current/Ensembl2PlantReactome_All_Levels.txt" target="_blank">Plant Reactome Gramene Download</a></td>
 </tr>
 <tr>
@@ -510,8 +518,8 @@
 <tr class="new-category-row">
 <td class="leftcol"><h2><p>Homology</p></h2></td>
 <td>Orthologue and Paralogue Relationships</td>
-<td><em>Ananas comosus</em><br><em>Asparagus officinalis</em><br><em>Aegilops tauschii</em><br><em>Arabidopsis thaliana</em><br><em>Brachypodium distachyon</em><br><em>Dioscorea cayenensis</em><br><em>Eragrostis curvula</em><br><em>Eragrostis tef</em><br><em>Hordeum vulgare</em><br><em>Leersia perrieri</em><br><em>Musa acuminata</em><br><em>Oryza barthii</em><br><em>Oryza brachyantha</em><br><em>Oryza glaberrima</em><br><em>Oryza glumipatula</em><br><em>Oryza longistaminata</em><br><em>Oryza meridionalis</em><br><em>Oryza nivara</em><br><em>Oryza punctata</em><br><em>Oryza rufipogon</em><br><em>Oryza sativa Indica Group</em><br><em>Oryza sativa Japonica Group</em><br><em>Panicum hallii</em><br><em>Panicum hallii var. hallii</em><br><em>Sorghum bicolor</em><br><em>Setaria italica</em><br><em>Saccharum spontaneum</em><br><em>Setaria viridis</em><br><em>Triticum aestivum</em><br><em>Triticum dicoccoides</em><br><em>Triticum turgidum</em><br><em>Triticum urartu</em><br><em>Zea mays</em> B73</td>
-<td>Ensembl Plants release 51; Apr 2021</td>
+<td><em>Aegilops tauschii</em><br><em>Ananas comosus</em><br><em>Arabidopsis thaliana</em><br><em>Asparagus officinalis</em><br><em>Avena sativa Sang</em><br><em>Brachypodium distachyon</em><br><em>Digitaria exilis</em><br><em>Dioscorea rotundata</em><br><em>Echinochloa crus-galli</em><br><em>Eragrostis curvula</em><br><em>Eragrostis tef</em><br><em>Hordeum vulgare</em><br><em>Leersia perrieri</em><br><em>Lolium perenne</em><br><em>Musa acuminata</em><br><em>Oryza barthii</em><br><em>Oryza brachyantha</em><br><em>Oryza glaberrima</em><br><em>Oryza glumipatula</em><br><em>Oryza longistaminata</em><br><em>Oryza meridionalis</em><br><em>Oryza nivara</em><br><em>Oryza punctata</em><br><em>Oryza rufipogon</em><br><em>Oryza sativa Indica</em><br><em>Oryza sativa Japonica</em><br><em>Panicum hallii HAL2</em><br><em>Saccharum spontaneum</em><br><em>Secale cereale</em><br><em>Setaria italica</em><br><em>Setaria viridis</em><br><em>Sorghum bicolor</em><br><em>Triticum aestivum</em><br><em>Triticum dicoccoides</em><br><em>Triticum spelta</em><br><em>Triticum turgidum</em><br><em>Triticum urartu</em><br><em>Zea mays</em></td>
+<td>Ensembl Plants release 58; Nov 2023</td>
 <td>Yates et al. - PubMed <a href="https://www.ncbi.nlm.nih.gov/pubmed/34791415" target="_blank">34791415</a></td>
 <td><a href="http://plants.ensembl.org/index.html" target="_blank">Ensembl Plants BioMart Download</a></td>
 </tr>
@@ -519,14 +527,30 @@
 <td class="leftcol"><h2><p>Variation</p></h2></td>
 <td>Single Nucleotide Variants</td>
 <td><em>Zea mays</em> B73</td>
-<td>Ensembl Plants release 54; Jul 2022</td>
+<td>Ensembl Plants release 58; Nov 2023</td>
 <td>Yates et al. - PubMed <a href="https://www.ncbi.nlm.nih.gov/pubmed/34791415" target="_blank">34791415</a></td>
-<td><a href="https://ftp.ensemblgenomes.org/pub/release-54/plants/variation/vcf/zea_mays/" target="_blank">Ensembl Genomes FTP</a></td>
+<td><a href="https://ftp.ensemblgenomes.org/pub/release-58/plants/variation/vcf/zea_mays/" target="_blank">Ensembl Genomes FTP</a></td>
 </tr>
 <tr class="new-category-row">
-<td class="leftcol" rowspan="8"><h2><p>Maize Community Datasets</p></h2></td>
+<td class="leftcol" rowspan="12"><h2><p>Maize Community Datasets</p></h2></td>
+<td>BonnMU Insertion Sites</td>
+<td rowspan="10"><em>Zea mays</em> B73</td>
+<td>29 Feb 2024</td>
+<td>Marcon et al. - PubMed <a href="https://www.ncbi.nlm.nih.gov/pubmed/32769162" target="_blank">32769162</a></td>
+<td><a href="https://download.maizegdb.org/Insertions/BonnMu/" target="_blank">MaizeGDB Download</a></td>
+</tr>
+<tr>
+<!-- part of rowspan -->
+<td>Grassius Transcription Factors</td>
+<!-- part of rowspan -->
+<td>March 2024</td>
+<td>Yilmaz et al. - PubMed <a href="https://www.ncbi.nlm.nih.gov/pubmed/18987217" target="_blank">18987217</a></td>
+<td><a href="https://grassius.org/species/Maize" target="_blank">Grassius Website</a></td>
+</tr>
+<tr>
+<!-- part of rowspan -->
 <td>Grotewold CAGE Tag Count Root</td>
-<td rowspan="8"><em>Zea mays</em> B73</td>
+<!-- part of rowspan -->
 <td>3 May 2021</td>
 <td rowspan="2">Mej&iacute;a-Guerra et al. - PubMed <a href="https://www.ncbi.nlm.nih.gov/pubmed/26628745" target="_blank">26628745</a></td>
 <td><a href="https://datacommons.cyverse.org/browse/iplant/home/maizegdb/maizegdb/B73v5_JBROWSE_AND_ANALYSES/B73v5_TSS" target="_blank">Grotewold CAGE Tag Count Root Download</a></td>
@@ -587,19 +611,35 @@
 <td>Wallace et al. - PubMed <a href="https://www.ncbi.nlm.nih.gov/pubmed/25474422" target="_blank">25474422</a></td>
 <td><a href="https://datacommons.cyverse.org/browse/iplant/home/maizegdb/maizegdb/B73v5_JBROWSE_AND_ANALYSES/B73v5_diversity_markers_and_GWAS/GWAS/GWAS_SNPs_from_Wallace_2014/B73v5_Wallace_etal_2014_PLoSGenet_GWAS_hits-150112_blastn.gff.gz" target="_blank">Wallace 2014 GWAS Download</a></td>
 </tr>
+<tr>
+<!-- part of rowspan -->
+<td>NAM Illumina SNP50</td>
+<td rowspan="2">All NAM Lines</td>
+<td>19 Jun 2022</td>
+<td>Ganal et al. - PubMed <a href="https://www.ncbi.nlm.nih.gov/pubmed/22174790" target="_blank">22174790</a></td>
+<td><a href="https://ars-usda.app.box.com/v/maizegdb-public/folder/165653830570" target="_blank">MaizeGDB Box</a></td>
+</tr>
+<tr>
+<!-- part of rowspan -->
+<td>NAM ATAC-seq</td>
+<!-- part of rowspan -->
+<td>15 Jun 2022</td>
+<td>Hufford et al. - PubMed <a href="https://www.ncbi.nlm.nih.gov/pubmed/34353948" target="_blank">34353948</a></td>
+<td><a href="https://ars-usda.app.box.com/v/maizegdb-public/folder/165366199540" target="_blank">MaizeGDB Box</a></td>
+</tr>
 <tr class="new-category-row">
 <td class="leftcol"><h2><p>Publications</p></h2></td>
 <td>A mapping from genes to publications</td>
 <td><em>Zea mays</em> B73</td>
-<td>UniProt Release 2022_03; 03 Aug 2022</td>
-<td>UniProt Consortium - PubMed <a href="https://www.ncbi.nlm.nih.gov/pubmed/33237286" target="_blank">33237286</a></td>
-<td><a href="https://ftp.uniprot.org/pub/databases/uniprot/previous_major_releases/release-2022_03/" target="_blank">UniProt FTP</a></td>
+<td>UniProt Release 2024_01; 24 Jan 2024</td>
+<td>UniProt Consortium - PubMed <a href="https://www.ncbi.nlm.nih.gov/pubmed/36408920" target="_blank">36408920</a></td>
+<td><a href="https://ftp.uniprot.org/pub/databases/uniprot/previous_major_releases/release-2024_01/" target="_blank">UniProt FTP</a></td>
 </tr>
 <tr class="new-category-row">
 <td class="leftcol" rowspan="4"><h2><p>Ontologies</p></h2></td>
 <td>Evidence Ontology</td>
 <td></td>
-<td></td>
+<td>Release 2024-02-02</td>
 <td>Nadendla et al. - PubMed <a href="https://www.ncbi.nlm.nih.gov/pubmed/34986598" target="_blank">34986598</a></td>
 <td><a href="https://bioportal.bioontology.org/ontologies/ECO" target="_blank">ECO</a></td>
 </tr>
@@ -607,7 +647,7 @@
 <!-- part of rowspan -->
 <td>Gene Ontology</td>
 <td></td>
-<td></td>
+<td>Release 2024-01-17</td>
 <td>Gene Ontology Consortium - PubMed <a href="https://www.ncbi.nlm.nih.gov/pubmed/33290552" target="_blank">33290552</a></td>
 <td><a href="https://bioportal.bioontology.org/ontologies/GO" target="_blank">GO</a></td>
 </tr>
@@ -615,7 +655,7 @@
 <!-- part of rowspan -->
 <td>Plant Ontology</td>
 <td></td>
-<td></td>
+<td>Release 2024-02-16</td>
 <td>Walls et al. - PubMed <a href="https://www.ncbi.nlm.nih.gov/pubmed/31214208" target="_blank">31214208</a></td>
 <td><a href="https://bioportal.bioontology.org/ontologies/PO" target="_blank">PO</a></td>
 </tr>
@@ -623,7 +663,7 @@
 <!-- part of rowspan -->
 <td>Sequence Ontology</td>
 <td></td>
-<td></td>
+<td>Release 2021-11-22</td>
 <td>Eilbeck et al. - PubMed <a href="https://www.ncbi.nlm.nih.gov/pubmed/15892872" target="_blank">15892872</a></td>
 <td><a href="https://bioportal.bioontology.org/ontologies/SO" target="_blank">SO</a></td>
 </tr>

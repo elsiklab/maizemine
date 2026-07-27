@@ -46,7 +46,7 @@
       <tiles:put name="scope" value="${scope}"/>
     </tiles:insert>
 
-    <link rel="shortcut icon" type="image/x-icon" href="model/images/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="${WEB_PROPERTIES['project.sitePrefix']}/model/images/favicon.ico">
 
   </head>
 
@@ -183,21 +183,30 @@ if (typeof imtables != 'undefined' && imtables.setMessages) {
 
     <c:set var="googleAnalyticsId" value="${WEB_PROPERTIES['google.analytics.id']}"/>
     <c:if test="${!empty googleAnalyticsId}">
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}"></script>
         <script type="text/javascript">
           switch ("${userTracking}") {
             case "1":
 
-              var _gaq = _gaq || [];
-              _gaq.push(['_setAccount', '${googleAnalyticsId}']);
-              _gaq.push(['_trackPageview']);
+              // old tracking (UA)
+              //var _gaq = _gaq || [];
+              //_gaq.push(['_setAccount', '${googleAnalyticsId}']);
+              //_gaq.push(['_trackPageview']);
+              //
+              //(function() {
+              //  var ga = document.createElement('script');
+              //  ga.type = 'text/javascript';
+              //  ga.async = true;
+              //  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+              //  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+              //})();
 
-              (function() {
-                var ga = document.createElement('script');
-                ga.type = 'text/javascript';
-                ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-              })();
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', '${googleAnalyticsId}');
 
               break;
 

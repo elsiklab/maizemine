@@ -39,11 +39,11 @@ import org.intermine.model.bio.Deletion;
 import org.intermine.model.bio.Delins;
 import org.intermine.model.bio.Indel;
 import org.intermine.model.bio.Insertion;
-import org.intermine.model.bio.Gene;
 import org.intermine.model.bio.Location;
 import org.intermine.model.bio.MNV;
 import org.intermine.model.bio.Ontology;
 import org.intermine.model.bio.Organism;
+import org.intermine.model.bio.PseudogenicTranscript;
 import org.intermine.model.bio.SequenceAlteration;
 import org.intermine.model.bio.SequenceFeature;
 import org.intermine.model.bio.SNV;
@@ -85,8 +85,9 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
         "FILTER",
         "INFO"
     };
-    private static final String VARIANT_ANNOTATION_SOURCE = "Ensembl VEP";
-    private static final ArrayList<String> FUNCTION_CLASS_TO_IGNORE = new ArrayList<String>(Arrays.asList("downstream_gene_variant", "upstream_gene_variant", "intergenic_variant", "intron_variant"));
+    //private static final ArrayList<String> FUNCTION_CLASS_TO_IGNORE = new ArrayList<String>(Arrays.asList("downstream_gene_variant", "upstream_gene_variant", "intergenic_variant", "intron_variant"));
+    // Set per mine - we usually don't ignore any but had to ignore some in FAANGMine because there were too many Consequences in db
+    private static final ArrayList<String> FUNCTION_CLASS_TO_IGNORE = new ArrayList<String>(Arrays.asList("intergenic_variant"));
 
     private String taxonId = null;
     private String assemblyVersion = null;
@@ -97,19 +98,22 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
     private DataSource dataSource = null;
     private Ontology ontology = null;
     private String geneSource = null;
+    private String snpSource = null;
+    private String doNotComputeOverlaps = null; // setting this to anything other than null will exclude Location from computing overlaps postprocess
 
     private HashSet<Transcript> transcriptSet = new HashSet<Transcript>();
+    private HashSet<PseudogenicTranscript> pseudogenicTranscriptSet = new HashSet<PseudogenicTranscript>();
     private HashSet<Consequence> consequenceSet = new HashSet<Consequence>();
-    private HashSet<String> previousGeneSet = new HashSet<String>();
     private HashSet<String> seenSet = new HashSet<String>();
 
     private Map<String, Consequence> consequences = new HashMap<String, Consequence>();
     private Map<Transcript, HashSet<SequenceAlteration>> transcriptToSequenceAlterationMap = new HashMap<Transcript, HashSet<SequenceAlteration>>();
+    private Map<PseudogenicTranscript, HashSet<SequenceAlteration>> pseudogenicTranscriptToSequenceAlterationMap = new HashMap<PseudogenicTranscript, HashSet<SequenceAlteration>>();
     private Map<String, SOTerm> createdSotermMap = new HashMap<String, SOTerm>();
-    private Map<String, Gene> createdGeneMap = new HashMap<String, Gene>();
     private Map<String, AliasName> createdAliasNameMap = new HashMap<String, AliasName>();
     private Map<String, Chromosome> createdChromosomeMap = new HashMap<String, Chromosome>();
     private Map<String, Transcript> createdTranscriptMap = new HashMap<String, Transcript>();
+    private Map<String, PseudogenicTranscript> createdPseudogenicTranscriptMap = new HashMap<String, PseudogenicTranscript>();
     private Map<String, ConsequenceType> consequenceTypeMap = new HashMap<String, ConsequenceType>();
     private HashMap<Integer, InterMineObject> imoTracker = new HashMap<Integer, InterMineObject>();
 
@@ -153,11 +157,31 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
     }
 
     /**
-     * Set the gene source for genes.
+     * Set the source for genes/transcripts/etc. that get
+     * created during loading.
      * @param geneSource gene source
      */
     public void setGeneSource(String geneSource) {
         this.geneSource = geneSource;
+    }
+
+    /**
+     * Set the source for SNPs. (Usually same as geneSource,
+     * but not always.)
+     * @param geneSource gene source
+     */
+    public void setSnpSource(String snpSource) {
+        this.snpSource = snpSource;
+    }
+
+    /**
+     * Set the value of Location.doNotComputeOverlaps.
+     * @param doNotComputeOverlaps doNotComputeOverlaps
+     */
+    public void setDoNotComputeOverlaps(String doNotComputeOverlaps) {
+        this.doNotComputeOverlaps = doNotComputeOverlaps;
+        System.out.println("Setting doNotComputeOverlaps = " + doNotComputeOverlaps);
+        LOG.info("Setting doNotComputeOverlaps = " + doNotComputeOverlaps);
     }
 
     /**
@@ -288,7 +312,6 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
         ArrayList<String> infoElements = new ArrayList<String>(Arrays.asList(StringUtil.split(info, ";")));
 
         Chromosome chromosome = getChromosome(chromosomeIdentifier);
-        chromosome.setAssembly(assemblyVersion);
 
         String type = getKeyValuePair(infoElements, "TSA=").get(1);
         ArrayList<String> aliases = getKeyValuePair(infoElements, "alias=");
@@ -296,6 +319,7 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
         ArrayList<HashSet> returnObject = new ArrayList<HashSet>();
         HashSet<Consequence> consequenceSet = new HashSet<Consequence>();
         HashSet<Transcript> transcriptSet = new HashSet<Transcript>();
+        HashSet<PseudogenicTranscript> pseudogenicTranscriptSet = new HashSet<PseudogenicTranscript>();
 
         boolean storeFeature = true;
         String saClassName, soTerm, saName;
@@ -361,7 +385,7 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
         snp.setPrimaryIdentifier(id);
         imoTracker.put(snp.getId(), snp);
         snp.setName(saName);
-        snp.setSource(geneSource);
+        snp.setSource(snpSource);
         snp.setSequenceOntologyTerm(getSoTerm(soTerm));
         snp.setOrganism(getOrganism());
         if (saClassName.equals("SNV")) {
@@ -392,6 +416,7 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
             returnObject = processCSQ((SequenceAlteration) snp, csq.get(1));
             consequenceSet = returnObject.get(0);
             transcriptSet = returnObject.get(1);
+            pseudogenicTranscriptSet = returnObject.get(2);
             if (consequenceSet != null) {
                 // set consequences collection
                 snp.setConsequences(consequenceSet);
@@ -408,6 +433,19 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
                         transcriptToSequenceAlterationMap.get(transcript).add(snp);
                     } else {
                         transcriptToSequenceAlterationMap.put(transcript, new HashSet<SequenceAlteration> (Arrays.asList(snp)));
+                        storeFeature = false;
+                    }
+                }
+            }
+            if (pseudogenicTranscriptSet != null) {
+                // set pseudogenic transcripts collection
+                snp.setPseudogenicTranscripts(pseudogenicTranscriptSet);
+                for (PseudogenicTranscript transcript : pseudogenicTranscriptSet) {
+                    if (pseudogenicTranscriptToSequenceAlterationMap.containsKey(transcript)) {
+                        storeFeature = false;
+                        pseudogenicTranscriptToSequenceAlterationMap.get(transcript).add(snp);
+                    } else {
+                        pseudogenicTranscriptToSequenceAlterationMap.put(transcript, new HashSet<SequenceAlteration> (Arrays.asList(snp)));
                         storeFeature = false;
                     }
                 }
@@ -455,6 +493,29 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
             imoTracker.remove(transcript.getId());
         }
         transcriptToSequenceAlterationMap.clear();
+
+        for (Map.Entry<PseudogenicTranscript, HashSet<SequenceAlteration>> entry : pseudogenicTranscriptToSequenceAlterationMap.entrySet()) {
+            PseudogenicTranscript transcript = entry.getKey();
+            transcript.setSequenceAlterations(entry.getValue());
+
+            for (SequenceAlteration sa : entry.getValue()) {
+                if (seenSet.contains(String.valueOf(sa.getId()))) {
+                    if (imoTracker.containsKey(sa.getId())) {
+                        System.out.println("imoTracker has sequenceAlteration even after its been stored: " + sa);
+                    }
+                    continue;
+                } else {
+                    // store sequence alteration since it was never seen before
+                    getDirectDataLoader().store(sa);
+                    imoTracker.remove(sa.getId());
+                    seenSet.add(String.valueOf(sa.getId()));
+                }
+            }
+
+            getDirectDataLoader().store(transcript);
+            imoTracker.remove(transcript.getId());
+        }
+        pseudogenicTranscriptToSequenceAlterationMap.clear();
     }
 
     /**
@@ -520,21 +581,13 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
         String[] csqs = csq.split(",");
         HashSet<Consequence> consequenceSet = new HashSet<Consequence>();
         HashSet<Transcript> transcriptSet = new HashSet<Transcript>();
+        HashSet<PseudogenicTranscript> pseudogenicTranscriptSet = new HashSet<PseudogenicTranscript>();
 
         for (int i = 0; i < csqs.length; i++) {
             // order of info: Alternate Allele|Consequence Type|SO Term|Transcript ID|Residue|Sift
             // not all fields always present
             HashSet<ConsequenceType> consequenceTypeSet = new HashSet<ConsequenceType>();
             String[] csqInfo = csqs[i].split("\\|");
-
-            //if (FUNCTION_CLASS_TO_IGNORE.contains(annotationInfo[3])) {
-            //    continue;
-            //} else {
-            //    String[] consequenceTypes = annotationInfo[3].split("\\|");
-            //    for (String consequenceType : consequenceTypes) {
-            //        consequenceTypeSet.add(getConsequence(consequenceType));
-            //    }
-            //}
 
             Consequence consequence = getDirectDataLoader().createObject(Consequence.class);
             imoTracker.put(consequence.getId(), consequence);
@@ -545,6 +598,11 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
             consequence.setConsequenceTypes(consequenceTypeSet);
 
             if (csqInfo.length > 1) {
+                // Don't create consequences of certain types, e.g., intergenic_variant
+                if (FUNCTION_CLASS_TO_IGNORE.contains(csqInfo[1])) {
+                    continue;
+                }
+
                 // No longer setting alternate codon - removed from model
                 //consequence.setAlternateCodon(csqInfo[0]);
                 consequence.setAlternateAllele(csqInfo[0]);
@@ -552,9 +610,15 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
 
                 if(csqInfo.length > 3) {
                     consequence.setTranscriptIdentifier(csqInfo[3]);
-                    Transcript transcript = getTranscript(csqInfo[3]);
-                    consequence.setTranscript(transcript);
-                    transcriptSet.add(transcript);
+                    if (csqInfo[2].toUpperCase().equals("PSEUDOGENIC_TRANSCRIPT")) {
+                        PseudogenicTranscript transcript = getPseudogenicTranscript(csqInfo[3]);
+                        consequence.setPseudogenicTranscript(transcript);
+                        pseudogenicTranscriptSet.add(transcript);
+                    } else {
+                        Transcript transcript = getTranscript(csqInfo[3]);
+                        consequence.setTranscript(transcript);
+                        transcriptSet.add(transcript);
+                    }
                 }
 
                 if (csqInfo.length > 4 && csqInfo[4] != null) {
@@ -577,7 +641,7 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
             imoTracker.remove(consequence.getId());
             consequenceSet.add(consequence);
         }
-        return new ArrayList<HashSet> (Arrays.asList(consequenceSet, transcriptSet));
+        return new ArrayList<HashSet> (Arrays.asList(consequenceSet, transcriptSet, pseudogenicTranscriptSet));
     }
 
     /**
@@ -610,8 +674,11 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
         }
 
         location.setStrand(strand);
-        // Annotating Location entity such that it is not considered when computing overlaps during post-process
-        location.setDoNotComputeOverlaps("Y");
+        // If doNotComputeOverlaps is set, annotate Location entity such that it is not considered 
+        // when computing overlaps during post-process
+        if (doNotComputeOverlaps != null) { 
+            location.setDoNotComputeOverlaps(doNotComputeOverlaps);
+        }
         getDirectDataLoader().store(location);
         imoTracker.remove(location.getId());
         return location;
@@ -729,6 +796,23 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
         return transcript;
     }
 
+    private PseudogenicTranscript getPseudogenicTranscript(String identifier) throws ObjectStoreException {
+        PseudogenicTranscript transcript;
+        if (createdPseudogenicTranscriptMap.containsKey(identifier)) {
+            transcript = createdPseudogenicTranscriptMap.get(identifier);
+        } else {
+            transcript = getDirectDataLoader().createObject(PseudogenicTranscript.class);
+            transcript.setSequenceOntologyTerm(getSoTerm("pseudogenic_transcript"));
+            transcript.setPrimaryIdentifier(identifier);
+            transcript.setSource(geneSource);
+            transcript.setOrganism(getOrganism());
+            transcript.addDataSets(getDataSet());
+            imoTracker.put(transcript.getId(), transcript);
+            createdPseudogenicTranscriptMap.put(identifier, transcript);
+        }
+        return transcript;
+    }
+
     /**
      * For a given identifier, returns a Chromosome entity
      * @param identifier
@@ -743,6 +827,7 @@ public class SNPVariationLoaderTask extends FileDirectDataLoaderTask
             chr = getDirectDataLoader().createObject(Chromosome.class);
             imoTracker.put(chr.getId(), chr);
             chr.setPrimaryIdentifier(identifier);
+            chr.setAssembly(assemblyVersion);
             chr.setOrganism(getOrganism());
             chr.addDataSets(getDataSet());
             chr.setSequenceOntologyTerm(getSoTerm("chromosome"));

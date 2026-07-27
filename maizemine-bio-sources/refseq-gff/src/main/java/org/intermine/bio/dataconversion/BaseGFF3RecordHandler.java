@@ -1,7 +1,7 @@
 package org.intermine.bio.dataconversion;
 
 /*
- * Copyright (C) 2002-2022 FlyMine
+ * Copyright (C) 2002-2024 FlyMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
@@ -16,8 +16,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
-import java.net.URLDecoder;
-import java.io.UnsupportedEncodingException;
 
 import org.apache.commons.lang.StringUtils;
 import org.intermine.bio.io.gff3.GFF3Record;
@@ -36,8 +34,7 @@ public class BaseGFF3RecordHandler extends GFF3RecordHandler
     protected Map<String,String> crossRefToRefId = new HashMap<String,String>();
     protected Map<String,String> geneToRefId = new HashMap<String,String>();
     protected Map<String,String> crossRefSourceIdentifierToDatabaseIdentifierMap = new HashMap<String,String>();
-
-    private static final String ENC = "UTF-8";
+    protected HashMap<String, Item> publicationItems = new HashMap<String, Item>();
 
     /**
      * Create a new BaseGFF3RecordHandler for the given data model.
@@ -58,6 +55,24 @@ public class BaseGFF3RecordHandler extends GFF3RecordHandler
         // Always set feature source and name
         setFeatureSource(record);
         setFeatureName(record);
+
+        // Handle aliases, if present
+        if (record.getAliases() != null) {
+            List<String> aliases = record.getAliases();
+            Iterator<String> aliasesIterator = aliases.iterator();
+            while (aliasesIterator.hasNext()) {
+                setAliasName(aliasesIterator.next());
+            }
+        }
+
+        // Handle publications, if present
+        if (record.getAttributes().get("PUBMED_ID") != null) {
+            String pubMedId = record.getAttributes().get("PUBMED_ID").iterator().next();
+            if (StringUtil.allDigits(pubMedId)) {
+                Item publication = getPublication(pubMedId);
+                feature.addToCollection("publications", publication.getIdentifier());
+            }
+        }
     }
 
     /**
@@ -119,11 +134,7 @@ public class BaseGFF3RecordHandler extends GFF3RecordHandler
      * @param description
      */
     protected void setItemDescription(Item item, String description) {
-        try {
-            item.setAttribute("description", URLDecoder.decode(URLDecoder.decode(description, ENC), ENC));
-        } catch (UnsupportedEncodingException e) {
-            System.out.println("WARNING: unsupported encoding " + ENC);
-        }
+        item.setAttribute("description", description);
     }
 
     /**
@@ -148,6 +159,40 @@ public class BaseGFF3RecordHandler extends GFF3RecordHandler
                 feature.setAttribute("status", ft);
             }
         }
+    }
+
+    /**
+     * Handle database aliases, if present.
+     * @param alias
+     */
+    protected void setAliasName(String alias) {
+        Item feature = getFeature();
+        List<String> splitVal = new ArrayList<String>(Arrays.asList(StringUtil.split(alias, ":")));
+        if (splitVal.size() != 2) {
+            throw new RuntimeException("Ambiguous aliasName: " + splitVal + '\n' 
+                + "Expected aliasName format is '<ALIAS_ID>:<ALIAS_SOURCE>'");
+        }
+        String aliasPrimaryIdentifier = splitVal.get(0);
+        String aliasSource = splitVal.get(1);
+        String aliasRef;
+        if (aliasToRefId.containsKey(aliasPrimaryIdentifier)) {
+            // AliasName has already been seen
+            aliasRef = aliasToRefId.get(aliasPrimaryIdentifier);
+        } else {
+            // Create new AliasName item
+            Item aliasItem = converter.createItem("AliasName");
+            aliasItem.setAttribute("identifier", aliasPrimaryIdentifier);
+            aliasItem.setAttribute("source", aliasSource);
+            aliasItem.setReference("organism", getOrganism());
+            aliasRef = aliasItem.getIdentifier();
+            aliasToRefId.put(aliasPrimaryIdentifier, aliasRef);
+            try {
+                converter.store(aliasItem);
+            } catch (Exception e) {
+                System.out.println("Exception while storing aliasItem:" + aliasItem + "\n" + e);
+            }
+        }
+        feature.addToCollection("aliases", aliasRef);
     }
 
     /**
@@ -181,6 +226,24 @@ public class BaseGFF3RecordHandler extends GFF3RecordHandler
                 }
             }
         }
+    }
+
+    /**
+     * Get an Item representation of a Publication
+     * @param pubMedId
+     * @return
+     */
+    protected Item getPublication(String pubMedId) {
+        Item publication = null;
+        if (publicationItems.containsKey(pubMedId)) {
+            publication = publicationItems.get(pubMedId);
+        } else {
+            publication = converter.createItem("Publication");
+            publication.setAttribute("pubMedId", pubMedId);
+            addItem(publication);
+            publicationItems.put(pubMedId, publication);
+        }
+        return publication;
     }
 
     /**
@@ -235,5 +298,31 @@ public class BaseGFF3RecordHandler extends GFF3RecordHandler
                 feature.addToCollection("duplicateEntities", duplicateEntityItemRefId);
             }
         }
+    }
+
+    /**
+     * Return true if field has a nonempty value
+     */
+    protected boolean fieldNotEmpty(String fieldValue) {
+        // Consider "-", "None", "NA", or "N/A" to be empty / no value
+        if ("-".equals(fieldValue) || "None".equals(fieldValue) || "NA".equals(fieldValue) || "N/A".equals(fieldValue)) {
+            return false;
+        }
+
+        return StringUtils.isNotEmpty(fieldValue);
+    }
+
+    protected String formatFloatField(String fieldValue) {
+        // Don't store if begins with '<' or '>'
+        // (Only applies to a couple of values out of many
+        if (StringUtils.startsWith(fieldValue, "<") || StringUtils.startsWith(fieldValue, ">")) {
+            return "";
+        }
+        String formattedValue = fieldValue;
+        // Use correct hyphen character so negative numbers can be properly stored
+        formattedValue = formattedValue.replace("−", "-");
+        // After the above changes, remove all non-numeric characters (leave ., -, E)
+        formattedValue = formattedValue.replaceAll("[^0-9eE.-]", "");
+        return formattedValue;
     }
 }
